@@ -1,11 +1,14 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {ThemeProvider} from 'styled-components/native';
+
+import AppWrapper from './AppWrapper';
+import {AppTheme} from 'Assets';
 
 const App = () => {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
+    <ThemeProvider theme={AppTheme}>
+      <AppWrapper />
+    </ThemeProvider>
   );
 };
 
