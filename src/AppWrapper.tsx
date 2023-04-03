@@ -1,9 +1,9 @@
 import React from 'react';
 
-import AppNavigator from 'Navigation';
+import AppNavigationContainer from 'Navigation';
 
 const AppWrapper = () => {
-  return <AppNavigator />;
+  return <AppNavigationContainer />;
 };
 
 export default AppWrapper;
