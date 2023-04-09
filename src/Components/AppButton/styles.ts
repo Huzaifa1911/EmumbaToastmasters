@@ -1,28 +1,22 @@
-import {getAlphaColor} from 'Utils';
-import {TouchableOpacity} from 'react-native';
+import {Button} from 'react-native-paper';
 import styled from 'styled-components/native';
 
-type TButtonWrapper = {
-  outlined: boolean;
-  disabled: boolean;
-  color: string;
-} & CustomThemeType;
+type TStyledButton = {
+  height?: number | string;
+  width?: number | string;
+  shiftIconToRight?: boolean;
+};
 
-export const ButtonWrapper = styled(TouchableOpacity)(
-  ({outlined, color, disabled, theme}: TButtonWrapper) => ({
-    backgroundColor: disabled
-      ? theme?.colors.grey
-      : outlined
-      ? getAlphaColor(color, 0.05)
-      : color,
-    flexDirection: 'row' as const,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 11,
-    ...((outlined || disabled) && {
-      borderColor: disabled ? theme?.colors.placeHolder : color,
-    }),
-    ...((outlined || disabled) && {borderWidth: 1.3}),
-    height: 50,
+export const ButtonWrapper = styled(Button).attrs<TStyledButton>(
+  ({height, width, shiftIconToRight}) => ({
+    contentStyle: {
+      height,
+      width,
+      flexDirection: shiftIconToRight ? 'row-reverse' : 'row',
+    },
+    labelStyle: {
+      fontSize: 14,
+      fontWeight: '700',
+    },
   }),
-);
+)<TStyledButton>``;

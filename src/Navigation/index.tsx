@@ -12,7 +12,7 @@ import {NavigationService} from 'Services';
 const role: APP_ROLES = 'VOTER' as APP_ROLES;
 
 const AppNavigationContainer = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <NavigationContainer ref={NavigationService.navigationRef}>

@@ -1,2 +1,2 @@
-export {AppTheme} from './Theme';
-export type {TAppTheme} from './Theme';
+export {AppDarkTheme, AppLightTheme, useAppTheme, FONTS} from './Theme';
+export type {TAppTheme, TAppDarkTheme, TAppLightTheme} from './Theme';

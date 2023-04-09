@@ -1,20 +1,25 @@
 import React, {PropsWithChildren, useMemo} from 'react';
 import {Else, If, Then} from 'react-if';
-import {StyleSheet, Text, TextProps} from 'react-native';
+import {StyleSheet, TextProps} from 'react-native';
+import {customText} from 'react-native-paper';
 
 import {ButtonWrapper, Wrapper} from './styles';
-import {AppTheme} from 'Assets';
+import {Spacer} from 'Components';
+
+const PaperText = customText<
+  'italic' | 'bold' | 'medium' | 'regular' | 'thin'
+>();
 
 export interface IAppTextProps {
   onPress?: () => void;
-  leftIcon?: React.ReactElement;
-  rightIcon?: React.ReactElement;
+  leftAccessory?: React.ReactElement;
+  rightAccessory?: React.ReactElement;
   textAlign?: 'center' | 'left' | 'right' | 'justify' | 'auto';
   textDecorationLine?: 'underline' | 'none' | 'line-through';
   textTransform?: 'capitalize' | 'uppercase' | 'lowercase' | 'none';
+  variant?: 'italic' | 'bold' | 'medium' | 'regular' | 'thin';
   color?: string;
   size?: number;
-  kind?: keyof typeof AppTheme.fonts;
   textProps?: TextProps;
   numberOfLines?: number;
 }
@@ -23,16 +28,16 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
   const {
     onPress,
     children,
-    leftIcon,
-    rightIcon,
-    color = AppTheme.colors.text,
+    leftAccessory,
+    rightAccessory,
+    color,
     numberOfLines,
     size = 16,
     textAlign = 'auto',
     textDecorationLine = 'none',
     textProps,
     textTransform = 'none',
-    kind = 'Regular',
+    variant = 'regular',
   } = props;
   const isDisabled = !onPress;
 
@@ -40,7 +45,6 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
     () =>
       StyleSheet.flatten([
         {
-          fontFamily: AppTheme.fonts[kind],
           fontSize: size,
           textAlign,
           textTransform,
@@ -48,34 +52,36 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
           color,
         },
       ]),
-    [kind, size, textAlign, textTransform, textDecorationLine, color],
+    [size, textAlign, textTransform, textDecorationLine, color],
   );
 
   return (
     <If condition={isDisabled}>
       <Then>
         <Wrapper>
-          {leftIcon}
-          <Text
+          <Spacer right={2}>{leftAccessory}</Spacer>
+          <PaperText
+            variant={variant}
             style={appTextStyles}
             numberOfLines={numberOfLines}
             {...textProps}>
             {children}
-          </Text>
-          {rightIcon}
+          </PaperText>
+          <Spacer left={2}>{rightAccessory}</Spacer>
         </Wrapper>
       </Then>
 
       <Else>
         <ButtonWrapper onPress={onPress}>
-          {leftIcon}
-          <Text
+          <Spacer right={2}>{leftAccessory}</Spacer>
+          <PaperText
+            variant={variant}
             style={appTextStyles}
             numberOfLines={numberOfLines}
             {...textProps}>
             {children}
-          </Text>
-          {rightIcon}
+          </PaperText>
+          <Spacer left={2}>{rightAccessory}</Spacer>
         </ButtonWrapper>
       </Else>
     </If>

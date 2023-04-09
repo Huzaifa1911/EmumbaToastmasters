@@ -12,6 +12,7 @@ module.exports = {
           Navigation: './src/Navigation/',
           Screens: './src/Screens/',
           Services: './src/Services/',
+          Styles: './src/Styles/',
           Types: './src/Types/',
           Utils: './src/Utils/',
         },
