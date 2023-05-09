@@ -1,2 +1,2 @@
-export {SCREENS, APP_ROLES} from './constants';
+export {SCREENS} from './constants';
 export {getAlphaColor, isEmptyOrNill} from './helpers';

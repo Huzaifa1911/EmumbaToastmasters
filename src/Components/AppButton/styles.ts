@@ -4,8 +4,9 @@ import styled from 'styled-components/native';
 type TStyledButton = {
   height?: number | string;
   width?: number | string;
+  outlined: boolean;
   shiftIconToRight?: boolean;
-};
+} & CustomThemeType;
 
 export const ButtonWrapper = styled(Button).attrs<TStyledButton>(
   ({height, width, shiftIconToRight}) => ({
@@ -19,4 +20,6 @@ export const ButtonWrapper = styled(Button).attrs<TStyledButton>(
       fontWeight: '700',
     },
   }),
-)<TStyledButton>``;
+)<TStyledButton>(({outlined, theme}: TStyledButton) => ({
+  ...(outlined && {borderColor: theme?.colors.primary}),
+}));

@@ -9,10 +9,12 @@ interface IAppButtonProps extends Omit<ButtonProps, 'contentStyle'> {
 }
 
 const AppButton = (props: IAppButtonProps) => {
-  const {children, height = 50, width, shiftIconToRight, ...rest} = props;
+  const {children, height = 50, width, shiftIconToRight, mode, ...rest} = props;
 
   return (
     <ButtonWrapper
+      outlined={mode === 'outlined'}
+      mode={mode}
       height={height}
       width={width}
       shiftIconToRight={shiftIconToRight}
