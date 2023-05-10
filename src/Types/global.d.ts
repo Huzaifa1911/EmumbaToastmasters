@@ -1,7 +1,8 @@
-import {TAppTheme} from 'Assets';
+import {TAppColors, TAppTheme} from 'Assets';
 
 declare global {
-  type CustomThemeType = {
-    theme?: TAppTheme;
-  };
+  namespace AppTheme {
+    type TColors = keyof TAppColors;
+    type ThemeType = {theme?: TAppTheme};
+  }
 }

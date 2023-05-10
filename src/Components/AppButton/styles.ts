@@ -6,7 +6,7 @@ type TStyledButton = {
   width?: number | string;
   outlined: boolean;
   shiftIconToRight?: boolean;
-} & CustomThemeType;
+} & AppTheme.ThemeType;
 
 export const ButtonWrapper = styled(Button).attrs<TStyledButton>(
   ({height, width, shiftIconToRight}) => ({

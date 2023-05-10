@@ -150,7 +150,11 @@ export const AppDarkTheme: typeof DarkTheme = {
 
 export type TAppLightTheme = typeof AppLightTheme;
 export type TAppDarkTheme = typeof AppDarkTheme;
+export type TAppLightThemeColors = typeof AppLightTheme.colors;
+export type TAppDarkThemeColors = typeof AppLightTheme.colors;
+
 export type TAppTheme = TAppDarkTheme | TAppLightTheme;
+export type TAppColors = TAppLightThemeColors | TAppDarkThemeColors;
 export type TFontsVariants = '';
 
 export const useAppTheme = (): TAppTheme => {

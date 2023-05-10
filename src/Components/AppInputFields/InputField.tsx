@@ -11,13 +11,13 @@ import {Content, PaperTextInput} from './styles';
 import {AppText, Spacer} from 'Components';
 import {useAppTheme} from 'Assets';
 
-interface IAppInputField extends TextInputProps {
+export interface IAppInputFieldProps extends TextInputProps {
   flex?: number;
   width?: number | string;
   hint?: string;
 }
 
-const InputField = (props: IAppInputField) => {
+const InputField = (props: IAppInputFieldProps) => {
   const {
     flex,
     label,

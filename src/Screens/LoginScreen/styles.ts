@@ -8,7 +8,7 @@ export const Header = styled(View)({
   paddingHorizontal: 20,
   paddingBottom: 50,
 });
-export const Footer = styled(Animated.View)(({theme}: CustomThemeType) => ({
+export const Footer = styled(Animated.View)(({theme}: AppTheme.ThemeType) => ({
   flex: 2,
   borderTopLeftRadius: 30,
   borderTopRightRadius: 30,

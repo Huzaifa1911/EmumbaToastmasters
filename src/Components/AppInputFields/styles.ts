@@ -10,7 +10,7 @@ export const Content = styled(View)({
 type TPaperTextInput = {
   isFlat: boolean;
   isFocused: boolean;
-} & CustomThemeType;
+} & AppTheme.ThemeType;
 
 export const PaperTextInput = styled(TextInput).attrs<TPaperTextInput>(
   ({isFlat, theme, isFocused}: TPaperTextInput) => ({
