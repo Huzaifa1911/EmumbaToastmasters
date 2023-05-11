@@ -11,7 +11,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-import {VectorIconType} from './types';
+import {VectorIconType} from 'Types';
 
 type TSpecificIcon = Omit<VectorIconType, 'name' | 'iconType'>;
 
@@ -48,42 +48,10 @@ const VectorIcon = (props: VectorIconType) => {
 
 export default VectorIcon;
 
-export const DashboardIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Feather" name="align-left" {...props} />
-);
-
-export const SearchIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Feather" name="search" {...props} />
-);
-
 export const HomeIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="Entypo" name="home" {...props} />
 );
 
 export const CloseIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="AntDesign" name="close" {...props} />
-);
-
-export const SettingIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Feather" name="settings" {...props} />
-);
-
-export const LikeIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="AntDesign" name="like2" {...props} />
-);
-
-export const ShareIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="AntDesign" name="sharealt" {...props} />
-);
-
-export const DocumentIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Ionicons" name="document-text-outline" {...props} />
-);
-
-export const PrivacyIcon = (props: TSpecificIcon) => (
-  <VectorIcon
-    iconType="MaterialCommunityIcons"
-    name="message-text-lock-outline"
-    {...props}
-  />
 );

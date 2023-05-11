@@ -7,7 +7,7 @@ import AppNavigator from './AppNavigator';
 import {NavigationService} from 'Services';
 
 const AppNavigationContainer = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <NavigationContainer ref={NavigationService.navigationRef}>
