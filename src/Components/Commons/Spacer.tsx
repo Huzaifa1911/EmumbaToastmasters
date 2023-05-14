@@ -23,7 +23,7 @@ const Spacer = (props: PropsWithChildren<ISpacerProps>) => {
     top,
     vertical,
     children,
-    color = 'onPrimary',
+    color = 'background',
   } = props;
   const {colors} = useTheme();
   const backgroundColor = colors[color] as string;

@@ -10,3 +10,8 @@ export const JustifyCenter = styled(View)({
   alignItems: 'center',
   justifyContent: 'center',
 });
+
+export const JustifyBetween = styled(View)({
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});

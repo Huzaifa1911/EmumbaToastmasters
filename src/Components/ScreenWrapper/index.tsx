@@ -1,4 +1,4 @@
-import {ViewProps, ScrollViewProps, StatusBar} from 'react-native';
+import {ViewProps, ScrollViewProps} from 'react-native';
 import React, {PropsWithChildren} from 'react';
 import {Case, Default, Switch} from 'react-if';
 import {KeyboardAwareScrollViewProps} from 'react-native-keyboard-aware-scroll-view';
@@ -30,10 +30,6 @@ const ScreenWrapper = (props: PropsWithChildren<IScreenWrapperProps>) => {
   } = props;
   return (
     <>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colors.background}
-      />
       <Switch>
         <Case condition={type === 'scroll'}>
           <ScreenScrollView color={backgroundColor} {...scrollViewProps}>

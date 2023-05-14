@@ -32,7 +32,7 @@ const LoginScreen = () => {
   return (
     <ScreenWrapper backgroundColor={colors.primary}>
       <Header>
-        <AppText variant="bold" size={25} color={colors.onPrimary}>
+        <AppText variant="bold" size={25}>
           Login to continue
         </AppText>
       </Header>

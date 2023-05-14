@@ -1,7 +1,9 @@
 import React from 'react';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
-import {BottomNavigation, useTheme} from 'react-native-paper';
+import {BottomNavigation} from 'react-native-paper';
 import {CommonActions} from '@react-navigation/native';
+
+import {useAppTheme} from 'Assets';
 
 const BottomTabBar = ({
   descriptors,
@@ -9,7 +11,7 @@ const BottomTabBar = ({
   navigation,
   state,
 }: BottomTabBarProps) => {
-  const {colors} = useTheme();
+  const {colors} = useAppTheme();
 
   return (
     <BottomNavigation.Bar

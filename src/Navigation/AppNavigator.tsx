@@ -8,13 +8,19 @@ import {
   CastVoteScreen,
   VotingPollResultScreen,
 } from 'Screens';
+import AppHeader from './AppHeader';
+import AppDrawer from './AppDrawer';
 
 const {Navigator, Screen} = createDrawerNavigator();
 
 const AppNavigator = () => {
   return (
-    <Navigator>
-      <Screen name={SCREENS.BOTTOM_TABS} component={BottomTabNavigator} />
+    <Navigator screenOptions={{header: AppHeader}} drawerContent={AppDrawer}>
+      <Screen
+        name={SCREENS.BOTTOM_TABS}
+        component={BottomTabNavigator}
+        options={{headerShown: false}}
+      />
       <Screen
         name={SCREENS.ALL_VOTING_POLLS_SCREEN}
         component={AllVotingPollsScreen}

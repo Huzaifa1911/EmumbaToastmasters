@@ -5,6 +5,7 @@ import {customText} from 'react-native-paper';
 
 import {ButtonWrapper, Wrapper} from './styles';
 import {Spacer} from 'Components';
+import {TAppColors, useAppTheme} from 'Assets';
 
 const PaperText = customText<
   'italic' | 'bold' | 'medium' | 'regular' | 'thin'
@@ -18,7 +19,7 @@ export interface IAppTextProps {
   textDecorationLine?: 'underline' | 'none' | 'line-through';
   textTransform?: 'capitalize' | 'uppercase' | 'lowercase' | 'none';
   variant?: 'italic' | 'bold' | 'medium' | 'regular' | 'thin';
-  color?: string;
+  color?: keyof TAppColors;
   size?: number;
   textProps?: TextProps;
   numberOfLines?: number;
@@ -30,7 +31,7 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
     children,
     leftAccessory,
     rightAccessory,
-    color,
+    color = 'onBackground',
     numberOfLines,
     size = 16,
     textAlign = 'auto',
@@ -40,6 +41,7 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
     variant = 'regular',
   } = props;
   const isDisabled = !onPress;
+  const {colors} = useAppTheme();
 
   const appTextStyles = useMemo(
     () =>
@@ -49,10 +51,10 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
           textAlign,
           textTransform,
           textDecorationLine,
-          color,
+          color: colors[color] as string,
         },
       ]),
-    [size, textAlign, textTransform, textDecorationLine, color],
+    [size, textAlign, textTransform, textDecorationLine, color, colors],
   );
 
   return (
