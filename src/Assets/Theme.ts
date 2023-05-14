@@ -85,6 +85,9 @@ export const AppLightTheme = {
     surfaceDisabled: 'rgba(32, 26, 26, 0.12)',
     onSurfaceDisabled: 'rgba(32, 26, 26, 0.38)',
     backdrop: 'rgba(59, 45, 46, 0.4)',
+    accentGreen: '#46C779',
+    transparent: 'transparent',
+    white: 'rgb(255, 255, 255)',
   },
   roundness: 2,
   fonts: configureFonts({
@@ -95,7 +98,7 @@ export const AppLightTheme = {
   }),
 };
 
-export const AppDarkTheme: typeof DarkTheme = {
+export const AppDarkTheme = {
   ...DarkTheme,
   colors: {
     primary: 'rgb(255, 178, 185)',
@@ -138,6 +141,9 @@ export const AppDarkTheme: typeof DarkTheme = {
     surfaceDisabled: 'rgba(236, 224, 224, 0.12)',
     onSurfaceDisabled: 'rgba(236, 224, 224, 0.38)',
     backdrop: 'rgba(59, 45, 46, 0.4)',
+    accentGreen: '#46C779',
+    transparent: 'transparent',
+    white: 'rgb(255, 255, 255)',
   },
   roundness: 2,
   fonts: configureFonts({

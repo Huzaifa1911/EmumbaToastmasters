@@ -9,3 +9,6 @@ export {default as ErrorText} from './Commons/ErrorText';
 export {default as AppCard} from './Cards/AppCard';
 export {default as StatCard} from './Cards/StatCard';
 export {default as Layout} from './Commons/Layout';
+export {default as VotingPollCard} from './Cards/VotingPollCard';
+export {default as AppChip} from './AppChip';
+export {default as GoToIndicator} from './Commons/GoToIndicator';

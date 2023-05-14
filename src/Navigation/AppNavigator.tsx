@@ -10,8 +10,9 @@ import {
 } from 'Screens';
 import AppHeader from './AppHeader';
 import AppDrawer from './AppDrawer';
+import {TDrawerParamList} from 'Types';
 
-const {Navigator, Screen} = createDrawerNavigator();
+const {Navigator, Screen} = createDrawerNavigator<TDrawerParamList>();
 
 const AppNavigator = () => {
   return (

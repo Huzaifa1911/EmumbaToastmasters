@@ -15,36 +15,37 @@ interface IScreenWrapperProps {
   viewProps?: ViewProps;
   scrollViewProps?: ScrollViewProps;
   keyboardAwareScrollViewProps?: KeyboardAwareScrollViewProps;
-  backgroundColor?: string;
+  backgroundColor?: AppTheme.TColors;
 }
 
 const ScreenWrapper = (props: PropsWithChildren<IScreenWrapperProps>) => {
-  const theme = useAppTheme();
+  const {colors} = useAppTheme();
   const {
     type = 'none',
     children,
     scrollViewProps,
     viewProps,
     keyboardAwareScrollViewProps,
-    backgroundColor = theme.colors.background,
+    backgroundColor = 'background',
   } = props;
+  const color = colors[backgroundColor] as string;
   return (
     <>
       <Switch>
         <Case condition={type === 'scroll'}>
-          <ScreenScrollView color={backgroundColor} {...scrollViewProps}>
+          <ScreenScrollView color={color} {...scrollViewProps}>
             {children}
           </ScreenScrollView>
         </Case>
         <Case condition={type === 'keyboard'}>
           <ScreenKeyboardAwareScrollView
-            color={backgroundColor}
+            color={color}
             {...keyboardAwareScrollViewProps}>
             {children}
           </ScreenKeyboardAwareScrollView>
         </Case>
         <Default>
-          <ScreenView color={backgroundColor} {...viewProps}>
+          <ScreenView color={color} {...viewProps}>
             {children}
           </ScreenView>
         </Default>

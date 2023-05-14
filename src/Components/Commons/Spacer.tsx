@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import React, {PropsWithChildren} from 'react';
-import {useTheme} from 'react-native-paper';
+
+import {useAppTheme} from 'Assets';
 
 export interface ISpacerProps {
   top?: number;
@@ -23,10 +24,12 @@ const Spacer = (props: PropsWithChildren<ISpacerProps>) => {
     top,
     vertical,
     children,
-    color = 'background',
+    color = 'transparent',
   } = props;
-  const {colors} = useTheme();
+
+  const {colors} = useAppTheme();
   const backgroundColor = colors[color] as string;
+
   return (
     <View
       style={{

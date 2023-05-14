@@ -67,3 +67,7 @@ export const DrawerIcon = (props: TSpecificIcon) => (
 export const AngleRightIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="FontAwesome" name="angle-right" {...props} />
 );
+
+export const AddCircleIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Ionicons" name="add-circle-outline" {...props} />
+);
