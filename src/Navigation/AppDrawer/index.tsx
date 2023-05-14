@@ -15,11 +15,11 @@ const userName = 'Huzaifa';
 
 const goToAllVotingPollScreen = () =>
   NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
-const goToCastVoteScreen = () =>
-  NavigationService.navigate(SCREENS.CAST_VOTE_SCREEN);
+// const goToCastVoteScreen = () =>
+//   NavigationService.navigate(SCREENS.CAST_VOTE_SCREEN);
 
-const goToVotingPollResultScreeen = () =>
-  NavigationService.navigate(SCREENS.VOTING_POLL_RESULT_SCREEN);
+// const goToVotingPollResultScreeen = () =>
+//   NavigationService.navigate(SCREENS.VOTING_POLL_RESULT_SCREEN);
 
 const AppDrawer = (props: DrawerContentComponentProps) => {
   return (
@@ -35,7 +35,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
           right={<AngleRightIcon size={18} />}
           onPress={goToAllVotingPollScreen}
         />
-        <DrawerItem
+        {/* <DrawerItem
           label="Cast Vote"
           right={<AngleRightIcon size={18} />}
           onPress={goToCastVoteScreen}
@@ -44,7 +44,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
           label="Voting Poll Results"
           right={<AngleRightIcon size={18} />}
           onPress={goToVotingPollResultScreeen}
-        />
+        /> */}
       </DrawerContentScrollView>
     </Container>
   );

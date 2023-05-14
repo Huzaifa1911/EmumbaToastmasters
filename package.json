@@ -17,6 +17,8 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "color-alpha": "^1.1.3",
+    "dayjs": "^1.11.7",
+    "numbro": "^2.3.6",
     "ramda": "^0.29.0",
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
