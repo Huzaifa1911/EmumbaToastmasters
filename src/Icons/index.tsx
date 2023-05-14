@@ -12,35 +12,39 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import {VectorIconType} from 'Types';
+import {useAppTheme} from 'Assets';
 
 type TSpecificIcon = Omit<VectorIconType, 'name' | 'iconType'>;
 
 const VectorIcon = (props: VectorIconType) => {
   const {iconType, ...rest} = props;
+  const {
+    colors: {onBackground},
+  } = useAppTheme();
 
   switch (iconType) {
     case 'AntDesign':
-      return <AntDesign {...rest} />;
+      return <AntDesign color={onBackground} {...rest} />;
     case 'Entypo':
-      return <Entypo {...rest} />;
+      return <Entypo color={onBackground} {...rest} />;
     case 'Feather':
-      return <Feather {...rest} />;
+      return <Feather color={onBackground} {...rest} />;
     case 'FontAwesome':
-      return <FontAwesome {...rest} />;
+      return <FontAwesome color={onBackground} {...rest} />;
     case 'FontAwesome5':
-      return <FontAwesome5 {...rest} />;
+      return <FontAwesome5 color={onBackground} {...rest} />;
     case 'Foundation':
-      return <Foundation {...rest} />;
+      return <Foundation color={onBackground} {...rest} />;
     case 'Ionicons':
-      return <Ionicons {...rest} />;
+      return <Ionicons color={onBackground} {...rest} />;
     case 'MaterialCommunityIcons':
-      return <MaterialCommunityIcons {...rest} />;
+      return <MaterialCommunityIcons color={onBackground} {...rest} />;
     case 'MaterialIcons':
-      return <MaterialIcons {...rest} />;
+      return <MaterialIcons color={onBackground} {...rest} />;
     case 'Octicons':
-      return <Octicons {...rest} />;
+      return <Octicons color={onBackground} {...rest} />;
     case 'SimpleLineIcons':
-      return <SimpleLineIcons {...rest} />;
+      return <SimpleLineIcons color={onBackground} {...rest} />;
     default:
       return <></>;
   }
@@ -54,4 +58,12 @@ export const HomeIcon = (props: TSpecificIcon) => (
 
 export const CloseIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="AntDesign" name="close" {...props} />
+);
+
+export const DrawerIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Feather" name="align-center" {...props} />
+);
+
+export const AngleRightIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="FontAwesome" name="angle-right" {...props} />
 );

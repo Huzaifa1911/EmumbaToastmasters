@@ -5,13 +5,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BOTTOM_TABS} from './config';
 import VectorIcon from 'Icons';
 import BottomTabBar from './Components/BottomTabBar';
+import AppHeader from '../AppHeader';
 
 const {Navigator, Screen} = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
     <Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{header: AppHeader}}
       safeAreaInsets={{bottom: 8}}
       tabBar={props => <BottomTabBar {...props} />}>
       {BOTTOM_TABS.map((tab, index) => (
