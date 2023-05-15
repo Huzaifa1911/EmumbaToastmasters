@@ -12,6 +12,7 @@
       "Navigation/*": ["src/Navigations/*"],
       "Screens/*": ["src/Screens/*"],
       "Services/*": ["src/Services/*"],
+      "Store/*": ["src/Store/*"],
       "Styles/*": ["src/Styles/*"],
       "Utils/*": ["src/Utils/*"],
       "Types/*": ["src/Types/*"],

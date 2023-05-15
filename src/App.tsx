@@ -1,28 +1,22 @@
 import React, {useEffect} from 'react';
-import {ThemeProvider} from 'styled-components/native';
-import {Provider as PaperProvider} from 'react-native-paper';
+import SplashScreen from 'react-native-splash-screen';
+import {Provider as ReduxProvider} from 'react-redux';
 
 import AppWrapper from './AppWrapper';
-
-import {AppDarkTheme, AppLightTheme} from 'Assets';
-import {useColorScheme} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
+import {ReduxStore, persistedStore} from 'Store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
-  const colorScheme = useColorScheme();
-
-  const paperTheme = colorScheme === 'dark' ? AppDarkTheme : AppLightTheme;
-
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   return (
-    <PaperProvider theme={paperTheme}>
-      <ThemeProvider theme={paperTheme}>
+    <ReduxProvider store={ReduxStore}>
+      <PersistGate persistor={persistedStore}>
         <AppWrapper />
-      </ThemeProvider>
-    </PaperProvider>
+      </PersistGate>
+    </ReduxProvider>
   );
 };
 

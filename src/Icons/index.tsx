@@ -71,3 +71,19 @@ export const AngleRightIcon = (props: TSpecificIcon) => (
 export const AddCircleIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="Ionicons" name="add-circle-outline" {...props} />
 );
+
+export const VotingPollIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="MaterialCommunityIcons" name="poll" {...props} />
+);
+
+export const LogoutIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="MaterialIcons" name="logout" {...props} />
+);
+
+export const MoonIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Feather" name="moon" {...props} />
+);
+
+export const SunIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Feather" name="sun" {...props} />
+);
