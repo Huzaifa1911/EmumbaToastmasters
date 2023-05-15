@@ -12,7 +12,6 @@ interface IDrawerItemProps {
   right?: React.ReactElement;
   left?: React.ReactElement;
   type?: 'info' | 'danger';
-  active?: boolean;
 }
 
 const DrawerItem = ({

@@ -50,11 +50,12 @@ const InputField = (props: IAppInputFieldProps) => {
             variant="medium"
             size={14}
             textTransform="uppercase"
-            color={colors.onBackground}>
+            color="onBackground">
             {label}
           </AppText>
+
           <Spacer left={8}>
-            <AppText variant="italic" size={12} color={colors.outline}>
+            <AppText variant="italic" size={12} color="outline">
               {hint}
             </AppText>
           </Spacer>

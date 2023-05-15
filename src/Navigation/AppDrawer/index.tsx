@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -6,13 +6,7 @@ import {
 import {Divider, Switch} from 'react-native-paper';
 
 import {Container, ProfileWrapper} from './styles';
-import {
-  AngleRightIcon,
-  LogoutIcon,
-  MoonIcon,
-  SunIcon,
-  VotingPollIcon,
-} from 'Icons';
+import {AngleRightIcon, LogoutIcon, SunIcon, VotingPollIcon} from 'Icons';
 import DrawerItem from './Components/DrawerItem';
 import {AppText} from 'Components';
 import {NavigationService} from 'Services';
@@ -31,10 +25,6 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
   const theme = useAppSelector(selectTheme);
 
   const isDarkMode = theme === 'light';
-  const darkModeIcon = useMemo(
-    () => (isDarkMode ? <SunIcon size={18} /> : <MoonIcon size={18} />),
-    [isDarkMode],
-  );
 
   const toggleDarkMode = () => {
     dispatch(updateTheme({theme: isDarkMode ? 'dark' : 'light'}));
@@ -70,8 +60,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
       />
       <DrawerItem
         label="Light Mode"
-        left={darkModeIcon}
-        active
+        left={<SunIcon size={18} />}
         right={<Switch value={isDarkMode} onValueChange={toggleDarkMode} />}
       />
     </Container>
