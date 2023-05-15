@@ -11,3 +11,18 @@ export enum SCREENS {
   // Navigator
   BOTTOM_TABS = 'BOTTOM_TABS',
 }
+
+export const POLL_TYPES = [
+  {
+    title: 'Best Prepared Speaker',
+  },
+  {
+    title: 'Best Table Topic Speaker',
+  },
+  {
+    title: 'Best Speech Evaluator',
+  },
+  {
+    title: 'Best of Big 3',
+  },
+];

@@ -1,4 +1,4 @@
-export {SCREENS} from './constants';
+export {SCREENS, POLL_TYPES} from './constants';
 export {
   getAlphaColor,
   isEmptyOrNill,

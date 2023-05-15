@@ -12,6 +12,7 @@
     "link-fonts": "npx react-native-asset"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4.4.6",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/drawer": "^6.6.2",

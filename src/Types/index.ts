@@ -49,3 +49,8 @@ export type TDrawerParamList = {
 };
 
 export type TColorScheme = 'dark' | 'light';
+export type TBottomSheetHandler = {open: () => void; close: () => void};
+
+export type TPollType = {
+  title: string;
+};

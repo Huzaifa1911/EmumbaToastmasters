@@ -11,7 +11,12 @@ export const JustifyCenter = styled(View)({
   justifyContent: 'center',
 });
 
-export const JustifyBetween = styled(View)({
+export const RowBetween = styled(View)({
+  flexDirection: 'row' as const,
   alignItems: 'center',
   justifyContent: 'space-between',
+});
+
+export const Flex = styled(View)({
+  flex: 1,
 });

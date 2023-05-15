@@ -24,7 +24,7 @@ export const PaperTextInput = styled(TextInput).attrs<TPaperTextInput>(
     },
     outlineStyle: {borderRadius: 6, borderWidth: 1},
   }),
-)<TPaperTextInput>(({theme}: TPaperTextInput) => ({
-  backgroundColor: theme?.colors.background,
+)<TPaperTextInput>(({theme, isFlat}: TPaperTextInput) => ({
+  ...(!isFlat && {backgroundColor: theme?.colors.background}),
   fontSize: 14,
 }));
