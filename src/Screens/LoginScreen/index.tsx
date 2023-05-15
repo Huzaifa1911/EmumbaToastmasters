@@ -10,11 +10,9 @@ import React, {useState} from 'react';
 import {FadeInDown} from 'react-native-reanimated';
 
 import {Footer, Header} from './styles';
-import {useAppTheme} from 'Assets';
 import {TextInput} from 'react-native-paper';
 
 const LoginScreen = () => {
-  const {colors} = useAppTheme();
   const [secureText, setSecureText] = useState(true);
   const [rememberMe, setRememberMe] = useState<'checked' | 'unchecked'>(
     'unchecked',
@@ -30,7 +28,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScreenWrapper backgroundColor={colors.primary}>
+    <ScreenWrapper backgroundColor="primary">
       <Header>
         <AppText variant="bold" size={25}>
           Login to continue

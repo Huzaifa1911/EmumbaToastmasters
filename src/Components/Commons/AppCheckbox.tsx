@@ -4,7 +4,6 @@ import {Checkbox, CheckboxProps} from 'react-native-paper';
 
 import AppText, {IAppTextProps} from '../AppText';
 import {Row} from 'Styles';
-import {useAppTheme} from 'Assets';
 
 interface IAppCheckboxProps extends CheckboxProps {
   label?: string;
@@ -14,7 +13,6 @@ interface IAppCheckboxProps extends CheckboxProps {
 
 const AppCheckbox = (props: IAppCheckboxProps) => {
   const {mode = 'android', label, labelProps, ...rest} = props;
-  const {colors} = useAppTheme();
 
   return (
     <Row>
@@ -29,7 +27,7 @@ const AppCheckbox = (props: IAppCheckboxProps) => {
           <Checkbox {...rest} />
         </Default>
       </Switch>
-      <AppText size={14} color={colors.outline} {...labelProps}>
+      <AppText size={14} color="outline" {...labelProps}>
         {label}
       </AppText>
     </Row>

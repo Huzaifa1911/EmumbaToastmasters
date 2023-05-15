@@ -9,16 +9,18 @@ type TStyledButton = {
 } & AppTheme.ThemeType;
 
 export const ButtonWrapper = styled(Button).attrs<TStyledButton>(
-  ({height, width, shiftIconToRight}) => ({
+  ({height, width, shiftIconToRight, labelStyle}) => ({
     contentStyle: {
       height,
       width,
       flexDirection: shiftIconToRight ? 'row-reverse' : 'row',
     },
-    labelStyle: {
-      fontSize: 14,
-      fontWeight: '700',
-    },
+    labelStyle: labelStyle
+      ? labelStyle
+      : {
+          fontSize: 14,
+          fontWeight: '700',
+        },
   }),
 )<TStyledButton>(({outlined, theme}: TStyledButton) => ({
   ...(outlined && {borderColor: theme?.colors.primary}),
