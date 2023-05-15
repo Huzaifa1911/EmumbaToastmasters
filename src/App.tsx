@@ -8,7 +8,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => SplashScreen.hide(), 1000);
   }, []);
 
   return (

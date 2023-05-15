@@ -32,6 +32,14 @@ export type TVotingPoll = {
   status: TPollStatus;
   timestamp: number;
 };
+export type TStandardObject = {label: string; value: string};
+
+export type TStandardVotingPoll = {
+  question: string;
+  createdBy: string;
+  timestamp: number;
+  options: TStandardObject[];
+};
 
 export type TDrawerParamList = {
   [SCREENS.CAST_VOTE_SCREEN]: undefined;
