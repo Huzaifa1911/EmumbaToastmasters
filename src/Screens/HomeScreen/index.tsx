@@ -3,6 +3,7 @@ import React from 'react';
 import {AppText, ScreenWrapper, Spacer, StatCard} from 'Components';
 import {Container} from './styles';
 import {Row} from 'Styles';
+import PerformanceChart from './Components/PerformanceChart';
 
 const name = 'Huzaifa';
 
@@ -27,6 +28,7 @@ const HomeScreen = () => {
             <StatCard label="Total Session" value="20" />
           </Spacer>
         </Row>
+        <PerformanceChart />
       </Container>
     </ScreenWrapper>
   );
