@@ -26,3 +26,6 @@ export const POLL_TYPES = [
     title: 'Best of Big 3',
   },
 ];
+
+export const DEFAULT_IMAGE =
+  'https://cdn-icons-png.flaticon.com/512/5556/5556468.png';

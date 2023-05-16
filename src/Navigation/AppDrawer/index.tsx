@@ -8,7 +8,7 @@ import {Divider, Switch} from 'react-native-paper';
 import {Container, ProfileWrapper} from './styles';
 import {AngleRightIcon, LogoutIcon, SunIcon, VotingPollIcon} from 'Icons';
 import DrawerItem from './Components/DrawerItem';
-import {AppText} from 'Components';
+import {AppText, ProfileAvatar, Spacer} from 'Components';
 import {NavigationService} from 'Services';
 import {SCREENS} from 'Utils';
 import {useAppTheme} from 'Assets';
@@ -33,10 +33,13 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
   return (
     <Container>
       {/* User name view */}
-      <ProfileWrapper>
-        <AppText size={28} variant="bold">
-          {userName}
-        </AppText>
+      <ProfileWrapper mode={theme}>
+        <ProfileAvatar size={70} uri="" />
+        <Spacer left={14}>
+          <AppText size={28} variant="bold" color="white">
+            {userName}
+          </AppText>
+        </Spacer>
       </ProfileWrapper>
       <Divider />
 

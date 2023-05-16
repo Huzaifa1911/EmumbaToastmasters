@@ -14,6 +14,7 @@
       "Services/*": ["src/Services/*"],
       "Store/*": ["src/Store/*"],
       "Styles/*": ["src/Styles/*"],
+      "SvgIcons/*": ["src/SvgIcons/*"],
       "Utils/*": ["src/Utils/*"],
       "Types/*": ["src/Types/*"],
       "src/*": ["src/*"]

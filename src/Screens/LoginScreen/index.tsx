@@ -1,3 +1,7 @@
+import React, {useState} from 'react';
+import {FadeInDown} from 'react-native-reanimated';
+import {TextInput} from 'react-native-paper';
+
 import {
   AppButton,
   AppCheckbox,
@@ -6,11 +10,7 @@ import {
   ScreenWrapper,
   Spacer,
 } from 'Components';
-import React, {useState} from 'react';
-import {FadeInDown} from 'react-native-reanimated';
-
 import {Footer, Header} from './styles';
-import {TextInput} from 'react-native-paper';
 
 const LoginScreen = () => {
   const [secureText, setSecureText] = useState(true);
@@ -30,7 +30,7 @@ const LoginScreen = () => {
   return (
     <ScreenWrapper backgroundColor="primary">
       <Header>
-        <AppText variant="bold" size={25}>
+        <AppText variant="bold" size={25} color="white">
           Login to continue
         </AppText>
       </Header>
