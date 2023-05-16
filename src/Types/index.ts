@@ -21,7 +21,7 @@ export type VectorIconType = {
 export type TSVGIcon = {
   height?: number;
   width?: number;
-  color?: keyof AppTheme.TColors;
+  color?: AppTheme.TColors;
 };
 
 export type TBottomTabConfig = {
