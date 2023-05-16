@@ -14,6 +14,7 @@ module.exports = {
           Services: './src/Services/',
           Store: './src/Store/',
           Styles: './src/Styles/',
+          SvgIcons: './src/SvgIcons/',
           Types: './src/Types/',
           Utils: './src/Utils/',
         },

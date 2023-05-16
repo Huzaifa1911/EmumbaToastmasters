@@ -61,7 +61,13 @@ const AllVotingPollsScreen = ({
     return (
       <VotingPollCard
         votingPoll={item}
-        onPress={() => NavigationService.navigate(SCREENS.CAST_VOTE_SCREEN)}
+        onPress={() =>
+          NavigationService.navigate(
+            item.status === 'active'
+              ? SCREENS.CAST_VOTE_SCREEN
+              : SCREENS.VOTING_POLL_RESULT_SCREEN,
+          )
+        }
       />
     );
   };

@@ -18,6 +18,12 @@ export type VectorIconType = {
   iconType: IconType;
 } & IconProps;
 
+export type TSVGIcon = {
+  height?: number;
+  width?: number;
+  color?: keyof AppTheme.TColors;
+};
+
 export type TBottomTabConfig = {
   title: string;
   name: string;
@@ -53,4 +59,9 @@ export type TBottomSheetHandler = {open: () => void; close: () => void};
 
 export type TPollType = {
   title: string;
+};
+
+export type ToasmtasterType = {
+  name: string;
+  profileImage: string;
 };

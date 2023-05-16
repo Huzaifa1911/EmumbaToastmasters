@@ -38,7 +38,9 @@ const CastVoteScreen = () => {
 
         {/* Poll Info */}
         <Spacer top={5} bottom={40}>
-          <AppText size={12}>{info}</AppText>
+          <AppText size={12} color="outline">
+            {info}
+          </AppText>
         </Spacer>
 
         <RadioButton.Group
