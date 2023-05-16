@@ -3,17 +3,18 @@ import {StatusBar} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {DrawerHeaderProps} from '@react-navigation/drawer';
 import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs';
+import {Else, If, Then} from 'react-if';
 
 import {SCREENS} from 'Utils';
 import {AppText} from 'Components';
 import {NavigationService} from 'Services';
-import {Else, If, Then} from 'react-if';
+import {HeaderLogo} from 'SvgIcons';
 
 const getHeaderInfo = (route: string) => {
   switch (route) {
     case SCREENS.HOME_SCREEN:
       return {
-        title: 'Home',
+        title: <HeaderLogo />,
         leftAccessory: (
           <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />
         ),
