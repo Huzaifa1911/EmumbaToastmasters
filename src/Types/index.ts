@@ -52,6 +52,7 @@ export type TDrawerParamList = {
   [SCREENS.ALL_VOTING_POLLS_SCREEN]: undefined;
   [SCREENS.BOTTOM_TABS]: undefined;
   [SCREENS.VOTING_POLL_RESULT_SCREEN]: undefined;
+  [SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN]: undefined;
 };
 
 export type TColorScheme = 'dark' | 'light';
@@ -64,4 +65,10 @@ export type TPollType = {
 export type ToasmtasterType = {
   name: string;
   profileImage: string;
+};
+
+export type ToastmasterAttendedSessionType = {
+  theme: string;
+  timestamp: number;
+  performedRole: string;
 };

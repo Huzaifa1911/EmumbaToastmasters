@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled(View)({
   paddingHorizontal: 16,
-  paddingTop: 30,
+  paddingVertical: 30,
 });
 
 export const StyledBarChart = styled(BarChart).attrs(

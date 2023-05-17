@@ -32,11 +32,12 @@ const PerformanceChart = () => {
           width={300}
           height={170}
           barWidth={35}
-          noOfSections={3}
-          barBorderRadius={4}
+          noOfSections={5}
+          barBorderRadius={5}
           frontColor={colors.outline}
           data={barData}
           yAxisThickness={0}
+          disablePress
           showYAxisIndices
           xAxisThickness={0}
           yAxisOffset={0}
