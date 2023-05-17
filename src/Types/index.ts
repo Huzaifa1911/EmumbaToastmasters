@@ -65,6 +65,8 @@ export type TPollType = {
 export type ToasmtasterType = {
   name: string;
   profileImage: string;
+  points: number;
+  position: number;
 };
 
 export type ToastmasterAttendedSessionType = {
