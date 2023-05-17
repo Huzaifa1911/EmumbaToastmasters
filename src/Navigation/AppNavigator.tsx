@@ -17,7 +17,10 @@ const {Navigator, Screen} = createDrawerNavigator<TDrawerParamList>();
 
 const AppNavigator = () => {
   return (
-    <Navigator screenOptions={{header: AppHeader}} drawerContent={AppDrawer}>
+    <Navigator
+      screenOptions={{header: AppHeader}}
+      drawerContent={AppDrawer}
+      backBehavior="history">
       <Screen
         name={SCREENS.BOTTOM_TABS}
         component={BottomTabNavigator}

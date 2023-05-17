@@ -1,0 +1,22 @@
+diff --git a/node_modules/react-native-gifted-charts/src/PieChart/main.tsx b/node_modules/react-native-gifted-charts/src/PieChart/main.tsx
+index d524aa1..fe8a975 100644
+--- a/node_modules/react-native-gifted-charts/src/PieChart/main.tsx
++++ b/node_modules/react-native-gifted-charts/src/PieChart/main.tsx
+@@ -371,7 +371,7 @@ export const PieChartMain = (props: propTypes) => {
+             // console.log('ax', ax);
+             // console.log('ay', ay);
+             return (
+-              <>
++              <React.Fragment key={index}>
+                 {/* <Line x1={mx} x2={cx} y1={my} y2={cy} stroke="black" /> */}
+                 {showTextBackground && (
+                   <Circle
+@@ -441,7 +441,7 @@ export const PieChartMain = (props: propTypes) => {
+                   }}>
+                   {item.text || (showValuesAsLabels ? item.value + '' : '')}
+                 </SvgText>
+-              </>
++              </React.Fragment>
+             );
+           })}
+       </Svg>

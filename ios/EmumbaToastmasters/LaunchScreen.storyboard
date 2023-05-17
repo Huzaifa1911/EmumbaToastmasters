@@ -16,23 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="tig-pT-166">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="hES-Ha-yUn">
                                 <rect key="frame" x="138" y="292" width="99" height="83"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="0.61960784313725492" green="0.24313725490196078" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.27843137254901962" green="0.33333333333333331" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="tig-pT-166" secondAttribute="bottom" constant="292" id="3KQ-jz-qZq"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="tig-pT-166" secondAttribute="trailing" constant="138" id="BNK-Kx-kAU"/>
-                            <constraint firstItem="tig-pT-166" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="292" id="GnN-Ja-oI5"/>
-                            <constraint firstItem="tig-pT-166" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="138" id="tq6-nK-1zZ"/>
+                            <constraint firstItem="hES-Ha-yUn" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="3AL-fR-RSo"/>
+                            <constraint firstItem="hES-Ha-yUn" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EPk-nv-EXO"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
     <resources>

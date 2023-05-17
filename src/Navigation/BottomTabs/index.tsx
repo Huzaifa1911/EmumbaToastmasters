@@ -6,6 +6,7 @@ import {BOTTOM_TABS} from './config';
 import VectorIcon from 'Icons';
 import BottomTabBar from './Components/BottomTabBar';
 import AppHeader from '../AppHeader';
+import {isIOS} from 'Utils';
 
 const {Navigator, Screen} = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ const BottomTabNavigator = () => {
   return (
     <Navigator
       screenOptions={{header: AppHeader}}
-      safeAreaInsets={{bottom: 8}}
+      safeAreaInsets={{bottom: isIOS ? 8 : 0}}
       tabBar={props => <BottomTabBar {...props} />}>
       {BOTTOM_TABS.map((tab, index) => (
         <Screen

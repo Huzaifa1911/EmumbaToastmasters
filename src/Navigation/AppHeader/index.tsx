@@ -79,8 +79,8 @@ const AppHeader = ({
 
   return (
     <>
-      <StatusBar barStyle="dark-content" translucent />
-      <Appbar.Header elevated>
+      <StatusBar barStyle={'dark-content'} translucent />
+      <Appbar.Header elevated mode="center-aligned">
         {options.headerLeft ? options.headerLeft({}) : leftAccessory}
         <Appbar.Content
           title={

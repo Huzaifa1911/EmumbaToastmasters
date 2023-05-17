@@ -38,7 +38,12 @@ const VotingPollResultScreen = () => {
             </AppText>
           </Spacer>
           <ToastmasterCard
-            toastmaster={{name: winner, profileImage: DEFAULT_IMAGE}}
+            toastmaster={{
+              name: winner,
+              profileImage: DEFAULT_IMAGE,
+              points: 0,
+              position: 1,
+            }}
           />
           <Spacer bottom={30} />
         </When>
