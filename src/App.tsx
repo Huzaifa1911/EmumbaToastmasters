@@ -8,7 +8,11 @@ import AppWrapper from './AppWrapper';
 import {ReduxStore, persistedStore} from 'Store';
 
 const App = () => {
-  LogBox.ignoreLogs(['VirtualizedLists']);
+  LogBox.ignoreLogs([
+    'VirtualizedLists',
+    'Expected style "shadowOpacity: 0.7px" to be unitless',
+    'Node of type rule not supported as an inline style',
+  ]);
   useEffect(() => {
     setTimeout(() => SplashScreen.hide(), 1000);
   }, []);
