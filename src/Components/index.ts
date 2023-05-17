@@ -21,3 +21,4 @@ export {default as ProfileAvatar} from './Commons/ProfileAvatar';
 export {default as ToastmasterAttendedSessionCard} from './Cards/ToastmasterAttendedSessionCard';
 export {default as ViewAllTextComponent} from './Commons/ViewAllTextComponent';
 export {default as AttendedToastmastersSessions} from './AttendedToastmastersSession';
+export {default as PositionHolderCard} from './Cards/PositionHolderCard';
