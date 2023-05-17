@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "start": "react-native start --reset-cache",
     "test": "jest",
+    "release":"cd android && ./gradlew bundleRelease",
+    "gradle-clean":"cd android && ./gradlew clean",
     "link-fonts": "npx react-native-asset",
     "postinstall": "patch-package"
   },

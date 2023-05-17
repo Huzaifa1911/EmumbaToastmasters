@@ -24,14 +24,14 @@ const HomeScreen = () => {
           <Row>
             <StatCard label="Total Session" value="20" />
             <Spacer flex={1} left={10}>
-              <StatCard label="Total Session" value="20" />
+              <StatCard label="Attended Sessions" value="20" />
             </Spacer>
           </Row>
         </Spacer>
         <Row>
-          <StatCard label="Total Session" value="20" />
+          <StatCard label="Highest Points" value="20" />
           <Spacer flex={1} left={10}>
-            <StatCard label="Total Session" value="20" />
+            <StatCard label="Your Points" value="20" />
           </Spacer>
         </Row>
 
