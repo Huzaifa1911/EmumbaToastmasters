@@ -54,6 +54,13 @@ const getHeaderInfo = (route: string) => {
           <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
         ),
       };
+    case SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN:
+      return {
+        title: 'Attended Sessions',
+        leftAccessory: (
+          <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
+        ),
+      };
     default:
       return {
         title: route,
