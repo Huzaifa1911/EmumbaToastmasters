@@ -1,6 +1,5 @@
 import React from 'react';
 import {When} from 'react-if';
-import {useTheme} from 'react-native-paper';
 
 import {AppText, Spacer} from 'Components';
 import {ISpacerProps} from './Spacer';
@@ -11,12 +10,10 @@ interface IErrorTextProps {
 }
 
 const ErrorText = ({message, spacerProps}: IErrorTextProps) => {
-  const {colors} = useTheme();
-
   return (
     <Spacer {...spacerProps}>
       <When condition={message}>
-        <AppText size={12} variant="regular" color={colors.error}>
+        <AppText size={12} variant="regular" color="error">
           {message}
         </AppText>
       </When>

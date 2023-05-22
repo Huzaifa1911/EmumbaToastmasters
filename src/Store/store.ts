@@ -1,6 +1,4 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-
-import themeReducer from './Theme';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {
   PersistConfig,
@@ -15,16 +13,22 @@ import {
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import themeReducer from './Theme';
+import loaderReducer from './Loader';
+import userReducer from './User';
+
 const persistConfig: PersistConfig<any> = {
   key: 'root',
   storage: AsyncStorage,
   version: 1,
   // put reducer name that you dont want to persist
-  blacklist: [],
+  blacklist: ['appLoader', 'appUser'],
 };
 
 const reducer = combineReducers({
   appTheme: themeReducer,
+  appLoader: loaderReducer,
+  appUser: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

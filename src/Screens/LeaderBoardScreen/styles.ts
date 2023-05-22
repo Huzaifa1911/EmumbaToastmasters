@@ -23,11 +23,10 @@ export const ParticipantFlatList = styled(FlatList<ToasmtasterType>).attrs(
   () => ({
     contentContainerStyle: {
       paddingHorizontal: 16,
-      paddingBottom: 200,
-      paddingTop: 50,
+      paddingVertical: 50,
     },
   }),
-)({marginBottom: 150});
+)({});
 
 export const FirstParticipantContainer = styled(View)(() => ({
   alignSelf: 'center',

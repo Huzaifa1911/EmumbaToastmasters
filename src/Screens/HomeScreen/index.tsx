@@ -10,15 +10,15 @@ import {
 import {Container} from './styles';
 import {Row} from 'Styles';
 import PerformanceChart from './Components/PerformanceChart';
-
-const name = 'Huzaifa';
+import {selectUser, useAppSelector} from 'Store';
 
 const HomeScreen = () => {
+  const username = useAppSelector(selectUser)?.username;
   return (
     <ScreenWrapper type="scroll">
       <Container>
         <AppText variant="medium" size={20}>
-          {`Good Morning 👋\nToastmaster ${name}`}
+          {`Good Morning 👋\nToastmaster ${username}`}
         </AppText>
         <Spacer top={30} bottom={10}>
           <Row>

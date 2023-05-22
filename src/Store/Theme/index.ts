@@ -21,5 +21,6 @@ export const themeSlice = createSlice({
 });
 
 export const {updateTheme} = themeSlice.actions;
-export const selectTheme = (state: RootState) => state.appTheme.theme;
+export const selectTheme = (state: RootState): TColorScheme =>
+  state.appTheme.theme;
 export default themeSlice.reducer;

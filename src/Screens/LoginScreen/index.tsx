@@ -1,74 +1,106 @@
 import React, {useState} from 'react';
 import {FadeInDown} from 'react-native-reanimated';
 import {TextInput} from 'react-native-paper';
+import {FormProvider, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 import {
   AppButton,
   AppCheckbox,
-  AppInputField,
+  AppInputFormField,
   AppText,
   ScreenWrapper,
   Spacer,
 } from 'Components';
 import {Footer, Header} from './styles';
+import {useLogin} from 'Services';
+import {loginSchema} from 'Utils';
+
+type TDefaultValues = {
+  username: string;
+  password: string;
+  rememberMe: 'checked' | 'unchecked';
+};
 
 const LoginScreen = () => {
   const [secureText, setSecureText] = useState(true);
-  const [rememberMe, setRememberMe] = useState<'checked' | 'unchecked'>(
-    'unchecked',
-  );
+
+  const methods = useForm<TDefaultValues>({
+    defaultValues: {
+      username: '',
+      password: '',
+      rememberMe: 'unchecked',
+    },
+    mode: 'onChange',
+    resolver: yupResolver(loginSchema),
+  });
 
   const onRememberMe = () => {
-    setRememberMe(prev => (prev === 'checked' ? 'unchecked' : 'checked'));
+    methods.setValue(
+      'rememberMe',
+      methods.getValues('rememberMe') === 'checked' ? 'unchecked' : 'checked',
+    );
   };
   const togglePassword = () => setSecureText(prev => !prev);
+  const {mutate} = useLogin({showLoading: true});
 
-  const onPress = () => {
-    //
+  const onPress = ({username, password}: TDefaultValues) => {
+    mutate({username, password});
   };
 
   return (
-    <ScreenWrapper backgroundColor="primary">
-      <Header>
-        <AppText variant="bold" size={25} color="white">
-          Login to continue
-        </AppText>
-      </Header>
-      <Footer entering={FadeInDown.duration(800)}>
-        <AppInputField
-          label="Email"
-          mode="outlined"
-          placeholder="Enter Email"
-        />
+    <FormProvider {...methods}>
+      <ScreenWrapper backgroundColor="primary">
+        <Header>
+          <AppText variant="bold" size={25} color="white">
+            Login to continue
+          </AppText>
+        </Header>
 
-        <Spacer top={22} />
-        <AppInputField
-          label="Password"
-          mode="outlined"
-          placeholder="Enter Password"
-          secureTextEntry={secureText}
-          right={
-            <TextInput.Icon
-              icon={secureText ? 'eye-off' : 'eye'}
-              size={15}
-              onPress={togglePassword}
-            />
-          }
-        />
-
-        <Spacer top={10} bottom={80}>
-          <AppCheckbox
-            status={rememberMe}
-            onPress={onRememberMe}
-            label="Remember Me"
+        <Footer entering={FadeInDown.duration(800)}>
+          <AppInputFormField
+            autoCapitalize="none"
+            name="username"
+            label="Username"
+            mode="outlined"
+            placeholder="Enter username"
+            autoFocus
           />
-        </Spacer>
 
-        <AppButton onPress={onPress} mode="contained" uppercase>
-          Login
-        </AppButton>
-      </Footer>
-    </ScreenWrapper>
+          <Spacer top={22} />
+          <AppInputFormField
+            name="password"
+            label="Password"
+            mode="outlined"
+            placeholder="Enter Password"
+            secureTextEntry={secureText}
+            right={
+              <TextInput.Icon
+                icon={secureText ? 'eye-off' : 'eye'}
+                size={15}
+                onPress={togglePassword}
+              />
+            }
+          />
+
+          <Spacer top={10} bottom={80}>
+            <AppCheckbox
+              status={methods.watch('rememberMe')}
+              onPress={onRememberMe}
+              label="Remember Me"
+            />
+          </Spacer>
+
+          <AppButton
+            onPress={methods.handleSubmit(onPress)}
+            mode="contained"
+            uppercase
+            disabled={!methods.formState.isValid}>
+            Login
+          </AppButton>
+        </Footer>
+      </ScreenWrapper>
+    </FormProvider>
   );
 };
 
