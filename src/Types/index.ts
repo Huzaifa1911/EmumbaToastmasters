@@ -24,6 +24,8 @@ export type TSVGIcon = {
   color?: AppTheme.TColors;
 };
 
+export type TShowLoading = {showLoading?: boolean};
+
 export type TBottomTabConfig = {
   title: string;
   name: string;
@@ -73,4 +75,26 @@ export type ToastmasterAttendedSessionType = {
   theme: string;
   timestamp: number;
   performedRole: string;
+};
+
+export type TJWTDecode = {
+  exp: number;
+  iat: number;
+  jti: string;
+  token_type: 'access' | 'refresh';
+  user_id: number;
+};
+
+export type TUser = {
+  data_joined: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  id: number;
+  is_active: boolean;
+  is_staff: boolean;
+  is_superuser: boolean;
+  last_awards_calculation: string;
+  last_login: string;
+  username: string;
 };

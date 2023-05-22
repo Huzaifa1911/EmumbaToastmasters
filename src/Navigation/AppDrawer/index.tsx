@@ -9,12 +9,16 @@ import {Container, ProfileWrapper} from './styles';
 import {AngleRightIcon, LogoutIcon, SunIcon, VotingPollIcon} from 'Icons';
 import DrawerItem from './Components/DrawerItem';
 import {AppText, ProfileAvatar, Spacer} from 'Components';
-import {NavigationService} from 'Services';
+import {NavigationService, useLogout} from 'Services';
 import {SCREENS} from 'Utils';
 import {useAppTheme} from 'Assets';
-import {selectTheme, updateTheme, useAppDispatch, useAppSelector} from 'Store';
-
-const userName = 'Huzaifa';
+import {
+  selectTheme,
+  selectUser,
+  updateTheme,
+  useAppDispatch,
+  useAppSelector,
+} from 'Store';
 
 const goToAllVotingPollScreen = () =>
   NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
@@ -23,6 +27,10 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
   const {colors} = useAppTheme();
   const dispatch = useAppDispatch();
   const theme = useAppSelector(selectTheme);
+  const user = useAppSelector(selectUser);
+  const {mutate: onLogout} = useLogout({showLoading: true});
+
+  const name = user?.username;
 
   const isDarkMode = theme === 'light';
 
@@ -37,7 +45,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
         <ProfileAvatar size={70} uri="" />
         <Spacer left={14}>
           <AppText size={28} variant="bold" color="white">
-            {userName}
+            {name}
           </AppText>
         </Spacer>
       </ProfileWrapper>
@@ -60,6 +68,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
         right={<AngleRightIcon size={18} color={colors.error} />}
         left={<LogoutIcon size={18} color={colors.error} />}
         type="danger"
+        onPress={onLogout}
       />
       <DrawerItem
         label="Light Mode"

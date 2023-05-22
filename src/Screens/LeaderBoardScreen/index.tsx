@@ -58,7 +58,7 @@ const LeaderBoardScreen = () => {
   };
 
   return (
-    <ScreenWrapper>
+    <ScreenWrapper type="scroll">
       <ScreenContainer>
         <TopParticipants first={first} second={second} third={third} />
       </ScreenContainer>

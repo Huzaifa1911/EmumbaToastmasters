@@ -5,9 +5,13 @@ import {Else, If, Then} from 'react-if';
 import AuthNavigator from './AuthNavigator';
 import AppNavigator from './AppNavigator';
 import {NavigationService} from 'Services';
+import {isEmptyOrNill} from 'Utils';
+import {selectUser, useAppSelector} from 'Store';
 
 const AppNavigationContainer = () => {
-  const isLoggedIn = true;
+  const user = useAppSelector(selectUser);
+
+  const isLoggedIn = !isEmptyOrNill(user?.id);
 
   return (
     <NavigationContainer ref={NavigationService.navigationRef}>

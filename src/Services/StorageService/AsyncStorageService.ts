@@ -25,12 +25,14 @@ export const setData = async <T = TData>(data: T, storageKey: string) => {
  * @returns {TData} data
  */
 
-export const getData = async <T = TData>(
-  storageKey: string,
-): Promise<T | unknown> => {
+export const getData = async <T = TData>(storageKey: string): Promise<T> => {
   try {
     const data = await AsyncStorage.getItem(storageKey);
-    return data !== null ? JSON.parse(data) : null;
+    return data !== null
+      ? typeof data === 'string'
+        ? data
+        : JSON.parse(data)
+      : null;
   } catch (error: unknown) {
     return Promise.reject(error);
   }

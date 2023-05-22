@@ -3,7 +3,7 @@ export {default as AppButton} from './AppButton';
 export {default as Spacer} from './Commons/Spacer';
 export {default as ScreenWrapper} from './ScreenWrapper';
 export {default as AppInputField} from './AppInputFields/InputField';
-export {default as AppInputFormField} from './AppInputFields/InputField';
+export {default as AppInputFormField} from './AppInputFields/InputFormField';
 export {default as AppCheckbox} from './Commons/AppCheckbox';
 export {default as ErrorText} from './Commons/ErrorText';
 export {default as AppCard} from './Cards/AppCard';
@@ -22,3 +22,4 @@ export {default as ToastmasterAttendedSessionCard} from './Cards/ToastmasterAtte
 export {default as ViewAllTextComponent} from './Commons/ViewAllTextComponent';
 export {default as AttendedToastmastersSessions} from './AttendedToastmastersSession';
 export {default as PositionHolderCard} from './Cards/PositionHolderCard';
+export {default as AppLoader} from './AppLoader';
