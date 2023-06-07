@@ -30,8 +30,7 @@ export const POLL_TYPES = [
   },
 ];
 
-export const DEFAULT_IMAGE =
-  'https://cdn-icons-png.flaticon.com/512/5556/5556468.png';
+export const DEFAULT_IMAGE = 'https://cdn-icons-png.flaticon.com/512/5556/5556468.png';
 
 export const isIOS = Platform.OS === 'ios';
 export const BASE_URL = 'https://toastmasters.emumba.com/';

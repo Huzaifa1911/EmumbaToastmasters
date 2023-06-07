@@ -3,11 +3,7 @@ import React, {PropsWithChildren} from 'react';
 import {Case, Default, Switch} from 'react-if';
 import {KeyboardAwareScrollViewProps} from 'react-native-keyboard-aware-scroll-view';
 
-import {
-  ScreenKeyboardAwareScrollView,
-  ScreenScrollView,
-  ScreenView,
-} from './styles';
+import {ScreenKeyboardAwareScrollView, ScreenScrollView, ScreenView} from './styles';
 import {useAppTheme} from 'Assets';
 
 interface IScreenWrapperProps {
@@ -20,14 +16,7 @@ interface IScreenWrapperProps {
 
 const ScreenWrapper = (props: PropsWithChildren<IScreenWrapperProps>) => {
   const {colors} = useAppTheme();
-  const {
-    type = 'none',
-    children,
-    scrollViewProps,
-    viewProps,
-    keyboardAwareScrollViewProps,
-    backgroundColor = 'background',
-  } = props;
+  const {type = 'none', children, scrollViewProps, viewProps, keyboardAwareScrollViewProps, backgroundColor = 'background'} = props;
   const color = colors[backgroundColor] as string;
   return (
     <>
@@ -38,9 +27,7 @@ const ScreenWrapper = (props: PropsWithChildren<IScreenWrapperProps>) => {
           </ScreenScrollView>
         </Case>
         <Case condition={type === 'keyboard'}>
-          <ScreenKeyboardAwareScrollView
-            color={color}
-            {...keyboardAwareScrollViewProps}>
+          <ScreenKeyboardAwareScrollView color={color} {...keyboardAwareScrollViewProps}>
             {children}
           </ScreenKeyboardAwareScrollView>
         </Case>

@@ -26,19 +26,8 @@ const AppCard = (props: PropsWithChildren<IAppCardProps>) => {
 
   return (
     <Spacer {...outerSpacerProps}>
-      <TouchableOpacity
-        onPress={onPress}
-        disabled={isDisabled}
-        activeOpacity={0.7}>
-        <CardContainer
-          style={style}
-          height={height}
-          width={width}
-          borderColor={borderColor}
-          roundness={roundness}
-          contentStyle={contentStyle}
-          mode={mode}
-          showBorder={showBorder}>
+      <TouchableOpacity onPress={onPress} disabled={isDisabled} activeOpacity={0.7}>
+        <CardContainer style={style} height={height} width={width} borderColor={borderColor} roundness={roundness} contentStyle={contentStyle} mode={mode} showBorder={showBorder}>
           <CardContentContainer roundness={roundness} {...innerSpacerProps}>
             {children}
           </CardContentContainer>

@@ -15,17 +15,7 @@ export interface ISpacerProps {
 }
 
 const Spacer = (props: PropsWithChildren<ISpacerProps>) => {
-  const {
-    bottom,
-    flex,
-    horizontal,
-    left,
-    right,
-    top,
-    vertical,
-    children,
-    color = 'transparent',
-  } = props;
+  const {bottom, flex, horizontal, left, right, top, vertical, children, color = 'transparent'} = props;
 
   const {colors} = useAppTheme();
   const backgroundColor = colors[color] as string;

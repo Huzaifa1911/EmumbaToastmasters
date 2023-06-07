@@ -1,10 +1,5 @@
 import {useColorScheme} from 'react-native';
-import {
-  MD3DarkTheme as DarkTheme,
-  MD3LightTheme as LightTheme,
-  configureFonts,
-  useTheme,
-} from 'react-native-paper';
+import {MD3DarkTheme as DarkTheme, MD3LightTheme as LightTheme, configureFonts, useTheme} from 'react-native-paper';
 
 export const FONTS = {
   Thin: 'Poppins-Thin',

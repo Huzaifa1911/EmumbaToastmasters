@@ -1,8 +1,4 @@
-import {
-  getGenericPassword,
-  resetGenericPassword,
-  setGenericPassword,
-} from 'react-native-keychain';
+import {getGenericPassword, resetGenericPassword, setGenericPassword} from 'react-native-keychain';
 
 /**
  * Clear Storage

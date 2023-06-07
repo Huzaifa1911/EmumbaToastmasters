@@ -1,11 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 
-import React, {
-  PropsWithChildren,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, {PropsWithChildren, forwardRef, useImperativeHandle, useRef} from 'react';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 import {IAppTextProps} from '../AppText';
@@ -23,10 +18,7 @@ interface IAppBottomSheetProps {
   snapPoints?: (string | number)[];
 }
 
-const AppBottomSheet = forwardRef<
-  TBottomSheetHandler,
-  PropsWithChildren<IAppBottomSheetProps>
->((props, ref) => {
+const AppBottomSheet = forwardRef<TBottomSheetHandler, PropsWithChildren<IAppBottomSheetProps>>((props, ref) => {
   const {
     onCloseSheet,
     onBackdropPress,
@@ -54,22 +46,11 @@ const AppBottomSheet = forwardRef<
         index={0}
         ref={sheetRef}
         onDismiss={onCloseSheet}
-        backdropComponent={backdropProps => (
-          <BottomSheetBackdropComponent
-            onBackdropPress={onBackdropPress}
-            {...backdropProps}
-          />
-        )}
-        backgroundComponent={({style}) => (
-          <BottomSheetBackgroundComponent style={style} />
-        )}>
+        backdropComponent={backdropProps => <BottomSheetBackdropComponent onBackdropPress={onBackdropPress} {...backdropProps} />}
+        backgroundComponent={({style}) => <BottomSheetBackgroundComponent style={style} />}>
         <Content>
           <Spacer left={16} right={10} bottom={20}>
-            <BottomSheetTitle
-              title={title}
-              onCloseSheet={onCloseSheet}
-              titleProps={titleProps}
-            />
+            <BottomSheetTitle title={title} onCloseSheet={onCloseSheet} titleProps={titleProps} />
           </Spacer>
           {children}
         </Content>

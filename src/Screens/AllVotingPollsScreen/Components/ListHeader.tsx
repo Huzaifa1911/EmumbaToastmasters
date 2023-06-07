@@ -5,7 +5,7 @@ const ListHeader = () => {
   return (
     <Spacer bottom={13}>
       <AppText size={20} variant="bold">
-        Active Voting Poll
+        Active Voting Polls
       </AppText>
     </Spacer>
   );

@@ -15,14 +15,7 @@ interface ICardSkeletonListProps extends ICardSkeletonProps {
 }
 
 const CardSkeletonList = (props: ICardSkeletonListProps) => {
-  const {
-    length = 3,
-    isLoading,
-    horizontal = false,
-    contentContainerStyle,
-    spacerProps,
-    ...cardSkeletonProps
-  } = props;
+  const {length = 3, isLoading, horizontal = false, contentContainerStyle, spacerProps, ...cardSkeletonProps} = props;
 
   const topSpace = horizontal ? 0 : 15; // top space will be applicable only when list is vertical
   const rightSpace = horizontal ? 15 : 0; // right space will  be applicable only when list is horizonta.
@@ -30,10 +23,7 @@ const CardSkeletonList = (props: ICardSkeletonListProps) => {
   return (
     <When condition={isLoading}>
       <Spacer {...spacerProps}>
-        <ScrollView
-          horizontal={horizontal}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={contentContainerStyle}>
+        <ScrollView horizontal={horizontal} showsHorizontalScrollIndicator={false} contentContainerStyle={contentContainerStyle}>
           {[...Array(length)].map((_, index) => {
             const right = index === length - 1 ? 0 : rightSpace; // add right space to all items except last
             const top = index === 0 ? 0 : topSpace; // add top space to all items except first

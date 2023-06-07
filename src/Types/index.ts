@@ -2,18 +2,7 @@ import {AxiosError} from 'axios';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {SCREENS} from 'Utils';
 
-export type IconType =
-  | 'Feather'
-  | 'FontAwesome'
-  | 'Ionicons'
-  | 'Foundation'
-  | 'MaterialCommunityIcons'
-  | 'MaterialIcons'
-  | 'Entypo'
-  | 'AntDesign'
-  | 'Octicons'
-  | 'FontAwesome5'
-  | 'SimpleLineIcons';
+export type IconType = 'Feather' | 'FontAwesome' | 'Ionicons' | 'Foundation' | 'MaterialCommunityIcons' | 'MaterialIcons' | 'Entypo' | 'AntDesign' | 'Octicons' | 'FontAwesome5' | 'SimpleLineIcons';
 
 export type VectorIconType = {
   iconType: IconType;
@@ -36,10 +25,20 @@ export type TBottomTabConfig = {
 
 export type TPollStatus = 'active' | 'disabled';
 
-export type TVotingPoll = {
+export type TFormattedVotingPoll = {
   question: string;
-  status: TPollStatus;
+  is_active: boolean;
   timestamp: number;
+};
+
+export type TVotingPoll = {
+  id: number;
+  is_active: boolean;
+  createdAt: string;
+  updated_at: string;
+  owner: number;
+  poll_type: number;
+  candidates: number[];
 };
 export type TStandardObject = {label: string; value: string};
 
@@ -62,7 +61,8 @@ export type TColorScheme = 'dark' | 'light';
 export type TBottomSheetHandler = {open: () => void; close: () => void};
 
 export type TPollType = {
-  title: string;
+  id: number;
+  name: string;
 };
 
 export type ToasmtasterType = {
@@ -125,10 +125,6 @@ export type TPaginatedResponse<T> = {
   current_page: number;
   num_pages: number;
   per_page: number;
-  results: T[];
-};
-
-export type TQueryResponse<T> = {
   results: T[];
 };
 

@@ -28,11 +28,7 @@ export const setData = async <T = TData>(data: T, storageKey: string) => {
 export const getData = async <T = TData>(storageKey: string): Promise<T> => {
   try {
     const data = await AsyncStorage.getItem(storageKey);
-    return data !== null
-      ? typeof data === 'string'
-        ? data
-        : JSON.parse(data)
-      : null;
+    return data !== null ? (typeof data === 'string' ? data : JSON.parse(data)) : null;
   } catch (error: unknown) {
     return Promise.reject(error);
   }

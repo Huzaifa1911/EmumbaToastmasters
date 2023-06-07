@@ -1,8 +1,4 @@
-import {
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-  View,
-} from 'react-native';
+import {NativeSyntheticEvent, TextInputFocusEventData, View} from 'react-native';
 import React, {useState} from 'react';
 import {When} from 'react-if';
 import {TextInputProps} from 'react-native-paper';
@@ -18,16 +14,7 @@ export interface IAppInputFieldProps extends TextInputProps {
 }
 
 const InputField = (props: IAppInputFieldProps) => {
-  const {
-    flex,
-    label,
-    width,
-    hint,
-    mode = 'outlined',
-    onFocus,
-    onBlur,
-    ...rest
-  } = props;
+  const {flex, label, width, hint, mode = 'outlined', onFocus, onBlur, ...rest} = props;
   const {colors} = useAppTheme();
   const [isFocused, setIsFocused] = useState(false);
   const isFlat = mode === 'flat';
@@ -46,11 +33,7 @@ const InputField = (props: IAppInputFieldProps) => {
     <View style={{flex, width}}>
       <When condition={isFlat}>
         <Content>
-          <AppText
-            variant="medium"
-            size={14}
-            textTransform="uppercase"
-            color="onBackground">
+          <AppText variant="medium" size={14} textTransform="uppercase" color="onBackground">
             {label}
           </AppText>
 

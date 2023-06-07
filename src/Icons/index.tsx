@@ -52,38 +52,20 @@ const VectorIcon = (props: VectorIconType) => {
 
 export default VectorIcon;
 
-export const HomeIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Entypo" name="home" {...props} />
-);
+export const HomeIcon = (props: TSpecificIcon) => <VectorIcon iconType="Entypo" name="home" {...props} />;
 
-export const CloseIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="AntDesign" name="close" {...props} />
-);
+export const CloseIcon = (props: TSpecificIcon) => <VectorIcon iconType="AntDesign" name="close" {...props} />;
 
-export const DrawerIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Feather" name="align-center" {...props} />
-);
+export const DrawerIcon = (props: TSpecificIcon) => <VectorIcon iconType="Feather" name="align-center" {...props} />;
 
-export const AngleRightIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="FontAwesome" name="angle-right" {...props} />
-);
+export const AngleRightIcon = (props: TSpecificIcon) => <VectorIcon iconType="FontAwesome" name="angle-right" {...props} />;
 
-export const AddCircleIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Ionicons" name="add-circle-outline" {...props} />
-);
+export const AddCircleIcon = (props: TSpecificIcon) => <VectorIcon iconType="Ionicons" name="add-circle-outline" {...props} />;
 
-export const VotingPollIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="MaterialCommunityIcons" name="poll" {...props} />
-);
+export const VotingPollIcon = (props: TSpecificIcon) => <VectorIcon iconType="MaterialCommunityIcons" name="poll" {...props} />;
 
-export const LogoutIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="MaterialIcons" name="logout" {...props} />
-);
+export const LogoutIcon = (props: TSpecificIcon) => <VectorIcon iconType="MaterialIcons" name="logout" {...props} />;
 
-export const MoonIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Feather" name="moon" {...props} />
-);
+export const MoonIcon = (props: TSpecificIcon) => <VectorIcon iconType="Feather" name="moon" {...props} />;
 
-export const SunIcon = (props: TSpecificIcon) => (
-  <VectorIcon iconType="Feather" name="sun" {...props} />
-);
+export const SunIcon = (props: TSpecificIcon) => <VectorIcon iconType="Feather" name="sun" {...props} />;

@@ -3,73 +3,32 @@ import React, {createRef, useLayoutEffect, useState} from 'react';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 
 import HeaderRightIcon from './Components/HeaderRightIcon';
-import {
-  AppBottomSheet,
-  PollTypeSheet,
-  ScreenWrapper,
-  SelectContestentsSheet,
-  Spacer,
-  VotingPollCard,
-} from 'Components';
-import {VotingList} from './styles';
-import {
-  TBottomSheetHandler,
-  TDrawerParamList,
-  TPollType,
-  TVotingPoll,
-} from 'Types';
+import {AppBottomSheet, PollTypeSheet, ScreenWrapper, SelectContestentsSheet, Spacer, VotingPollCard} from 'Components';
+import {VotingList, VotingListSkeleton} from './styles';
+import {TBottomSheetHandler, TDrawerParamList, TPollType, TFormattedVotingPoll} from 'Types';
 import ListHeader from './Components/ListHeader';
-import {NavigationService} from 'Services';
+import {NavigationService, useGetVotingPolls} from 'Services';
 import {SCREENS, isEmptyOrNill} from 'Utils';
 import {SheetTypes, TSheetType} from './utils';
 import {Else, If, Then} from 'react-if';
-
-const VOTING_POLL: TVotingPoll[] = [
-  {
-    question: 'Vote for best prepared speaker',
-    status: 'active',
-    timestamp: 1684084694348,
-  },
-  {
-    question: 'Vote for best prepared speaker',
-    status: 'disabled',
-    timestamp: 1684084694348,
-  },
-];
+import {propOr} from 'ramda';
 
 const sheetRef = createRef<TBottomSheetHandler>();
 
-const AllVotingPollsScreen = ({
-  navigation,
-}: DrawerScreenProps<TDrawerParamList>) => {
-  useLayoutEffect(
-    () => navigation.setOptions({headerRight: HeaderRightIcon}),
-    [],
-  );
+const AllVotingPollsScreen = ({navigation}: DrawerScreenProps<TDrawerParamList>) => {
+  useLayoutEffect(() => navigation.setOptions({headerRight: HeaderRightIcon}), []);
 
-  const [sheetType, setSheetType] = useState<TSheetType>(
-    SheetTypes.POLL_TYPE_SHEET,
-  );
+  const [sheetType, setSheetType] = useState<TSheetType>(SheetTypes.POLL_TYPE_SHEET);
+
+  const {data, isLoading} = useGetVotingPolls({showLoading: false});
+  const polls: TFormattedVotingPoll[] = propOr([], 'pages', data);
 
   const isPollTypeSelected = sheetType === SheetTypes.CONTESTENTS_SHEET;
   const snapPoints = isPollTypeSelected ? ['90%', '90%'] : ['80%', '90%'];
-  const sheetTitle = isPollTypeSelected
-    ? 'Add Contestents'
-    : 'Select Poll type';
+  const sheetTitle = isPollTypeSelected ? 'Add Contestents' : 'Select Poll type';
 
-  const renderItem = ({item}: {item: TVotingPoll; index: number}) => {
-    return (
-      <VotingPollCard
-        votingPoll={item}
-        onPress={() =>
-          NavigationService.navigate(
-            item.status === 'active'
-              ? SCREENS.CAST_VOTE_SCREEN
-              : SCREENS.VOTING_POLL_RESULT_SCREEN,
-          )
-        }
-      />
-    );
+  const renderItem = ({item}: {item: TFormattedVotingPoll; index: number}) => {
+    return <VotingPollCard votingPoll={item} onPress={() => NavigationService.navigate(item.is_active ? SCREENS.CAST_VOTE_SCREEN : SCREENS.VOTING_POLL_RESULT_SCREEN)} />;
   };
 
   const onProceedNext = (pollType?: TPollType) => {
@@ -83,20 +42,11 @@ const AllVotingPollsScreen = ({
   return (
     <>
       <ScreenWrapper>
-        <VotingList
-          data={VOTING_POLL}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={renderItem}
-          ItemSeparatorComponent={() => <Spacer top={11} />}
-          ListHeaderComponent={ListHeader}
-        />
+        <VotingList data={polls} keyExtractor={(_, index) => index.toString()} renderItem={renderItem} ItemSeparatorComponent={() => <Spacer top={11} />} ListHeaderComponent={ListHeader} />
+        <VotingListSkeleton isLoading={isLoading} />
       </ScreenWrapper>
 
-      <AppBottomSheet
-        ref={sheetRef}
-        title={sheetTitle}
-        snapPoints={snapPoints}
-        onCloseSheet={closeBottomSheet}>
+      <AppBottomSheet ref={sheetRef} title={sheetTitle} snapPoints={snapPoints} onCloseSheet={closeBottomSheet}>
         <If condition={sheetType === 'POLL_TYPE_SHEET'}>
           <Then>
             <PollTypeSheet onProceedNext={onProceedNext} />

@@ -8,10 +8,8 @@ export const Container = styled(View)(() => ({
   paddingHorizontal: 16,
 }));
 
-export const SubmitButton = styled(AppButton).attrs(
-  ({theme}: AppTheme.ThemeType) => ({
-    mode: 'contained',
-    textColor: theme?.colors.white,
-    labelStyle: {fontSize: 16, fontWeight: 'bold'},
-  }),
-)({});
+export const SubmitButton = styled(AppButton).attrs(({theme}: AppTheme.ThemeType) => ({
+  mode: 'contained',
+  textColor: theme?.colors.white,
+  labelStyle: {fontSize: 16, fontWeight: 'bold'},
+}))({});

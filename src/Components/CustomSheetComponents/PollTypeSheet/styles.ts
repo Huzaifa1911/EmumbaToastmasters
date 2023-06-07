@@ -19,20 +19,18 @@ export const ListContent = styled(View)(() => ({
   width: '97%',
 }));
 
-export const PollButtonContainer = styled(TouchableOpacity)(
-  ({isSelected, theme}: TPollTypeButton) => ({
-    height: 150,
-    width: 165,
-    alignItems: 'flex-end',
-    borderColor: isSelected ? theme?.colors.primary : theme?.colors.outline,
-    borderWidth: 1,
-    borderRadius: 20,
-    paddingBottom: 10,
-    paddingHorizontal: 5,
-    marginBottom: 20,
-    paddingTop: 5,
-  }),
-);
+export const PollButtonContainer = styled(TouchableOpacity)(({isSelected, theme}: TPollTypeButton) => ({
+  height: 150,
+  width: 165,
+  alignItems: 'flex-end',
+  borderColor: isSelected ? theme?.colors.primary : theme?.colors.outline,
+  borderWidth: 1,
+  borderRadius: 20,
+  paddingBottom: 10,
+  paddingHorizontal: 5,
+  marginBottom: 20,
+  paddingTop: 5,
+}));
 
 export const Wrapper = styled(View)({
   flex: 1,
@@ -40,9 +38,7 @@ export const Wrapper = styled(View)({
   justifyContent: 'flex-end',
 });
 
-export const NextButton = styled(AppButton).attrs(
-  ({theme}: AppTheme.ThemeType) => ({
-    textColor: theme?.colors.white,
-    labelStyle: {fontSize: 16, fontWeight: 'bold'},
-  }),
-)({});
+export const NextButton = styled(AppButton).attrs(({theme}: AppTheme.ThemeType) => ({
+  textColor: theme?.colors.white,
+  labelStyle: {fontSize: 16, fontWeight: 'bold'},
+}))({});

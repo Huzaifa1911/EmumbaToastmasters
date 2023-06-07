@@ -2,6 +2,12 @@
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
     "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "rootDirs": ["src"],
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "jsx": "react-native",
     // Path alias config
     "baseUrl": "./src",
     "paths": {
@@ -20,7 +26,6 @@
       "Types/*": ["src/Types/*"],
       "src/*": ["src/*"]
     },
-    "types": ["react-native", "jest", "styled-components-react-native"],
-  },
- 
+    "types": ["react-native", "jest", "styled-components-react-native"]
+  }
 }

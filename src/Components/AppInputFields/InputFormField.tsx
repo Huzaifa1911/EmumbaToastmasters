@@ -5,8 +5,7 @@ import {Controller, useFormContext} from 'react-hook-form';
 import {ErrorText} from 'Components';
 import InputField, {IAppInputFieldProps} from './InputField';
 
-interface IAppInputFormFieldProps
-  extends Omit<IAppInputFieldProps, 'onChangeText' | 'value'> {
+interface IAppInputFormFieldProps extends Omit<IAppInputFieldProps, 'onChangeText' | 'value'> {
   name: string;
 }
 
@@ -21,13 +20,7 @@ const InputFormField = (props: IAppInputFormFieldProps) => {
 
   return (
     <>
-      <Controller
-        name={name}
-        control={control}
-        render={({field: {onChange, value}}) => (
-          <InputField onChangeText={onChange} value={value} {...rest} />
-        )}
-      />
+      <Controller name={name} control={control} render={({field: {onChange, value}}) => <InputField onChangeText={onChange} value={value} {...rest} />} />
       <ErrorText message={message} spacerProps={{top: 5, left: 2}} />
     </>
   );

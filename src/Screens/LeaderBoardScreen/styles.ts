@@ -19,14 +19,12 @@ export const TopParticipantsContainer = styled(View)(() => ({
   justifyContent: 'space-between',
 }));
 
-export const ParticipantFlatList = styled(FlatList<ToasmtasterType>).attrs(
-  () => ({
-    contentContainerStyle: {
-      paddingHorizontal: 16,
-      paddingVertical: 50,
-    },
-  }),
-)({});
+export const ParticipantFlatList = styled(FlatList<ToasmtasterType>).attrs(() => ({
+  contentContainerStyle: {
+    paddingHorizontal: 16,
+    paddingVertical: 50,
+  },
+}))({});
 
 export const FirstParticipantContainer = styled(View)(() => ({
   alignSelf: 'center',
@@ -42,11 +40,9 @@ export const TextContent = styled(View)(({isFirst}: {isFirst: boolean}) => ({
   ...(isFirst && {width: '20%'}),
 }));
 
-export const StyledProfileAvatar = styled(ProfileAvatar).attrs(
-  ({isFirst}: {isFirst: boolean}) => ({
-    size: isFirst ? 140 : 100,
-  }),
-)(({theme, isFirst}: {isFirst: boolean} & AppTheme.ThemeType) => ({
+export const StyledProfileAvatar = styled(ProfileAvatar).attrs(({isFirst}: {isFirst: boolean}) => ({
+  size: isFirst ? 140 : 100,
+}))(({theme, isFirst}: {isFirst: boolean} & AppTheme.ThemeType) => ({
   borderWidth: 4,
   borderColor: theme?.colors.primaryContainer,
   ...(isFirst && {

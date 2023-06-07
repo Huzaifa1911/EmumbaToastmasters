@@ -14,10 +14,7 @@ const ToastmasterCard = (props: IToastmasterCardProps) => {
   const {name = '', profileImage = ''} = toastmaster;
 
   return (
-    <AppCard
-      mode="contained"
-      height={90}
-      innerSpacerProps={{horizontal: 20, top: 10}}>
+    <AppCard mode="contained" height={90} innerSpacerProps={{horizontal: 20, top: 10}}>
       <Container>
         <ProfileAvatar size={55} uri={profileImage} />
 

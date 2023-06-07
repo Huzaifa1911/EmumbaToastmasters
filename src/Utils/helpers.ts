@@ -1,4 +1,4 @@
-import {TJWTDecode, TPollStatus} from 'Types';
+import {TJWTDecode} from 'Types';
 import α from 'color-alpha';
 import dayjs from 'dayjs';
 import numbro from 'numbro';
@@ -17,14 +17,11 @@ export const getAlphaColor = (color: string, opacity: number) => {
 
 export const isEmptyOrNill = anyPass([isEmpty, isNil]);
 
-export const getVotingPollStatus = (
-  status: TPollStatus,
-): {label: string; color: AppTheme.TColors} => {
-  switch (status) {
-    case 'active':
-      return {label: 'Active', color: 'accentGreen'};
-    case 'disabled':
-      return {label: 'Closed', color: 'onSurfaceDisabled'};
+export const getVotingPollStatus = (isActive: boolean): {label: string; color: AppTheme.TColors} => {
+  if (isActive) {
+    return {label: 'Active', color: 'accentGreen'};
+  } else {
+    return {label: 'Closed', color: 'onSurfaceDisabled'};
   }
 };
 
@@ -32,10 +29,7 @@ export const formateTimeStamp = (timestamp: number, format?: string) => {
   return dayjs(timestamp).format(format || 'DD/MM/YYYY');
 };
 
-export const formateDateString = (
-  dateString?: string | Date,
-  format?: string,
-) => {
+export const formateDateString = (dateString?: string | Date, format?: string) => {
   const formatTo = format ? format : 'YYYY-MM-DD';
   if (dateString) {
     return dayjs(dateString).format(formatTo);
@@ -57,11 +51,7 @@ export const getTimeDifference = (timestamp: number) => {
   return dayjs(timestamp).fromNow();
 };
 
-export const showToast = (
-  message: string,
-  title?: string,
-  type?: 'success' | 'error',
-) => {
+export const showToast = (message: string, title?: string, type?: 'success' | 'error') => {
   if (message) {
     Toast.show({
       type,

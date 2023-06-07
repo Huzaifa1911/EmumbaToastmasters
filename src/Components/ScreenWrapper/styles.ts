@@ -12,8 +12,6 @@ export const ScreenScrollView = styled(ScrollView)(({color}: TWrapper) => ({
   backgroundColor: color,
 }));
 
-export const ScreenKeyboardAwareScrollView = styled(KeyboardAwareScrollView)(
-  ({color}: TWrapper) => ({
-    backgroundColor: color,
-  }),
-);
+export const ScreenKeyboardAwareScrollView = styled(KeyboardAwareScrollView)(({color}: TWrapper) => ({
+  backgroundColor: color,
+}));

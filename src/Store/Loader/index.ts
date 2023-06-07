@@ -23,7 +23,6 @@ export const loaderSlice = createSlice({
 
 export const {hideLoader, showLoader} = loaderSlice.actions;
 
-export const selectLoading = (state: {appLoader: LoadingState}) =>
-  state.appLoader.isLoading;
+export const selectLoading = (state: {appLoader: LoadingState}) => state.appLoader.isLoading;
 
 export default loaderSlice.reducer;

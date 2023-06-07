@@ -4,14 +4,7 @@ import {TextInput} from 'react-native-paper';
 import {FormProvider, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 
-import {
-  AppButton,
-  AppCheckbox,
-  AppInputFormField,
-  AppText,
-  ScreenWrapper,
-  Spacer,
-} from 'Components';
+import {AppButton, AppCheckbox, AppInputFormField, AppText, ScreenWrapper, Spacer} from 'Components';
 import {Footer, Header} from './styles';
 import {useLogin} from 'Services';
 import {loginSchema} from 'Utils';
@@ -36,10 +29,7 @@ const LoginScreen = () => {
   });
 
   const onRememberMe = () => {
-    methods.setValue(
-      'rememberMe',
-      methods.getValues('rememberMe') === 'checked' ? 'unchecked' : 'checked',
-    );
+    methods.setValue('rememberMe', methods.getValues('rememberMe') === 'checked' ? 'unchecked' : 'checked');
   };
   const togglePassword = () => setSecureText(prev => !prev);
   const {mutate} = useLogin({showLoading: true});
@@ -58,14 +48,7 @@ const LoginScreen = () => {
         </Header>
 
         <Footer entering={FadeInDown.duration(800)}>
-          <AppInputFormField
-            autoCapitalize="none"
-            name="username"
-            label="Username"
-            mode="outlined"
-            placeholder="Enter username"
-            autoFocus
-          />
+          <AppInputFormField autoCapitalize="none" name="username" label="Username" mode="outlined" placeholder="Enter username" autoFocus />
 
           <Spacer top={22} />
           <AppInputFormField
@@ -74,28 +57,14 @@ const LoginScreen = () => {
             mode="outlined"
             placeholder="Enter Password"
             secureTextEntry={secureText}
-            right={
-              <TextInput.Icon
-                icon={secureText ? 'eye-off' : 'eye'}
-                size={15}
-                onPress={togglePassword}
-              />
-            }
+            right={<TextInput.Icon icon={secureText ? 'eye-off' : 'eye'} size={15} onPress={togglePassword} />}
           />
 
           <Spacer top={10} bottom={80}>
-            <AppCheckbox
-              status={methods.watch('rememberMe')}
-              onPress={onRememberMe}
-              label="Remember Me"
-            />
+            <AppCheckbox status={methods.watch('rememberMe')} onPress={onRememberMe} label="Remember Me" />
           </Spacer>
 
-          <AppButton
-            onPress={methods.handleSubmit(onPress)}
-            mode="contained"
-            uppercase
-            disabled={!methods.formState.isValid}>
+          <AppButton onPress={methods.handleSubmit(onPress)} mode="contained" uppercase disabled={!methods.formState.isValid}>
             Login
           </AppButton>
         </Footer>

@@ -22,13 +22,11 @@ const GoToIndicator = ({spacerProps, size = 20}: IGoToIndicatorProps) => {
 
 export default GoToIndicator;
 
-const Container = styled(View)(
-  ({theme, size}: {size: number} & AppTheme.ThemeType) => ({
-    width: size,
-    height: size,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme?.colors.onSurfaceDisabled,
-    borderRadius: 4,
-  }),
-);
+const Container = styled(View)(({theme, size}: {size: number} & AppTheme.ThemeType) => ({
+  width: size,
+  height: size,
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: theme?.colors.onSurfaceDisabled,
+  borderRadius: 4,
+}));

@@ -14,13 +14,7 @@ interface IDrawerItemProps {
   type?: 'info' | 'danger';
 }
 
-const DrawerItem = ({
-  label,
-  left,
-  onPress,
-  right,
-  type = 'info',
-}: IDrawerItemProps) => {
+const DrawerItem = ({label, left, onPress, right, type = 'info'}: IDrawerItemProps) => {
   const {colors} = useAppTheme();
 
   const [backgroundColor, setBackgroundColor] = useState('transparent');

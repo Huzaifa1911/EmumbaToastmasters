@@ -17,11 +17,7 @@ const ViewAllTextComponent = (props: IViewAllTextComponentProps) => {
       <AppText size={18} variant="bold" {...labelProps}>
         {label}
       </AppText>
-      <AppText
-        size={14}
-        variant="medium"
-        onPress={onViewAllPress}
-        color="primary">
+      <AppText size={14} variant="medium" onPress={onViewAllPress} color="primary">
         View All
       </AppText>
     </Content>

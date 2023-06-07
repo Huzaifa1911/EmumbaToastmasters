@@ -43,27 +43,16 @@ const CastVoteScreen = () => {
           </AppText>
         </Spacer>
 
-        <RadioButton.Group
-          value={selectedOption}
-          onValueChange={value => setSelectedOption(value)}>
+        <RadioButton.Group value={selectedOption} onValueChange={value => setSelectedOption(value)}>
           {options.map((option, key) => {
-            return (
-              <AppRadioButton
-                spacerProps={{top: key !== 0 ? 5 : 0}}
-                key={option.value + key}
-                value={option.value}
-                label={option.label}
-              />
-            );
+            return <AppRadioButton spacerProps={{top: key !== 0 ? 5 : 0}} key={option.value + key} value={option.value} label={option.label} />;
           })}
         </RadioButton.Group>
       </Container>
 
       {/* Submit Button */}
       <Spacer horizontal={16} bottom={60}>
-        <SubmitButton
-          onPress={onSubmit}
-          disabled={isEmptyOrNill(selectedOption)}>
+        <SubmitButton onPress={onSubmit} disabled={isEmptyOrNill(selectedOption)}>
           Submit
         </SubmitButton>
       </Spacer>

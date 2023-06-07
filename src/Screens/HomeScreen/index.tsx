@@ -1,13 +1,7 @@
 import React from 'react';
 import {propOr} from 'ramda';
 
-import {
-  AppText,
-  AttendedToastmastersSessions,
-  ScreenWrapper,
-  Spacer,
-  StatCard,
-} from 'Components';
+import {AppText, AttendedToastmastersSessions, ScreenWrapper, Spacer, StatCard} from 'Components';
 import {Container} from './styles';
 import {Row} from 'Styles';
 import PerformanceChart from './Components/PerformanceChart';
