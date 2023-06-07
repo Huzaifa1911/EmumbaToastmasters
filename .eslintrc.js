@@ -4,7 +4,13 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'prettier', '@react-native-community'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    '@react-native-community',
+  ],
   rules: {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
@@ -13,7 +19,6 @@ module.exports = {
     curly: 'off',
     'react-hooks/exhaustive-deps': 'warn',
     '@typescript-eslint/no-unused-vars': 'error',
-    'prettier/prettier': ['error', {endOfLine: 'off'}],
   },
   settings: {
     'import/resolver': {

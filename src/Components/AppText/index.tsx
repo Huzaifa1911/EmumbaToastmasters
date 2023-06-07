@@ -7,7 +7,9 @@ import {ButtonWrapper, Wrapper} from './styles';
 import {Spacer} from 'Components';
 import {TAppColors, useAppTheme} from 'Assets';
 
-const PaperText = customText<'italic' | 'bold' | 'medium' | 'regular' | 'thin'>();
+const PaperText = customText<
+  'italic' | 'bold' | 'medium' | 'regular' | 'thin'
+>();
 
 export interface IAppTextProps {
   onPress?: () => void;
@@ -60,7 +62,11 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
       <Then>
         <Wrapper>
           <Spacer right={2}>{leftAccessory}</Spacer>
-          <PaperText variant={variant} style={appTextStyles} numberOfLines={numberOfLines} {...textProps}>
+          <PaperText
+            variant={variant}
+            style={appTextStyles}
+            numberOfLines={numberOfLines}
+            {...textProps}>
             {children}
           </PaperText>
           <Spacer left={2}>{rightAccessory}</Spacer>
@@ -70,7 +76,11 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
       <Else>
         <ButtonWrapper onPress={onPress}>
           <Spacer right={2}>{leftAccessory}</Spacer>
-          <PaperText variant={variant} style={appTextStyles} numberOfLines={numberOfLines} {...textProps}>
+          <PaperText
+            variant={variant}
+            style={appTextStyles}
+            numberOfLines={numberOfLines}
+            {...textProps}>
             {children}
           </PaperText>
           <Spacer left={2}>{rightAccessory}</Spacer>

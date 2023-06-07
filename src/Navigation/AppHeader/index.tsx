@@ -15,47 +15,66 @@ const getHeaderInfo = (route: string) => {
     case SCREENS.HOME_SCREEN:
       return {
         title: <HeaderLogo />,
-        leftAccessory: <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />,
+        leftAccessory: (
+          <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />
+        ),
       };
     case SCREENS.LEADER_BOARD_SCREEN:
       return {
         title: 'Leader Board',
-        leftAccessory: <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />,
+        leftAccessory: (
+          <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />
+        ),
       };
     case SCREENS.PROFILE_SCREEN:
       return {
         title: 'Profile',
-        leftAccessory: <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />,
+        leftAccessory: (
+          <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />
+        ),
       };
     case SCREENS.ALL_VOTING_POLLS_SCREEN:
       return {
         title: 'Voting Poll',
-        leftAccessory: <Appbar.BackAction size={18} onPress={NavigationService.goBack} />,
+        leftAccessory: (
+          <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
+        ),
       };
     case SCREENS.CAST_VOTE_SCREEN:
       return {
         title: 'Cast Vote',
-        leftAccessory: <Appbar.BackAction size={18} onPress={NavigationService.goBack} />,
+        leftAccessory: (
+          <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
+        ),
       };
     case SCREENS.VOTING_POLL_RESULT_SCREEN:
       return {
         title: 'Voting Results',
-        leftAccessory: <Appbar.BackAction size={18} onPress={NavigationService.goBack} />,
+        leftAccessory: (
+          <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
+        ),
       };
     case SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN:
       return {
         title: 'Attended Sessions',
-        leftAccessory: <Appbar.BackAction size={18} onPress={NavigationService.goBack} />,
+        leftAccessory: (
+          <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
+        ),
       };
     default:
       return {
         title: route,
-        leftAccessory: <Appbar.BackAction size={18} onPress={NavigationService.goBack} />,
+        leftAccessory: (
+          <Appbar.BackAction size={18} onPress={NavigationService.goBack} />
+        ),
       };
   }
 };
 
-const AppHeader = ({route, options}: DrawerHeaderProps | BottomTabHeaderProps) => {
+const AppHeader = ({
+  route,
+  options,
+}: DrawerHeaderProps | BottomTabHeaderProps) => {
   const {leftAccessory, title} = getHeaderInfo(route.name);
 
   return (

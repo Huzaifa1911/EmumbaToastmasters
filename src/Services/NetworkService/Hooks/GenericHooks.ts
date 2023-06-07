@@ -1,18 +1,46 @@
-import {InfiniteData, QueryKey, useInfiniteQuery, useMutation, useQuery} from '@tanstack/react-query';
+import {
+  InfiniteData,
+  QueryKey,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
 import {useEffect} from 'react';
 import {AxiosError} from 'axios';
 
-import {InfiniteQueryArgs, MutationArgs, QueryArgs, QueryErrorResponse} from '../types';
+import {
+  InfiniteQueryArgs,
+  MutationArgs,
+  QueryArgs,
+  QueryErrorResponse,
+} from '../types';
 import {hideLoader, showLoader, updateUser, useAppDispatch} from 'Store';
 import {Log, showToast} from 'Utils';
 import {TPaginatedResponse} from 'Types';
 
-export const useAppQuery = <TQueryData, TSelectData = TQueryData>(args: QueryArgs<TQueryData, TSelectData>) => {
-  const {queryFn, queryKey, onError, onSuccess, select, showLoading, onSettled, options, refetchInterval} = args;
+export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
+  args: QueryArgs<TQueryData, TSelectData>,
+) => {
+  const {
+    queryFn,
+    queryKey,
+    onError,
+    onSuccess,
+    select,
+    showLoading,
+    onSettled,
+    options,
+    refetchInterval,
+  } = args;
 
   const dispatch = useAppDispatch();
 
-  const {isLoading, ...query} = useQuery<TQueryData, AxiosError<QueryErrorResponse>, TSelectData, QueryKey>(queryKey, queryFn, {
+  const {isLoading, ...query} = useQuery<
+    TQueryData,
+    AxiosError<QueryErrorResponse>,
+    TSelectData,
+    QueryKey
+  >(queryKey, queryFn, {
     ...options,
     onSuccess: data => {
       if (onSuccess) onSuccess(data);
@@ -48,8 +76,18 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(args: QueryArg
   return {isLoading, ...query};
 };
 
-export const useAppMutation = <TData, TVariables = null>(args: MutationArgs<TData, TVariables>) => {
-  const {onError, onMutate, onSettled, onSuccess, queryFn, options, showLoading} = args;
+export const useAppMutation = <TData, TVariables = null>(
+  args: MutationArgs<TData, TVariables>,
+) => {
+  const {
+    onError,
+    onMutate,
+    onSettled,
+    onSuccess,
+    queryFn,
+    options,
+    showLoading,
+  } = args;
 
   const dispatch = useAppDispatch();
 
@@ -83,11 +121,28 @@ export const useAppMutation = <TData, TVariables = null>(args: MutationArgs<TDat
   });
 };
 
-export const useAppInfiniteQuery = <TQueryData, TSelectData = TQueryData>(args: InfiniteQueryArgs<TQueryData, TSelectData>) => {
-  const {queryKey, queryFn, onError, onSettled, onSuccess, options, select, showLoading, refetchInterval} = args;
+export const useAppInfiniteQuery = <TQueryData, TSelectData = TQueryData>(
+  args: InfiniteQueryArgs<TQueryData, TSelectData>,
+) => {
+  const {
+    queryKey,
+    queryFn,
+    onError,
+    onSettled,
+    onSuccess,
+    options,
+    select,
+    showLoading,
+    refetchInterval,
+  } = args;
   const dispatch = useAppDispatch();
 
-  const {isLoading, ...query} = useInfiniteQuery<TPaginatedResponse<TQueryData>, AxiosError<QueryErrorResponse>, TSelectData, QueryKey>(queryKey, queryFn, {
+  const {isLoading, ...query} = useInfiniteQuery<
+    TPaginatedResponse<TQueryData>,
+    AxiosError<QueryErrorResponse>,
+    TSelectData,
+    QueryKey
+  >(queryKey, queryFn, {
     ...options,
 
     onSuccess: data => {
@@ -121,7 +176,8 @@ export const useAppInfiniteQuery = <TQueryData, TSelectData = TQueryData>(args: 
     },
     getNextPageParam: lastPage => {
       const {current_page, num_pages, results} = lastPage;
-      if (current_page < num_pages && results.length < 100) return current_page + 1;
+      if (current_page < num_pages && results.length < 100)
+        return current_page + 1;
       else undefined;
     },
     refetchInterval,

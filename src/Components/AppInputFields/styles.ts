@@ -12,17 +12,19 @@ type TPaperTextInput = {
   isFocused: boolean;
 } & AppTheme.ThemeType;
 
-export const PaperTextInput = styled(TextInput).attrs<TPaperTextInput>(({isFlat, theme, isFocused}: TPaperTextInput) => ({
-  contentStyle: {
-    ...(isFlat && {
-      backgroundColor: theme?.colors.background,
-      borderWidth: 1,
-      borderRadius: 6,
-      borderColor: isFocused ? theme?.colors.primary : theme?.colors.outline,
-    }),
-  },
-  outlineStyle: {borderRadius: 6, borderWidth: 1},
-}))<TPaperTextInput>(({theme, isFlat}: TPaperTextInput) => ({
+export const PaperTextInput = styled(TextInput).attrs<TPaperTextInput>(
+  ({isFlat, theme, isFocused}: TPaperTextInput) => ({
+    contentStyle: {
+      ...(isFlat && {
+        backgroundColor: theme?.colors.background,
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: isFocused ? theme?.colors.primary : theme?.colors.outline,
+      }),
+    },
+    outlineStyle: {borderRadius: 6, borderWidth: 1},
+  }),
+)<TPaperTextInput>(({theme, isFlat}: TPaperTextInput) => ({
   ...(!isFlat && {backgroundColor: theme?.colors.background}),
   fontSize: 14,
 }));

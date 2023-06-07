@@ -19,12 +19,22 @@ const PollTypeSheet = ({onProceedNext}: IPollTypeSheetProps) => {
         {POLL_TYPES.map((type, index) => {
           const isSelected = selectedPollType?.title === type.title;
 
-          return <PollTypeButton key={type.title + index.toString()} title={type.title} isSelected={isSelected} onPress={() => setSelectedPollType(type)} />;
+          return (
+            <PollTypeButton
+              key={type.title + index.toString()}
+              title={type.title}
+              isSelected={isSelected}
+              onPress={() => setSelectedPollType(type)}
+            />
+          );
         })}
       </ListContent>
 
       <Spacer top={30} />
-      <NextButton mode="contained" disabled={isEmptyOrNill(selectedPollType)} onPress={() => onProceedNext(selectedPollType)}>
+      <NextButton
+        mode="contained"
+        disabled={isEmptyOrNill(selectedPollType)}
+        onPress={() => onProceedNext(selectedPollType)}>
         Next
       </NextButton>
     </Container>

@@ -10,7 +10,11 @@ interface IBottomSheetTitleProps {
   onCloseSheet?: () => void;
 }
 
-const BottomSheetTitle = ({title, onCloseSheet, titleProps}: IBottomSheetTitleProps) => {
+const BottomSheetTitle = ({
+  title,
+  onCloseSheet,
+  titleProps,
+}: IBottomSheetTitleProps) => {
   return (
     <TitleWrapper>
       <Flex>

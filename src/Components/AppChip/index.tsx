@@ -14,7 +14,14 @@ interface IAppChipProps {
 }
 
 const AppChip = (props: IAppChipProps) => {
-  const {label, chipColor = 'onSurfaceDisabled', height = 25, labelProps, left, right} = props;
+  const {
+    label,
+    chipColor = 'onSurfaceDisabled',
+    height = 25,
+    labelProps,
+    left,
+    right,
+  } = props;
 
   return (
     <StyledChip backgroundColor={chipColor} height={height}>

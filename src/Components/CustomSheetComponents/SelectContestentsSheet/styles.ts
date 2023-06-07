@@ -10,8 +10,10 @@ export const ScrollContent = styled(ScrollView).attrs(() => ({
   },
 }))({});
 
-export const CreatePollButton = styled(AppButton).attrs(({theme}: AppTheme.ThemeType) => ({
-  textColor: theme?.colors.white,
-  labelStyle: {fontSize: 16, fontWeight: 'bold'},
-  mode: 'contained',
-}))({marginHorizontal: 16, marginBottom: 50});
+export const CreatePollButton = styled(AppButton).attrs(
+  ({theme}: AppTheme.ThemeType) => ({
+    textColor: theme?.colors.white,
+    labelStyle: {fontSize: 16, fontWeight: 'bold'},
+    mode: 'contained',
+  }),
+)({marginHorizontal: 16, marginBottom: 50});

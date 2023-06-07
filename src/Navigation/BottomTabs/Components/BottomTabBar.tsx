@@ -5,7 +5,12 @@ import {CommonActions} from '@react-navigation/native';
 
 import {useAppTheme} from 'Assets';
 
-const BottomTabBar = ({descriptors, insets, navigation, state}: BottomTabBarProps) => {
+const BottomTabBar = ({
+  descriptors,
+  insets,
+  navigation,
+  state,
+}: BottomTabBarProps) => {
   const {colors} = useAppTheme();
 
   return (

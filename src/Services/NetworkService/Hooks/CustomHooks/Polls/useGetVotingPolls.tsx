@@ -5,7 +5,8 @@ import {API_HELPERS} from 'Services';
 export const useGetVotingPolls = ({showLoading = false}: TShowLoading) => {
   return useAppInfiniteQuery<TFormattedVotingPoll>({
     queryKey: ['VOTING_POLLS'],
-    queryFn: async ({pageParam = 1}) => await API_HELPERS.getVotingPolls(pageParam),
+    queryFn: async ({pageParam = 1}) =>
+      await API_HELPERS.getVotingPolls(pageParam),
     showLoading,
   });
 };

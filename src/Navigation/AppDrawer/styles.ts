@@ -6,23 +6,28 @@ import {TColorScheme} from 'Types';
 
 export const Container = styled(Layout)({flex: 1, paddingBottom: 50});
 
-export const ProfileWrapper = styled(View)(({theme, mode}: {mode: TColorScheme} & AppTheme.ThemeType) => ({
-  height: 180,
-  paddingTop: 15,
-  paddingLeft: 20,
-  alignItems: 'center',
-  flexDirection: 'row' as const,
-  backgroundColor: mode === 'light' ? theme?.colors.primary : theme?.colors.surfaceVariant,
-}));
+export const ProfileWrapper = styled(View)(
+  ({theme, mode}: {mode: TColorScheme} & AppTheme.ThemeType) => ({
+    height: 180,
+    paddingTop: 15,
+    paddingLeft: 20,
+    alignItems: 'center',
+    flexDirection: 'row' as const,
+    backgroundColor:
+      mode === 'light' ? theme?.colors.primary : theme?.colors.surfaceVariant,
+  }),
+);
 
-export const StyledDrawerItem = styled(TouchableOpacity)(({backgroundColor}: {backgroundColor: string}) => ({
-  backgroundColor,
-  paddingHorizontal: 16,
-  height: 40,
-  flexDirection: 'row' as const,
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  borderRadius: 8,
-  marginHorizontal: 10,
-  marginVertical: 5,
-}));
+export const StyledDrawerItem = styled(TouchableOpacity)(
+  ({backgroundColor}: {backgroundColor: string}) => ({
+    backgroundColor,
+    paddingHorizontal: 16,
+    height: 40,
+    flexDirection: 'row' as const,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 8,
+    marginHorizontal: 10,
+    marginVertical: 5,
+  }),
+);

@@ -13,7 +13,9 @@ const CardSkeleton = (props: ICardSkeletonProps) => {
   const {colors} = useTheme();
 
   return (
-    <SkeletonPlaceholder borderRadius={borderRadius} backgroundColor={colors.surfaceVariant}>
+    <SkeletonPlaceholder
+      borderRadius={borderRadius}
+      backgroundColor={colors.surfaceVariant}>
       <SkeletonPlaceholder.Item width={width} height={height} />
     </SkeletonPlaceholder>
   );

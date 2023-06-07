@@ -1,5 +1,8 @@
 import React from 'react';
-import {DrawerContentComponentProps, DrawerContentScrollView} from '@react-navigation/drawer';
+import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
 import {Divider, Switch} from 'react-native-paper';
 
 import {Container, ProfileWrapper} from './styles';
@@ -9,10 +12,17 @@ import {AppText, ProfileAvatar, Spacer} from 'Components';
 import {NavigationService, useLogout} from 'Services';
 import {SCREENS} from 'Utils';
 import {useAppTheme} from 'Assets';
-import {selectTheme, selectUser, updateTheme, useAppDispatch, useAppSelector} from 'Store';
+import {
+  selectTheme,
+  selectUser,
+  updateTheme,
+  useAppDispatch,
+  useAppSelector,
+} from 'Store';
 import {propOr} from 'ramda';
 
-const goToAllVotingPollScreen = () => NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
+const goToAllVotingPollScreen = () =>
+  NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
 
 const AppDrawer = (props: DrawerContentComponentProps) => {
   const {colors} = useAppTheme();
@@ -44,13 +54,28 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
 
       {/* Navigation Screen */}
       <DrawerContentScrollView {...props}>
-        <DrawerItem label="Voting Poll" left={<VotingPollIcon size={18} />} right={<AngleRightIcon size={18} />} onPress={goToAllVotingPollScreen} />
+        <DrawerItem
+          label="Voting Poll"
+          left={<VotingPollIcon size={18} />}
+          right={<AngleRightIcon size={18} />}
+          onPress={goToAllVotingPollScreen}
+        />
       </DrawerContentScrollView>
 
       {/* Logout button and dark mode switch  */}
       <Divider />
-      <DrawerItem label="Logout" right={<AngleRightIcon size={18} color={colors.error} />} left={<LogoutIcon size={18} color={colors.error} />} type="danger" onPress={onLogout} />
-      <DrawerItem label="Light Mode" left={<SunIcon size={18} />} right={<Switch value={isDarkMode} onValueChange={toggleDarkMode} />} />
+      <DrawerItem
+        label="Logout"
+        right={<AngleRightIcon size={18} color={colors.error} />}
+        left={<LogoutIcon size={18} color={colors.error} />}
+        type="danger"
+        onPress={onLogout}
+      />
+      <DrawerItem
+        label="Light Mode"
+        left={<SunIcon size={18} />}
+        right={<Switch value={isDarkMode} onValueChange={toggleDarkMode} />}
+      />
     </Container>
   );
 };

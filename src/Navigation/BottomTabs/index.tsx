@@ -12,7 +12,10 @@ const {Navigator, Screen} = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
-    <Navigator screenOptions={{header: AppHeader}} safeAreaInsets={{bottom: isIOS ? 8 : 0}} tabBar={props => <BottomTabBar {...props} />}>
+    <Navigator
+      screenOptions={{header: AppHeader}}
+      safeAreaInsets={{bottom: isIOS ? 8 : 0}}
+      tabBar={props => <BottomTabBar {...props} />}>
       {BOTTOM_TABS.map((tab, index) => (
         <Screen
           key={tab.name + index.toString()}
@@ -20,7 +23,14 @@ const BottomTabNavigator = () => {
           component={tab.component}
           options={{
             title: tab.title,
-            tabBarIcon: ({size, color}) => <VectorIcon iconType={tab.icon.type} name={tab.icon.name} size={size} color={color} />,
+            tabBarIcon: ({size, color}) => (
+              <VectorIcon
+                iconType={tab.icon.type}
+                name={tab.icon.name}
+                size={size}
+                color={color}
+              />
+            ),
           }}
         />
       ))}

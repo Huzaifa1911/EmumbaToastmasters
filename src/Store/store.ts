@@ -1,6 +1,16 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {PersistConfig, persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
+import {
+  PersistConfig,
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import themeReducer from './Theme';
@@ -21,7 +31,10 @@ const reducer = combineReducers({
   appUser: userReducer,
 });
 
-const persistedReducer = persistReducer<ReturnType<typeof reducer>>(persistConfig, reducer);
+const persistedReducer = persistReducer<ReturnType<typeof reducer>>(
+  persistConfig,
+  reducer,
+);
 
 const store = configureStore({
   reducer: persistedReducer,

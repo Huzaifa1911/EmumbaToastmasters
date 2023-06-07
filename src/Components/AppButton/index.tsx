@@ -12,7 +12,13 @@ const AppButton = (props: IAppButtonProps) => {
   const {children, height = 50, width, shiftIconToRight, mode, ...rest} = props;
 
   return (
-    <ButtonWrapper outlined={mode === 'outlined'} mode={mode} height={height} width={width} shiftIconToRight={shiftIconToRight} {...rest}>
+    <ButtonWrapper
+      outlined={mode === 'outlined'}
+      mode={mode}
+      height={height}
+      width={width}
+      shiftIconToRight={shiftIconToRight}
+      {...rest}>
       {children}
     </ButtonWrapper>
   );

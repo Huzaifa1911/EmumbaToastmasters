@@ -15,7 +15,10 @@ const PollTypeButton = ({isSelected, title, onPress}: IPollTypeButtonProps) => {
   const status = isSelected ? 'checked' : 'unchecked';
 
   return (
-    <PollButtonContainer isSelected={isSelected} activeOpacity={0.7} onPress={onPress}>
+    <PollButtonContainer
+      isSelected={isSelected}
+      activeOpacity={0.7}
+      onPress={onPress}>
       <RadioButton.Android value="" status={status} />
 
       <Wrapper>

@@ -26,4 +26,6 @@ export type TCardContainer = {
   borderColor: AppTheme.TColors;
 } & AppTheme.ThemeType;
 
-export type TCardContentContainer = {roundness: number} & TInnerCardSpacerProps;
+export type TCardContentContainer = {
+  roundness: number;
+} & TInnerCardSpacerProps;

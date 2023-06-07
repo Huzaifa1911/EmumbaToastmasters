@@ -2,7 +2,18 @@ import {AxiosError} from 'axios';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {SCREENS} from 'Utils';
 
-export type IconType = 'Feather' | 'FontAwesome' | 'Ionicons' | 'Foundation' | 'MaterialCommunityIcons' | 'MaterialIcons' | 'Entypo' | 'AntDesign' | 'Octicons' | 'FontAwesome5' | 'SimpleLineIcons';
+export type IconType =
+  | 'Feather'
+  | 'FontAwesome'
+  | 'Ionicons'
+  | 'Foundation'
+  | 'MaterialCommunityIcons'
+  | 'MaterialIcons'
+  | 'Entypo'
+  | 'AntDesign'
+  | 'Octicons'
+  | 'FontAwesome5'
+  | 'SimpleLineIcons';
 
 export type VectorIconType = {
   iconType: IconType;
@@ -134,4 +145,8 @@ export type TError = AxiosError<{detail: string}>;
 
 export type TRole = {id: number; name: string};
 
-export type TPerformedRole = {id: number; participation: number; role: number};
+export type TPerformedRole = {
+  id: number;
+  participation: number;
+  role: number;
+};

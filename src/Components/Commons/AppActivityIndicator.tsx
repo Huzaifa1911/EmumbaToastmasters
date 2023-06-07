@@ -9,7 +9,11 @@ interface IAppActivityIndicator extends ActivityIndicatorProps {
   spacerProps?: ISpacerProps;
 }
 
-const AppActivityIndicator = ({isLoading, spacerProps, ...rest}: IAppActivityIndicator) => {
+const AppActivityIndicator = ({
+  isLoading,
+  spacerProps,
+  ...rest
+}: IAppActivityIndicator) => {
   return (
     <When condition={isLoading}>
       <Spacer {...spacerProps}>

@@ -5,7 +5,20 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
-import {TAttendedEvent, TDataItem, TEvent, TFormattedVotingPoll, TGamificationPoint, TLoginPayload, TPaginatedResponse, TPerformedRole, TPollType, TRole, TUser, TVotingPoll} from 'Types';
+import {
+  TAttendedEvent,
+  TDataItem,
+  TEvent,
+  TFormattedVotingPoll,
+  TGamificationPoint,
+  TLoginPayload,
+  TPaginatedResponse,
+  TPerformedRole,
+  TPollType,
+  TRole,
+  TUser,
+  TVotingPoll,
+} from 'Types';
 import {ROUTES} from './Routes';
 import {axiosInstance} from './config';
 import {ReduxStore} from 'Store';
@@ -14,8 +27,14 @@ import {KeychainStorageService} from 'Services';
 
 const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   try {
-    const {data} = (await axiosInstance.post(ROUTES.LOGIN, payload)) as AxiosResponse<{access: string; refresh: string}>;
-    await KeychainStorageService.setToken(AUTHORIZATION.ACCESS_TOKEN, data.access);
+    const {data} = (await axiosInstance.post(
+      ROUTES.LOGIN,
+      payload,
+    )) as AxiosResponse<{access: string; refresh: string}>;
+    await KeychainStorageService.setToken(
+      AUTHORIZATION.ACCESS_TOKEN,
+      data.access,
+    );
     const jwtdata = await decodeJwtToken();
 
     const user = await getAllUsers<TUser>({
@@ -27,7 +46,9 @@ const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   }
 };
 
-const getAllAttendedEvents = async (pageParam = 1): Promise<TPaginatedResponse<TAttendedEvent>> => {
+const getAllAttendedEvents = async (
+  pageParam = 1,
+): Promise<TPaginatedResponse<TAttendedEvent>> => {
   try {
     const userId = ReduxStore.getState().appUser.user?.id;
     const {data} = (await axiosInstance.get(ROUTES.GET_EVENTS, {
@@ -47,7 +68,10 @@ const getAllAttendedEvents = async (pageParam = 1): Promise<TPaginatedResponse<T
         }
       })
       .map((event): TAttendedEvent => {
-        const performedRole = find(propEq(event.id, 'participation'), performedRoles);
+        const performedRole = find(
+          propEq(event.id, 'participation'),
+          performedRoles,
+        );
         const roleName = find(propEq(performedRole?.role ?? 0, 'id'), roles);
         return {
           performedRole: roleName?.name ?? '',
@@ -75,7 +99,9 @@ const getAllRoles = async (): Promise<TPaginatedResponse<TRole>> => {
   }
 };
 
-const getAllPerformedRoles = async (): Promise<TPaginatedResponse<TPerformedRole>> => {
+const getAllPerformedRoles = async (): Promise<
+  TPaginatedResponse<TPerformedRole>
+> => {
   try {
     const {
       data: {total = 0},
@@ -91,9 +117,18 @@ const getAllPerformedRoles = async (): Promise<TPaginatedResponse<TPerformedRole
   }
 };
 
-const getAllUsers = async <T = TPaginatedResponse<TUser>>({params, pathParams = []}: {params?: Record<string, any>; pathParams?: any[]}): Promise<T> => {
+const getAllUsers = async <T = TPaginatedResponse<TUser>>({
+  params,
+  pathParams = [],
+}: {
+  params?: Record<string, any>;
+  pathParams?: any[];
+}): Promise<T> => {
   try {
-    const {data} = (await axiosInstance.get(`${ROUTES.GET_USER_DETAILS}${pathParams.join('/')}`, {params})) as AxiosResponse<T>;
+    const {data} = (await axiosInstance.get(
+      `${ROUTES.GET_USER_DETAILS}${pathParams.join('/')}`,
+      {params},
+    )) as AxiosResponse<T>;
 
     return {...data};
   } catch (error) {
@@ -107,10 +142,19 @@ const getGamificationPoints = async (): Promise<TDataItem[]> => {
       data: {total = 0},
     } = await axiosInstance.get(ROUTES.GAMIFICATION_POINTS);
 
-    const {data: gamificationData} = await axiosInstance.get(ROUTES.GAMIFICATION_POINTS, {params: {_page_size: total}});
-    const pointsList: TGamificationPoint[] = propOr([], 'results', gamificationData);
+    const {data: gamificationData} = await axiosInstance.get(
+      ROUTES.GAMIFICATION_POINTS,
+      {params: {_page_size: total}},
+    );
+    const pointsList: TGamificationPoint[] = propOr(
+      [],
+      'results',
+      gamificationData,
+    );
 
-    const usersIds = [...new Set(pointsList.map(point => point.user))].join(',');
+    const usersIds = [...new Set(pointsList.map(point => point.user))].join(
+      ',',
+    );
 
     const {results: users = []} = await getAllUsers({
       params: {id__in: usersIds},
@@ -124,14 +168,17 @@ const getGamificationPoints = async (): Promise<TDataItem[]> => {
     });
 
     const results: TDataItem[] = Object.values(
-      combinedData.reduce((acc: {[key: string]: TDataItem}, {label, value}: TDataItem) => {
-        if (acc[label]) {
-          acc[label].value += value;
-        } else {
-          acc[label] = {label, value};
-        }
-        return acc;
-      }, {}),
+      combinedData.reduce(
+        (acc: {[key: string]: TDataItem}, {label, value}: TDataItem) => {
+          if (acc[label]) {
+            acc[label].value += value;
+          } else {
+            acc[label] = {label, value};
+          }
+          return acc;
+        },
+        {},
+      ),
     )
       .sort((a, b) => a.value - b.value)
       .reverse();
@@ -153,7 +200,9 @@ const getPollTypes = async (): Promise<TPaginatedResponse<TPollType>> => {
   }
 };
 
-const getVotingPolls = async (pageParam = 1): Promise<TPaginatedResponse<TFormattedVotingPoll>> => {
+const getVotingPolls = async (
+  pageParam = 1,
+): Promise<TPaginatedResponse<TFormattedVotingPoll>> => {
   try {
     const {data} = (await axiosInstance.get(ROUTES.GET_ALL_VOTING_POLLS, {
       params: {current_page: pageParam},

@@ -17,17 +17,19 @@ export const ChartLoader = styled(View)({
   borderRadius: 11,
 });
 
-export const StyledBarChart = styled(BarChart).attrs(({theme}: AppTheme.ThemeType) => ({
-  yAxisTextStyle: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: theme?.colors.outline,
-  },
-  xAxisLabelTextStyle: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: theme?.colors.outline,
-    alignSelf: 'center',
-  },
-  yAxisLabelContainerStyle: {width: 25},
-}))({});
+export const StyledBarChart = styled(BarChart).attrs(
+  ({theme}: AppTheme.ThemeType) => ({
+    yAxisTextStyle: {
+      fontSize: 10,
+      fontWeight: '600',
+      color: theme?.colors.outline,
+    },
+    xAxisLabelTextStyle: {
+      fontSize: 10,
+      fontWeight: '600',
+      color: theme?.colors.outline,
+      alignSelf: 'center',
+    },
+    yAxisLabelContainerStyle: {width: 25},
+  }),
+)({});

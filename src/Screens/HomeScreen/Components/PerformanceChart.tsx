@@ -8,7 +8,9 @@ import {useGetGamificationPoints} from 'Services';
 const PerformanceChart = () => {
   const {colors} = useAppTheme();
 
-  const {data = [], isLoading} = useGetGamificationPoints({showLoading: false});
+  const {data = [], isLoading} = useGetGamificationPoints({
+    showLoading: false,
+  });
 
   return (
     <>

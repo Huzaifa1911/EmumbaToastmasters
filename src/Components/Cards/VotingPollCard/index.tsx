@@ -14,13 +14,21 @@ interface IVotingPollCardProps {
 const VotingPollCard = (props: IVotingPollCardProps) => {
   const {votingPoll = {}, onPress} = props;
 
-  const {question = '', is_active = false, timestamp = 0} = votingPoll as TFormattedVotingPoll;
+  const {
+    question = '',
+    is_active = false,
+    timestamp = 0,
+  } = votingPoll as TFormattedVotingPoll;
 
   const {label, color} = getVotingPollStatus(is_active);
   const date = `About ${getTimeDifference(timestamp)}`;
 
   return (
-    <AppCard mode="contained" height={100} innerSpacerProps={{horizontal: 12}} onPress={onPress}>
+    <AppCard
+      mode="contained"
+      height={100}
+      innerSpacerProps={{horizontal: 12}}
+      onPress={onPress}>
       <RowContent>
         {/* Info Content */}
         <TextWrapper>

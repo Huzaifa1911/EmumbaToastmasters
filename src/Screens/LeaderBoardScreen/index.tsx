@@ -63,7 +63,12 @@ const LeaderBoardScreen = () => {
         <TopParticipants first={first} second={second} third={third} />
       </ScreenContainer>
       <Spacer>
-        <ParticipantFlatList data={otherParticipants} keyExtractor={(_, index) => index.toString()} renderItem={renderItem} ItemSeparatorComponent={() => <Spacer top={15} />} />
+        <ParticipantFlatList
+          data={otherParticipants}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={renderItem}
+          ItemSeparatorComponent={() => <Spacer top={15} />}
+        />
       </Spacer>
     </ScreenWrapper>
   );
