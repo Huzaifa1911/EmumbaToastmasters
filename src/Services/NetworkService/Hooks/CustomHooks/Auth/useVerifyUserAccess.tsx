@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
 import {TShowLoading, TUser} from 'Types';
-import {ROUTES, axiosInstance, useAppQuery} from 'Services';
+import {API_HELPERS, useAppQuery} from 'Services';
 import {decodeJwtToken} from 'Utils';
 import {updateUser, useAppDispatch} from 'Store';
 
@@ -21,9 +21,7 @@ export const useVerifyUserAccess = ({showLoading = false}: TShowLoading) => {
     queryKey: ['APP_USER'],
     queryFn: async () => {
       const jwtData = await decodeJwtToken();
-      return axiosInstance.get(
-        `${ROUTES.GET_USER_DETAILS}/${jwtData?.user_id}`,
-      );
+      return API_HELPERS.getAllUsers<TUser>({pathParams: [jwtData?.user_id]});
     },
     showLoading,
     onSuccess,

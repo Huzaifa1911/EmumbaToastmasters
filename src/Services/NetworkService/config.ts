@@ -25,7 +25,6 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(async config => {
   if (!config.headers.Authorization) {
     const token = await KeychainStorageService.getToken();
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

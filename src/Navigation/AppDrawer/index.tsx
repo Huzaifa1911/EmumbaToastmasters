@@ -19,6 +19,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'Store';
+import {propOr} from 'ramda';
 
 const goToAllVotingPollScreen = () =>
   NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
@@ -30,7 +31,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
   const user = useAppSelector(selectUser);
   const {mutate: onLogout} = useLogout({showLoading: true});
 
-  const name = user?.username;
+  const name: string = propOr('User', 'first_name', user);
 
   const isDarkMode = theme === 'light';
 

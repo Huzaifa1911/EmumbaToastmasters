@@ -2,54 +2,67 @@
 
 import React from 'react';
 import {FlatList, StyleProp, ViewStyle} from 'react-native';
+import {propOr} from 'ramda';
 
-import {ToastmasterAttendedSessionCard, Spacer} from 'Components';
-import {ToastmasterAttendedSessionType} from 'Types';
+import {
+  ToastmasterAttendedSessionCard,
+  Spacer,
+  AppActivityIndicator,
+} from 'Components';
+import {TAttendedEvent} from 'Types';
 import AttendedSessionListHeader from './Components/AttendedSessionListHeader';
-
-const SESSION: ToastmasterAttendedSessionType[] = [
-  {
-    performedRole: 'Timer',
-    theme: 'The Power of Small Acts',
-    timestamp: 1684084694348,
-  },
-  {
-    performedRole: 'Timer',
-    theme: 'The Power of Small Acts',
-    timestamp: 1684084694348,
-  },
-  {
-    performedRole: 'Timer',
-    theme: 'The Power of Small Acts',
-    timestamp: 1684084694348,
-  },
-];
+import {useGetAllAttendedEvents} from 'Services';
+import {CardSkeletonList} from 'Skeletons';
 
 interface IAttendedToastmasterSessions {
-  showViewAllComponent?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;
+  showLatestSessions?: boolean;
 }
 
 const AttendedToastmasterSessions = (props: IAttendedToastmasterSessions) => {
-  const {showViewAllComponent = false, contentContainerStyle} = props;
+  const {contentContainerStyle, showLatestSessions = false} = props;
 
-  const renderItem = ({item}: {item: ToastmasterAttendedSessionType}) => {
+  const {data, isFetchingNextPage, hasNextPage, fetchNextPage, isLoading} =
+    useGetAllAttendedEvents({showLoading: false});
+
+  const sessions: TAttendedEvent[] = propOr([], 'pages', data);
+  const latestSessions = showLatestSessions ? sessions.slice(0, 5) : sessions;
+
+  const onLoadMoreData = () => {
+    if (hasNextPage && !showLatestSessions) {
+      fetchNextPage();
+    }
+  };
+
+  const renderItem = ({item}: {item: TAttendedEvent}) => {
     return <ToastmasterAttendedSessionCard session={item} />;
   };
 
   return (
     <>
       <FlatList
+        data={latestSessions}
+        contentContainerStyle={contentContainerStyle}
+        keyExtractor={(item, index) => item.id + index.toString()}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <Spacer top={10} />}
+        onEndReached={onLoadMoreData}
         ListHeaderComponent={
           <AttendedSessionListHeader
-            showViewAllComponent={showViewAllComponent}
+            showViewAllComponent={sessions.length > 5}
           />
         }
-        data={SESSION}
-        contentContainerStyle={contentContainerStyle}
-        keyExtractor={(item, index) => item.theme + index.toString()}
-        renderItem={renderItem}
-        ItemSeparatorComponent={() => <Spacer top={14} />}
+        ListFooterComponent={
+          <AppActivityIndicator
+            isLoading={isFetchingNextPage}
+            spacerProps={{top: 10}}
+          />
+        }
+      />
+      <CardSkeletonList
+        isLoading={isLoading}
+        length={5}
+        spacerProps={{top: 5}}
       />
     </>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import {propOr} from 'ramda';
 
 import {
   AppText,
@@ -13,12 +14,13 @@ import PerformanceChart from './Components/PerformanceChart';
 import {selectUser, useAppSelector} from 'Store';
 
 const HomeScreen = () => {
-  const username = useAppSelector(selectUser)?.username;
+  const name = propOr('', 'first_name', useAppSelector(selectUser));
+
   return (
     <ScreenWrapper type="scroll">
       <Container>
         <AppText variant="medium" size={20}>
-          {`Good Morning 👋\nToastmaster ${username}`}
+          {`Good Morning 👋\nToastmaster ${name}`}
         </AppText>
         <Spacer top={30} bottom={10}>
           <Row>
@@ -39,7 +41,7 @@ const HomeScreen = () => {
         <PerformanceChart />
 
         {/* Attended Sessions List */}
-        <AttendedToastmastersSessions showViewAllComponent />
+        <AttendedToastmastersSessions showLatestSessions />
       </Container>
     </ScreenWrapper>
   );

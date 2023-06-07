@@ -7,19 +7,9 @@ import {
   UseInfiniteQueryOptions,
   UseQueryOptions,
 } from '@tanstack/react-query';
+import {TPaginatedResponse} from 'Types';
 
-import {AxiosError, AxiosResponse} from 'axios';
-
-type data<T> = {[k: string]: T[]};
-
-export type InfiniteQueryResponse<T> = {
-  data: {
-    previous_page: number;
-    next_page: number;
-    // total: number; // this is changing, needs to be same i.e., total from Backend
-    current_page: number;
-  } & data<T>;
-};
+import {AxiosError} from 'axios';
 
 export type QueryErrorResponse = {
   detail: string;
@@ -27,24 +17,24 @@ export type QueryErrorResponse = {
 
 export type QueryArgs<TQueryData, TSelectData = TQueryData> = {
   queryKey: QueryKey;
-  queryFn: QueryFunction<AxiosResponse<TQueryData>>;
+  queryFn: QueryFunction<TQueryData>;
   onSuccess?: (data: TQueryData | TSelectData) => void;
   onSettled?: (
     data: TSelectData | undefined,
     error: AxiosError<QueryErrorResponse> | null,
   ) => void;
-  select?: (data: AxiosResponse<TQueryData, any>) => TSelectData;
+  select?: (data: TQueryData) => TSelectData;
   onError?: (error: AxiosError<QueryErrorResponse>) => void;
   showLoading?: boolean;
   refetchInterval?: number | false;
   options?: Omit<
-    UseQueryOptions<AxiosResponse<TQueryData>, AxiosError<QueryErrorResponse>>,
+    UseQueryOptions<TQueryData, AxiosError<QueryErrorResponse>>,
     'onSuccess' | 'onError | onSettled' | 'refetchInterval' | 'select'
   >;
 };
 
 export type MutationArgs<TData, TVariables> = {
-  queryFn: MutationFunction<AxiosResponse<TData>, TVariables>;
+  queryFn: MutationFunction<TData, TVariables>;
   onSuccess?: (data: TData, variables: TVariables) => void;
   onError?: (
     error: AxiosError<QueryErrorResponse>,
@@ -64,8 +54,7 @@ export type MutationArgs<TData, TVariables> = {
 
 export type InfiniteQueryArgs<TQueryData, TSelectData = TQueryData> = {
   queryKey: QueryKey;
-  dataKey: string[];
-  queryFn: QueryFunction<AxiosResponse<InfiniteQueryResponse<TQueryData>>>;
+  queryFn: QueryFunction<TPaginatedResponse<TQueryData>>;
   showLoading?: boolean;
   refetchInterval?: number | false;
   onSuccess?: (data: InfiniteData<TSelectData>) => void;
@@ -74,12 +63,17 @@ export type InfiniteQueryArgs<TQueryData, TSelectData = TQueryData> = {
     data: InfiniteData<TSelectData> | undefined,
     error: AxiosError<QueryErrorResponse> | null,
   ) => void;
-  select?: (data: InfiniteData<TQueryData>) => TSelectData[];
+  select?: (data: TQueryData[]) => TSelectData[];
   options?: Omit<
     UseInfiniteQueryOptions<
-      AxiosResponse<InfiniteQueryResponse<TQueryData>>,
+      TPaginatedResponse<TQueryData>,
       AxiosError<QueryErrorResponse>
     >,
-    'onSuccess' | 'onError' | 'onSettled' | 'select' | 'refetchInterval'
+    | 'onSuccess'
+    | 'onError'
+    | 'onSettled'
+    | 'select'
+    | 'refetchInterval'
+    | 'getNextPageParam'
   >;
 };

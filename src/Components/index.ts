@@ -23,3 +23,5 @@ export {default as ViewAllTextComponent} from './Commons/ViewAllTextComponent';
 export {default as AttendedToastmastersSessions} from './AttendedToastmastersSession';
 export {default as PositionHolderCard} from './Cards/PositionHolderCard';
 export {default as AppLoader} from './AppLoader';
+export {default as AppActivityIndicator} from './Commons/AppActivityIndicator';
+export {default as Map} from './Commons/Map';

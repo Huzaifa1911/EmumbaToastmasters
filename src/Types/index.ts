@@ -1,3 +1,4 @@
+import {AxiosError} from 'axios';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {SCREENS} from 'Utils';
 
@@ -71,10 +72,18 @@ export type ToasmtasterType = {
   position: number;
 };
 
-export type ToastmasterAttendedSessionType = {
-  theme: string;
+export type TAttendedEvent = {
+  id: number;
+  type: string;
   timestamp: number;
   performedRole: string;
+};
+
+export type TEvent = {
+  id: number;
+  type: string;
+  held_on: string;
+  users: number[];
 };
 
 export type TJWTDecode = {
@@ -98,3 +107,35 @@ export type TUser = {
   last_login: string;
   username: string;
 };
+
+export type TDataItem = {
+  label: string;
+  value: number;
+};
+
+export type TGamificationPoint = {
+  id: number;
+  points: number;
+  performed: number;
+  user: number;
+};
+
+export type TPaginatedResponse<T> = {
+  total: number;
+  current_page: number;
+  num_pages: number;
+  per_page: number;
+  results: T[];
+};
+
+export type TQueryResponse<T> = {
+  results: T[];
+};
+
+export type TLoginPayload = {username: string; password: string};
+
+export type TError = AxiosError<{detail: string}>;
+
+export type TRole = {id: number; name: string};
+
+export type TPerformedRole = {id: number; participation: number; role: number};

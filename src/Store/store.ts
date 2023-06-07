@@ -31,7 +31,10 @@ const reducer = combineReducers({
   appUser: userReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer<ReturnType<typeof reducer>>(
+  persistConfig,
+  reducer,
+);
 
 const store = configureStore({
   reducer: persistedReducer,

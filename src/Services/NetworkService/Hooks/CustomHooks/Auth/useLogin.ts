@@ -1,39 +1,20 @@
 import {useCallback} from 'react';
 
-import {
-  KeychainStorageService,
-  ROUTES,
-  axiosInstance,
-  queryClient,
-  useAppMutation,
-} from 'Services';
+import {API_HELPERS, useAppMutation} from 'Services';
 import {updateUser, useAppDispatch} from 'Store';
-import {AUTHORIZATION, decodeJwtToken} from 'Utils';
-
-type TVariables = {username: string; password: string};
-type TResponse = {refresh: string; access: string};
+import {TLoginPayload, TUser} from 'Types';
+import {showToast} from 'Utils';
 
 export const useLogin = ({showLoading = false}: {showLoading?: boolean}) => {
   const dispatch = useAppDispatch();
 
-  const onSuccess = useCallback(async (data: TResponse) => {
-    await KeychainStorageService.setToken(
-      AUTHORIZATION.ACCESS_TOKEN,
-      data.access,
-    );
-    const jwtdata = await decodeJwtToken();
-
-    const {data: user} = await queryClient.fetchQuery({
-      queryKey: ['APP_USER'],
-      queryFn: () =>
-        axiosInstance.get(`${ROUTES.GET_USER_DETAILS}/${jwtdata?.user_id}`),
-    });
-
-    dispatch(updateUser({user}));
+  const onSuccess = useCallback(async (data: TUser) => {
+    showToast('Logged In Successfully', 'Login');
+    dispatch(updateUser({user: data}));
   }, []);
 
-  return useAppMutation<TResponse, TVariables>({
-    queryFn: payload => axiosInstance.post(ROUTES.LOGIN, payload),
+  return useAppMutation<TUser, TLoginPayload>({
+    queryFn: payload => API_HELPERS.loginWithUsername(payload),
     showLoading,
     onSuccess,
   });

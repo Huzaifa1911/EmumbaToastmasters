@@ -27,8 +27,8 @@ const LoginScreen = () => {
 
   const methods = useForm<TDefaultValues>({
     defaultValues: {
-      username: '',
-      password: '',
+      username: 'huzaifa.arshad@emumba.com',
+      password: 'asdf@123',
       rememberMe: 'unchecked',
     },
     mode: 'onChange',
