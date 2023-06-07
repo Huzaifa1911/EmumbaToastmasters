@@ -1,10 +1,22 @@
-import {QueryKey, useMutation, useQuery} from '@tanstack/react-query';
+import {
+  InfiniteData,
+  QueryKey,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
 import {useEffect} from 'react';
-import {AxiosError, AxiosResponse} from 'axios';
+import {AxiosError} from 'axios';
 
-import {MutationArgs, QueryArgs, QueryErrorResponse} from '../types';
+import {
+  InfiniteQueryArgs,
+  MutationArgs,
+  QueryArgs,
+  QueryErrorResponse,
+} from '../types';
 import {hideLoader, showLoader, updateUser, useAppDispatch} from 'Store';
-import {showToast} from 'Utils';
+import {Log, showToast} from 'Utils';
+import {TPaginatedResponse} from 'Types';
 
 export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
   args: QueryArgs<TQueryData, TSelectData>,
@@ -24,7 +36,7 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
   const dispatch = useAppDispatch();
 
   const {isLoading, ...query} = useQuery<
-    AxiosResponse<TQueryData>,
+    TQueryData,
     AxiosError<QueryErrorResponse>,
     TSelectData,
     QueryKey
@@ -38,8 +50,9 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
       if (onError) onError(error);
       else {
         const message = error.response?.data.detail;
+        Log(error.response?.data);
         showToast(message ?? '', 'Error', 'error');
-        if (error.status === 401) {
+        if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));
         }
       }
@@ -51,7 +64,7 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
     },
     select: data => {
       if (select) return select(data);
-      else return data.data as unknown as TSelectData;
+      else return data as unknown as TSelectData;
     },
     refetchInterval,
   });
@@ -81,7 +94,7 @@ export const useAppMutation = <TData, TVariables = null>(
   return useMutation(queryFn, {
     ...options,
     onSuccess: (data, variables) => {
-      if (onSuccess) onSuccess(data.data, variables);
+      if (onSuccess) onSuccess(data, variables);
     },
 
     onMutate: variables => {
@@ -95,7 +108,7 @@ export const useAppMutation = <TData, TVariables = null>(
         const message = error.response?.data.detail;
         showToast(message ?? '', 'Error', 'error');
 
-        if (error.status === 401) {
+        if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));
         }
       }
@@ -103,64 +116,76 @@ export const useAppMutation = <TData, TVariables = null>(
 
     onSettled: (data, error) => {
       if (showLoading) dispatch(hideLoader());
-      if (onSettled) onSettled(data?.data, error);
+      if (onSettled) onSettled(data, error);
     },
   });
 };
 
-// export const useAppInfiniteQuery = <TQueryData, TSelectData = TQueryData>(
-//   args: InfiniteQueryArgs<TQueryData, TSelectData>,
-// ) => {
-//   const {
-//     queryKey,
-//     queryFn,
-//     onError,
-//     onSettled,
-//     onSuccess,
-//     options,
-//     select,
-//     showLoading,
-//     dataKey,
-//     refetchInterval,
-//   } = args;
-//   const dispatch = useAppDispatch();
+export const useAppInfiniteQuery = <TQueryData, TSelectData = TQueryData>(
+  args: InfiniteQueryArgs<TQueryData, TSelectData>,
+) => {
+  const {
+    queryKey,
+    queryFn,
+    onError,
+    onSettled,
+    onSuccess,
+    options,
+    select,
+    showLoading,
+    refetchInterval,
+  } = args;
+  const dispatch = useAppDispatch();
 
-//   const {isLoading, ...query} = useInfiniteQuery<
-//     InfiniteQueryResponse<AxiosResponse<TQueryData>>,
-//     AxiosError<QueryErrorResponse>,
-//     TSelectData,
-//     QueryKey
-//   >(queryKey, queryFn, {
-//     ...options,
+  const {isLoading, ...query} = useInfiniteQuery<
+    TPaginatedResponse<TQueryData>,
+    AxiosError<QueryErrorResponse>,
+    TSelectData,
+    QueryKey
+  >(queryKey, queryFn, {
+    ...options,
 
-//     onSuccess: data => {
-//       if (onSuccess) onSuccess(data);
-//     },
+    onSuccess: data => {
+      if (onSuccess) onSuccess(data);
+    },
 
-//     onError: error => {
-//       if (onError) onError(error);
-//       else {
-//         const message = error.response?.data.message;
-//         // showToast(message ?? '', 'Error', 'error');
-//       }
-//     },
+    onError: error => {
+      if (onError) onError(error);
+      else {
+        const message = error.response?.data.detail;
+        showToast(message ?? '', 'Error', 'error');
+        if (error.response?.status === 401) {
+          dispatch(updateUser({user: null}));
+        }
+      }
+    },
 
-//     onSettled: (data, error) => {
-//       if (showLoading) dispatch(hideLoader);
-//       if (onSettled) onSettled(data, error);
-//     },
+    onSettled: (data, error) => {
+      // if (showLoading) dispatch(hideLoader());
+      if (onSettled) onSettled(data, error);
+    },
 
-//     select: data => {
-//       if (select) return select(data);
-//       return data;
-//     },
+    select: data => {
+      const {pageParams, pages} = data;
+      const formattedData = pages.flatMap(page => page.results);
+      if (select) return {pageParams, pages: select(formattedData)};
+      return {
+        pageParams,
+        pages: formattedData,
+      } as unknown as InfiniteData<TSelectData>;
+    },
+    getNextPageParam: lastPage => {
+      const {current_page, num_pages, results} = lastPage;
+      if (current_page < num_pages && results.length < 100)
+        return current_page + 1;
+      else undefined;
+    },
+    refetchInterval,
+  });
 
-//     refetchInterval,
-//   });
+  useEffect(() => {
+    if (showLoading && isLoading) dispatch(showLoader());
+  }, [isLoading, showLoading]);
 
-//   useEffect(() => {
-//     if (showLoading && isLoading) dispatch(showLoader);
-//   }, []);
-
-//   return {isLoading, ...query};
-// };
+  return {isLoading, ...query};
+};

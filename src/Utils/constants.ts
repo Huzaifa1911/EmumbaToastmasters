@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 
 export enum SCREENS {
   // screen names
@@ -40,3 +40,5 @@ export enum AUTHORIZATION {
   ACCESS_TOKEN = 'ACCESS_TOKEN',
   REFRESH_TOKEN = 'REFRESH_TOKEN',
 }
+
+export const TOTAL_WIDTH = Dimensions.get('screen').width;

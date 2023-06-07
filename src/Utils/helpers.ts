@@ -89,3 +89,10 @@ export const decodeJwtToken = async () => {
     return null;
   }
 };
+
+export const truncateString = (text: string, length = 15): string => {
+  if (text?.length > 0) {
+    return text.slice(0, length) + (text.length > length ? '...' : '');
+  }
+  return text;
+};

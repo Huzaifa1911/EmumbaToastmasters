@@ -7,6 +7,16 @@ export const Container = styled(View)({
   paddingVertical: 30,
 });
 
+export const ChartLoader = styled(View)({
+  height: '120%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute' as const,
+  left: 0,
+  right: 0,
+  borderRadius: 11,
+});
+
 export const StyledBarChart = styled(BarChart).attrs(
   ({theme}: AppTheme.ThemeType) => ({
     yAxisTextStyle: {

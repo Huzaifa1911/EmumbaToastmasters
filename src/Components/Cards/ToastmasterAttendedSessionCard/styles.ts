@@ -13,14 +13,12 @@ export const Container = styled(View)(() => ({
 
 export const TextContent = styled(View)(() => ({
   width: '83%',
-  // backgroundColor: 'red',
 }));
 
 export const CalendarIconContainer = styled(View)(({size}: TCalendarIcon) => ({
   height: size,
   width: size,
   alignItems: 'center',
-  //   justifyContent: 'center',
 }));
 
 export const MonthWrapper = styled(View)(({size, theme}: TCalendarIcon) => ({

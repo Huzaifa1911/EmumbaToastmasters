@@ -5,6 +5,7 @@ export {
   isIOS,
   BASE_URL,
   AUTHORIZATION,
+  TOTAL_WIDTH,
 } from './constants';
 export {
   getAlphaColor,
@@ -17,6 +18,7 @@ export {
   showToast,
   decodeJwtToken,
   Log,
+  truncateString,
 } from './helpers';
 
 export {loginSchema} from './schemas';

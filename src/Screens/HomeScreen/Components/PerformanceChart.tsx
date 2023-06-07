@@ -1,20 +1,14 @@
 import React from 'react';
 
-import {AppCard, AppText, Spacer} from 'Components';
+import {AppActivityIndicator, AppCard, AppText, Spacer} from 'Components';
 import {useAppTheme} from 'Assets';
-import {StyledBarChart} from '../styles';
+import {ChartLoader, StyledBarChart} from '../styles';
+import {useGetGamificationPoints} from 'Services';
 
 const PerformanceChart = () => {
   const {colors} = useAppTheme();
 
-  const barData = [
-    {value: 250, label: 'Huzaifa'},
-    {value: 500, label: 'Omar', frontColor: colors.primary},
-    {value: 745, label: 'Ali', frontColor: colors.primary},
-    {value: 320, label: 'Rauf'},
-    {value: 600, label: 'Usama', frontColor: colors.primary},
-    {value: 256, label: 'Hamza'},
-  ];
+  const {data = [], isLoading} = useGetGamificationPoints({showLoading: false});
 
   return (
     <>
@@ -25,6 +19,9 @@ const PerformanceChart = () => {
       </Spacer>
 
       <AppCard height={250} mode="contained">
+        <ChartLoader>
+          <AppActivityIndicator isLoading={isLoading} />
+        </ChartLoader>
         <StyledBarChart
           isAnimated
           animationDuration={500}
@@ -34,8 +31,8 @@ const PerformanceChart = () => {
           barWidth={35}
           noOfSections={5}
           barBorderRadius={5}
-          frontColor={colors.outline}
-          data={barData}
+          frontColor={colors.primary}
+          data={data}
           yAxisThickness={0}
           disablePress
           showYAxisIndices

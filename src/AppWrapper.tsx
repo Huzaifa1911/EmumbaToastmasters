@@ -11,9 +11,9 @@ import {useVerifyUserAccess} from 'Services';
 const AppWrapper = () => {
   useVerifyUserAccess({showLoading: true});
   const colorScheme = useAppSelector(selectTheme);
+  const isLoading = useAppSelector(selectLoading);
 
   const paperTheme = colorScheme === 'dark' ? AppDarkTheme : AppLightTheme;
-  const isLoading = useAppSelector(selectLoading);
 
   return (
     <PaperProvider theme={paperTheme}>
