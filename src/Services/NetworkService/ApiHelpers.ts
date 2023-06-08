@@ -1,5 +1,5 @@
 import {AxiosResponse} from 'axios';
-import {find, includes, propEq, propOr} from 'ramda';
+import {find, has, includes, propEq, propOr} from 'ramda';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -16,14 +16,17 @@ import {
   TPerformedRole,
   TPollType,
   TRole,
+  TStandardVotingPoll,
   TUser,
+  TVote,
   TVotingPoll,
 } from 'Types';
 import {ROUTES} from './Routes';
 import {axiosInstance} from './config';
 import {ReduxStore} from 'Store';
-import {AUTHORIZATION, decodeJwtToken} from 'Utils';
+import {AUTHORIZATION, decodeJwtToken, firstOrNull} from 'Utils';
 import {KeychainStorageService} from 'Services';
+import {TCastVotePayload} from './types';
 
 const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   try {
@@ -46,12 +49,32 @@ const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   }
 };
 
+export const castVote = async ({
+  method = 'post',
+  payload,
+}: {
+  payload: TCastVotePayload;
+  method: 'patch' | 'post';
+}): Promise<TVote> => {
+  try {
+    const url =
+      method === 'post' ? ROUTES.VOTES : `${ROUTES.VOTES}${payload.poll}`;
+    const {data} = (await axiosInstance[method](
+      url,
+      payload,
+    )) as AxiosResponse<TVote>;
+    return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 const getAllAttendedEvents = async (
   pageParam = 1,
 ): Promise<TPaginatedResponse<TAttendedEvent>> => {
   try {
     const userId = ReduxStore.getState().appUser.user?.id;
-    const {data} = (await axiosInstance.get(ROUTES.GET_EVENTS, {
+    const {data} = (await axiosInstance.get(ROUTES.EVENTS, {
       params: {current_page: pageParam},
     })) as AxiosResponse<TPaginatedResponse<TEvent>>;
 
@@ -90,7 +113,7 @@ const getAllAttendedEvents = async (
 
 const getAllRoles = async (): Promise<TPaginatedResponse<TRole>> => {
   try {
-    const {data} = (await axiosInstance.get(ROUTES.GET_ALL_ROLES, {
+    const {data} = (await axiosInstance.get(ROUTES.ROLES, {
       params: {_page_size: 10000},
     })) as AxiosResponse<TPaginatedResponse<TRole>>;
     return {...data};
@@ -105,9 +128,9 @@ const getAllPerformedRoles = async (): Promise<
   try {
     const {
       data: {total = 0},
-    } = await axiosInstance.get(ROUTES.GET_ALL_PERFORMED_ROLES);
+    } = await axiosInstance.get(ROUTES.PERFORMED_ROLES);
 
-    const {data} = (await axiosInstance.get(ROUTES.GET_ALL_PERFORMED_ROLES, {
+    const {data} = (await axiosInstance.get(ROUTES.PERFORMED_ROLES, {
       params: {_page_size: total},
     })) as AxiosResponse<TPaginatedResponse<TPerformedRole>>;
 
@@ -126,7 +149,7 @@ const getAllUsers = async <T = TPaginatedResponse<TUser>>({
 }): Promise<T> => {
   try {
     const {data} = (await axiosInstance.get(
-      `${ROUTES.GET_USER_DETAILS}${pathParams.join('/')}`,
+      `${ROUTES.USER}${pathParams.join('/')}`,
       {params},
     )) as AxiosResponse<T>;
 
@@ -191,7 +214,7 @@ const getGamificationPoints = async (): Promise<TDataItem[]> => {
 
 const getPollTypes = async (): Promise<TPaginatedResponse<TPollType>> => {
   try {
-    const {data} = (await axiosInstance.get(ROUTES.GET_ALL_POLL_TYPES, {
+    const {data} = (await axiosInstance.get(ROUTES.POLL_TYPES, {
       params: {_page_size: 100},
     })) as AxiosResponse<TPaginatedResponse<TPollType>>;
     return {...data};
@@ -200,18 +223,38 @@ const getPollTypes = async (): Promise<TPaginatedResponse<TPollType>> => {
   }
 };
 
-const getVotingPolls = async (
-  pageParam = 1,
-): Promise<TPaginatedResponse<TFormattedVotingPoll>> => {
+const getVotingPolls = async <T = TPaginatedResponse<TFormattedVotingPoll>>({
+  params,
+  pathParams = [],
+}: {
+  params?: Record<string, any>;
+  pathParams?: any[];
+}): Promise<T> => {
   try {
-    const {data} = (await axiosInstance.get(ROUTES.GET_ALL_VOTING_POLLS, {
-      params: {current_page: pageParam},
-    })) as AxiosResponse<TPaginatedResponse<TVotingPoll>>;
-
+    const {data} = (await axiosInstance.get(
+      `${ROUTES.VOTING_POLLS}${pathParams?.join('/')}`,
+      {params},
+    )) as AxiosResponse<T>;
     const {results: polltypes = []} = await getPollTypes();
 
-    const polls: TVotingPoll[] = propOr([], 'results', data);
-    const formattedPolls = polls.map((poll): TFormattedVotingPoll => {
+    if (has('results', data)) {
+      const polls: TVotingPoll[] = propOr([], 'results', data);
+
+      const formattedPolls = polls.map((poll): TFormattedVotingPoll => {
+        const question = find(propEq(poll.poll_type, 'id'), polltypes)?.name;
+
+        return {
+          id: poll.id,
+          is_active: poll.is_active,
+          question: question ? `Vote For ${question}` : '',
+          timestamp: dayjs(poll.created_at).valueOf(),
+          candidates: poll.candidates,
+          owner: poll.owner,
+        };
+      });
+      return {...data, results: formattedPolls};
+    } else {
+      const poll = {...data} as TVotingPoll;
       const question = find(propEq(poll.poll_type, 'id'), polltypes)?.name;
 
       return {
@@ -219,10 +262,72 @@ const getVotingPolls = async (
         is_active: poll.is_active,
         question: question ? `Vote For ${question}` : '',
         timestamp: dayjs(poll.created_at).valueOf(),
-      };
+        candidates: poll.candidates,
+        owner: poll.owner,
+      } as T;
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getAllVotes = async <T = TPaginatedResponse<TVote>>({
+  params = null,
+}: {
+  params?: Record<string, any> | null;
+}): Promise<T> => {
+  try {
+    const {data} = (await axiosInstance.get(ROUTES.VOTES, {
+      params,
+    })) as AxiosResponse<T>;
+
+    return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getActiveVotingPollDetails = async (
+  pollId: number,
+): Promise<TStandardVotingPoll> => {
+  try {
+    const poll = await getVotingPolls<TFormattedVotingPoll>({
+      pathParams: [pollId],
     });
 
-    return {...data, results: formattedPolls};
+    const {results: votes = []} = await getAllVotes({
+      params: {voter: ReduxStore.getState().appUser.user?.id},
+    });
+
+    const vote: TVote | null = firstOrNull(votes);
+
+    const {results: users = []} = await getAllUsers({
+      params: {id__in: [...poll.candidates, poll.owner].join(',')},
+    });
+
+    const owner = find(propEq(poll.owner, 'id'), users);
+    const castedVote = find(propEq(vote?.candidate ?? 0, 'id'), users);
+
+    const candidates = users
+      .filter(user => user.id !== poll.owner)
+      .map(candidate => {
+        return {
+          label: propOr('', 'first_name', candidate) as string,
+          value: candidate.id,
+        };
+      });
+
+    return {
+      id: poll.id,
+      createdBy: {
+        label: propOr('', 'first_name', owner),
+        value: propOr(0, 'id', owner),
+      },
+      question: poll.question,
+      timestamp: poll.timestamp,
+      candidates,
+      castedVote: propOr(0, 'id', castedVote),
+    };
   } catch (error) {
     return Promise.reject(error);
   }
@@ -237,4 +342,7 @@ export const API_HELPERS = Object.freeze({
   loginWithUsername,
   getPollTypes,
   getVotingPolls,
+  getActiveVotingPollDetails,
+  getAllVotes,
+  castVote,
 });

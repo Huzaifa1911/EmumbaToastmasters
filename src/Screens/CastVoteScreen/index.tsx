@@ -1,38 +1,64 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {AppRadioButton, AppText, ScreenWrapper, Spacer} from 'Components';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import {pathOr, propOr} from 'ramda';
+import {RadioButton} from 'react-native-paper';
+import {Controller, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 import {Container, SubmitButton} from './styles';
-import {TStandardVotingPoll} from 'Types';
-import {RadioButton} from 'react-native-paper';
-import {getTimeDifference, isEmptyOrNill} from 'Utils';
-import {find, propEq} from 'ramda';
+import {TDrawerParamList, TStandardVotingPoll} from 'Types';
+import {castVoteSchema, getTimeDifference} from 'Utils';
+import {useCastVote, useGetActiveVotingPollDetails} from 'Services';
+import {selectUser, useAppSelector} from 'Store';
 
-const POLL_DATA: TStandardVotingPoll = {
-  question: 'Who is the best of big 3?',
-  createdBy: 'Huzaifa',
-  timestamp: 1684084694348,
-  options: [
-    {label: 'Toastmaster Khalid', value: '1'},
-    {label: 'Toastmaster Usama', value: '2'},
-    {label: 'Toastmaster Huzaifa', value: '3'},
-  ],
-};
+type TDefaultValue = {selectedCandidate: number};
 
-const CastVoteScreen = () => {
-  const {question, createdBy, options, timestamp} = POLL_DATA;
+const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
+  const pollId = pathOr(0, ['params', 'pollId'], route);
+  const userId: number = propOr(0, 'id', useAppSelector(selectUser));
 
-  const info = `Created By ${createdBy} . ${getTimeDifference(timestamp)}`;
+  const {data: details = {}, isLoading} = useGetActiveVotingPollDetails({
+    showLoading: true,
+    pollId,
+  });
 
-  const [selectedOption, setSelectedOption] = useState('');
+  const {mutate: castVoteMutation} = useCastVote({showLoading: true});
 
-  const onSubmit = () => {
-    const option = find(propEq(selectedOption, 'value'), options);
+  const {
+    createdBy = {label: '', value: 0},
+    candidates = [],
+    question = '',
+    timestamp = 0,
+    castedVote = 0,
+    id = 0,
+  } = details as TStandardVotingPoll;
+
+  const {
+    control,
+    handleSubmit,
+    formState: {isValid, isDirty},
+  } = useForm<TDefaultValue>({
+    values: {selectedCandidate: castedVote},
+    resolver: yupResolver(castVoteSchema),
+    mode: 'onChange',
+  });
+
+  const info = `Created By ${createdBy.label} . ${getTimeDifference(
+    timestamp,
+  )}`;
+
+  const onCastVote = (data: TDefaultValue) => {
+    castVoteMutation({
+      payload: {candidate: data.selectedCandidate, poll: id, voter: userId},
+      method: castedVote === 0 ? 'post' : 'patch', // *if castedVote==0, which means voter havent casted a vote, so the  request to an endpoint will be `post`, otherwise `patch`
+    });
   };
 
   return (
     <ScreenWrapper>
       <Container>
-        <AppText size={20} variant="bold">
+        <AppText size={20} variant="bold" isLoading={isLoading}>
           {question}
         </AppText>
 
@@ -43,27 +69,33 @@ const CastVoteScreen = () => {
           </AppText>
         </Spacer>
 
-        <RadioButton.Group
-          value={selectedOption}
-          onValueChange={value => setSelectedOption(value)}>
-          {options.map((option, key) => {
-            return (
-              <AppRadioButton
-                spacerProps={{top: key !== 0 ? 5 : 0}}
-                key={option.value + key}
-                value={option.value}
-                label={option.label}
-              />
-            );
-          })}
-        </RadioButton.Group>
+        <Controller<TDefaultValue>
+          control={control}
+          name="selectedCandidate"
+          render={({field: {value: candidateId, onChange}}) => (
+            <RadioButton.Group
+              value={candidateId as unknown as string}
+              onValueChange={onChange}>
+              {candidates.map((candidate, key) => {
+                return (
+                  <AppRadioButton
+                    spacerProps={{top: key !== 0 ? 5 : 0}}
+                    key={candidate.label + key.toString()}
+                    value={candidate.value}
+                    label={candidate.label}
+                  />
+                );
+              })}
+            </RadioButton.Group>
+          )}
+        />
       </Container>
 
       {/* Submit Button */}
       <Spacer horizontal={16} bottom={60}>
         <SubmitButton
-          onPress={onSubmit}
-          disabled={isEmptyOrNill(selectedOption)}>
+          onPress={handleSubmit(onCastVote)}
+          disabled={!isValid || !isDirty}>
           Submit
         </SubmitButton>
       </Spacer>

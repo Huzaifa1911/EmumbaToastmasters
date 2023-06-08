@@ -5,7 +5,7 @@ import {ROUTES, axiosInstance} from 'Services';
 export const useGetAllParticipants = ({showLoading = false}: TShowLoading) => {
   return useAppInfiniteQuery<TUser>({
     queryFn: ({pageParam = 1}) =>
-      axiosInstance.get(ROUTES.GET_USER_DETAILS, {
+      axiosInstance.get(ROUTES.USER, {
         params: {page: pageParam},
       }),
     queryKey: ['ALL_USERS'],

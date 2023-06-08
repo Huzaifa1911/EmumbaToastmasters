@@ -8,7 +8,7 @@ import Spacer, {ISpacerProps} from '../Commons/Spacer';
 interface IAppRadioButtonProps {
   label: string;
   labelProps?: IAppTextProps;
-  value: string;
+  value: string | number;
   spacerProps?: ISpacerProps;
 }
 
@@ -18,7 +18,7 @@ const AppRadioButton = (props: IAppRadioButtonProps) => {
   return (
     <Spacer {...spacerProps}>
       <Container>
-        <RadioButton.Android value={value} />
+        <RadioButton.Android value={value as string} />
         <Spacer left={10}>
           <AppText size={16} variant="medium" {...labelProps}>
             {label}

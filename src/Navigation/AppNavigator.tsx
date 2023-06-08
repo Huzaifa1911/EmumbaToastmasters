@@ -29,8 +29,13 @@ const AppNavigator = () => {
       <Screen
         name={SCREENS.ALL_VOTING_POLLS_SCREEN}
         component={AllVotingPollsScreen}
+        options={{unmountOnBlur: true}}
       />
-      <Screen name={SCREENS.CAST_VOTE_SCREEN} component={CastVoteScreen} />
+      <Screen
+        name={SCREENS.CAST_VOTE_SCREEN}
+        component={CastVoteScreen}
+        options={{unmountOnBlur: true}}
+      />
       <Screen
         name={SCREENS.VOTING_POLL_RESULT_SCREEN}
         component={VotingPollResultScreen}

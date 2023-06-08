@@ -41,6 +41,8 @@ export type TFormattedVotingPoll = {
   question: string;
   is_active: boolean;
   timestamp: number;
+  candidates: number[];
+  owner: number;
 };
 
 export type TVotingPoll = {
@@ -52,17 +54,26 @@ export type TVotingPoll = {
   poll_type: number;
   candidates: number[];
 };
-export type TStandardObject = {label: string; value: string};
+export type TStandardObject = {label: string; value: string | number};
 
 export type TStandardVotingPoll = {
+  id: number;
   question: string;
-  createdBy: string;
+  createdBy: TStandardObject;
   timestamp: number;
-  options: TStandardObject[];
+  candidates: TStandardObject[];
+  castedVote: number; // candidate-id, 0 incase of null
+};
+
+export type TVote = {
+  id: number;
+  voter: number;
+  poll: number;
+  candidate: number;
 };
 
 export type TDrawerParamList = {
-  [SCREENS.CAST_VOTE_SCREEN]: undefined;
+  [SCREENS.CAST_VOTE_SCREEN]: {pollId: string};
   [SCREENS.ALL_VOTING_POLLS_SCREEN]: undefined;
   [SCREENS.BOTTOM_TABS]: undefined;
   [SCREENS.VOTING_POLL_RESULT_SCREEN]: undefined;
@@ -151,3 +162,9 @@ export type TPerformedRole = {
   participation: number;
   role: number;
 };
+
+export interface ISkeletonProps {
+  height?: string | number;
+  width?: string | number;
+  borderRadius?: number;
+}

@@ -77,3 +77,9 @@ export type InfiniteQueryArgs<TQueryData, TSelectData = TQueryData> = {
     | 'getNextPageParam'
   >;
 };
+
+export type TCastVotePayload = {
+  voter: number;
+  candidate: number;
+  poll: number;
+};
