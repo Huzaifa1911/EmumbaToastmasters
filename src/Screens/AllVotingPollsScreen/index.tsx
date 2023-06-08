@@ -49,15 +49,14 @@ const AllVotingPollsScreen = ({
     : 'Select Poll type';
 
   const renderItem = ({item}: {item: TFormattedVotingPoll; index: number}) => {
+    const navigateTo = item.is_active
+      ? SCREENS.CAST_VOTE_SCREEN
+      : SCREENS.VOTING_POLL_RESULT_SCREEN;
     return (
       <VotingPollCard
         votingPoll={item}
         onPress={() =>
-          NavigationService.navigate(
-            item.is_active
-              ? SCREENS.CAST_VOTE_SCREEN
-              : SCREENS.VOTING_POLL_RESULT_SCREEN,
-          )
+          NavigationService.navigate(navigateTo, {pollId: item.id})
         }
       />
     );

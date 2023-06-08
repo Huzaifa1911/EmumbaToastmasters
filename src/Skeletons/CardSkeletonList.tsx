@@ -3,9 +3,10 @@ import React from 'react';
 import {When} from 'react-if';
 
 import {Spacer} from 'Components';
-import CardSkeleton, {ICardSkeletonProps} from './CardSkeletons';
+import CardSkeleton from './CardSkeletons';
+import {ISkeletonProps} from 'Types';
 
-interface ICardSkeletonListProps extends ICardSkeletonProps {
+interface ICardSkeletonListProps extends ISkeletonProps {
   length?: number;
   isLoading?: boolean;
   horizontal?: boolean;

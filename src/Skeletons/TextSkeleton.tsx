@@ -4,8 +4,9 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 import {ISkeletonProps} from 'Types';
 
-const CardSkeleton = (props: ISkeletonProps) => {
-  const {height = 100, width = '100%', borderRadius = 8} = props;
+const TextSkeleton = (props: ISkeletonProps) => {
+  const {borderRadius = 3, height = 25, width} = props;
+
   const {colors} = useTheme();
 
   return (
@@ -17,4 +18,4 @@ const CardSkeleton = (props: ISkeletonProps) => {
   );
 };
 
-export default CardSkeleton;
+export default TextSkeleton;

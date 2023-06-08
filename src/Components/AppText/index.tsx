@@ -6,6 +6,7 @@ import {customText} from 'react-native-paper';
 import {ButtonWrapper, Wrapper} from './styles';
 import {Spacer} from 'Components';
 import {TAppColors, useAppTheme} from 'Assets';
+import {TextSkeleton} from 'Skeletons';
 
 const PaperText = customText<
   'italic' | 'bold' | 'medium' | 'regular' | 'thin'
@@ -23,6 +24,7 @@ export interface IAppTextProps {
   size?: number;
   textProps?: TextProps;
   numberOfLines?: number;
+  isLoading?: boolean;
 }
 
 const AppText = (props: PropsWithChildren<IAppTextProps>) => {
@@ -39,6 +41,7 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
     textProps,
     textTransform = 'none',
     variant = 'regular',
+    isLoading = false,
   } = props;
   const isDisabled = !onPress;
   const {colors} = useAppTheme();
@@ -58,33 +61,41 @@ const AppText = (props: PropsWithChildren<IAppTextProps>) => {
   );
 
   return (
-    <If condition={isDisabled}>
+    <If condition={isLoading}>
       <Then>
-        <Wrapper>
-          <Spacer right={2}>{leftAccessory}</Spacer>
-          <PaperText
-            variant={variant}
-            style={appTextStyles}
-            numberOfLines={numberOfLines}
-            {...textProps}>
-            {children}
-          </PaperText>
-          <Spacer left={2}>{rightAccessory}</Spacer>
-        </Wrapper>
+        <TextSkeleton />
       </Then>
-
       <Else>
-        <ButtonWrapper onPress={onPress}>
-          <Spacer right={2}>{leftAccessory}</Spacer>
-          <PaperText
-            variant={variant}
-            style={appTextStyles}
-            numberOfLines={numberOfLines}
-            {...textProps}>
-            {children}
-          </PaperText>
-          <Spacer left={2}>{rightAccessory}</Spacer>
-        </ButtonWrapper>
+        <If condition={isDisabled}>
+          <Then>
+            <Wrapper>
+              <Spacer right={2}>{leftAccessory}</Spacer>
+
+              <PaperText
+                variant={variant}
+                style={appTextStyles}
+                numberOfLines={numberOfLines}
+                {...textProps}>
+                {children}
+              </PaperText>
+              <Spacer left={2}>{rightAccessory}</Spacer>
+            </Wrapper>
+          </Then>
+
+          <Else>
+            <ButtonWrapper onPress={onPress}>
+              <Spacer right={2}>{leftAccessory}</Spacer>
+              <PaperText
+                variant={variant}
+                style={appTextStyles}
+                numberOfLines={numberOfLines}
+                {...textProps}>
+                {children}
+              </PaperText>
+              <Spacer left={2}>{rightAccessory}</Spacer>
+            </ButtonWrapper>
+          </Else>
+        </If>
       </Else>
     </If>
   );

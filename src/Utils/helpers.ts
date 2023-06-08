@@ -2,7 +2,7 @@ import {TJWTDecode} from 'Types';
 import α from 'color-alpha';
 import dayjs from 'dayjs';
 import numbro from 'numbro';
-import {anyPass, isEmpty, isNil} from 'ramda';
+import {anyPass, isEmpty, isNil, propOr} from 'ramda';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Toast from 'react-native-toast-message';
 import {format as prettyFormat} from 'pretty-format';
@@ -16,6 +16,7 @@ export const getAlphaColor = (color: string, opacity: number) => {
 };
 
 export const isEmptyOrNill = anyPass([isEmpty, isNil]);
+export const firstOrNull = propOr(null, 0 as unknown as string);
 
 export const getVotingPollStatus = (
   isActive: boolean,

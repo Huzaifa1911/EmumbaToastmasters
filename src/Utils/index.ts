@@ -18,7 +18,8 @@ export {
   showToast,
   decodeJwtToken,
   Log,
+  firstOrNull,
   truncateString,
 } from './helpers';
 
-export {loginSchema} from './schemas';
+export {loginSchema, castVoteSchema} from './schemas';

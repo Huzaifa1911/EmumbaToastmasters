@@ -1,3 +1,4 @@
+import * as NetworkTypes from './NetworkService/types';
 export {default as NavigationService} from './NavigationService';
 export {default as AsyncStorageService} from './StorageService/AsyncStorageService';
 export {default as KeychainStorageService} from './StorageService/KeychainStorageService';
@@ -6,6 +7,7 @@ export {queryClient, axiosInstance} from './NetworkService/config';
 export {useAppMutation, useAppQuery} from './NetworkService/Hooks/GenericHooks';
 export {ROUTES} from './NetworkService/Routes';
 export {API_HELPERS} from './NetworkService/ApiHelpers';
+export {type NetworkTypes};
 
 export {useLogin} from './NetworkService/Hooks/CustomHooks/Auth/useLogin';
 export {useVerifyUserAccess} from './NetworkService/Hooks/CustomHooks/Auth/useVerifyUserAccess';
@@ -21,3 +23,5 @@ export {useGetAllAttendedEvents} from './NetworkService/Hooks/CustomHooks/HomeSc
 // Voting Polls
 
 export {useGetVotingPolls} from './NetworkService/Hooks/CustomHooks/Polls/useGetVotingPolls';
+export {useGetActiveVotingPollDetails} from './NetworkService/Hooks/CustomHooks/Polls/useGetActiveVotingPollDetails';
+export {useCastVote} from './NetworkService/Hooks/CustomHooks/Polls/useCastVote';

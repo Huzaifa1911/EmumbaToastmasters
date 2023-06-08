@@ -5,6 +5,7 @@ import {AppText, ScreenWrapper, Spacer, ToastmasterCard} from 'Components';
 import {Container} from './styles';
 import {DEFAULT_IMAGE, getTimeDifference} from 'Utils';
 import PollResultChart from './Components/PollResultChart';
+import {pathOr} from 'ramda';
 
 const VotingPollResultData = {
   question: 'Who is the best of big 3?',
@@ -13,8 +14,9 @@ const VotingPollResultData = {
   winner: 'Huzaifa',
 };
 
-const VotingPollResultScreen = () => {
+const VotingPollResultScreen = ({route}) => {
   const {question, createdBy, timestamp, winner} = VotingPollResultData;
+  const pollId = pathOr(0, ['params', 'pollId'], route);
 
   const info = `Created By ${createdBy} . ${getTimeDifference(timestamp)}`;
   return (
