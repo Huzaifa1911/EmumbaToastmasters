@@ -59,11 +59,7 @@ const AttendedToastmasterSessions = (props: IAttendedToastmasterSessions) => {
           />
         }
       />
-      <CardSkeletonList
-        isLoading={isLoading}
-        length={5}
-        spacerProps={{top: 5}}
-      />
+      <CardSkeletonList isLoading={isLoading} length={5} />
     </>
   );
 };
