@@ -16,7 +16,8 @@ type TVariables = {
 const onSuccess = () => {
   // eslint-disable-next-line quotes
   showToast("You've Successfully Casted Vote");
-  queryClient.invalidateQueries(['VOTING_POLL_DETAILS', 'VOTING_POLLS']);
+  queryClient.invalidateQueries(['VOTING_POLL_DETAILS']);
+
   NavigationService.goBack();
 };
 
