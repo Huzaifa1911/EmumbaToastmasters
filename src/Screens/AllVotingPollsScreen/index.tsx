@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {createRef, useLayoutEffect, useState} from 'react';
 import {DrawerScreenProps} from '@react-navigation/drawer';
+import {Else, If, Then, When} from 'react-if';
+import {propOr} from 'ramda';
 
 import HeaderRightIcon from './Components/HeaderRightIcon';
 import {
@@ -18,12 +20,10 @@ import {
   TPollType,
   TFormattedVotingPoll,
 } from 'Types';
-import ListHeader from './Components/ListHeader';
+import Header from './Components/Header';
 import {NavigationService, useGetVotingPolls} from 'Services';
 import {SCREENS, isEmptyOrNill} from 'Utils';
 import {SheetTypes, TSheetType} from './utils';
-import {Else, If, Then} from 'react-if';
-import {propOr} from 'ramda';
 
 const sheetRef = createRef<TBottomSheetHandler>();
 
@@ -74,13 +74,16 @@ const AllVotingPollsScreen = ({
   return (
     <>
       <ScreenWrapper>
-        <VotingList
-          data={polls}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={renderItem}
-          ItemSeparatorComponent={() => <Spacer top={11} />}
-          ListHeaderComponent={ListHeader}
-        />
+        <Header />
+        <When condition={!isLoading}>
+          <VotingList
+            data={polls}
+            keyExtractor={(item, index) => index.toString() + item.id}
+            renderItem={renderItem}
+            ItemSeparatorComponent={() => <Spacer top={11} />}
+          />
+        </When>
+
         <VotingListSkeleton isLoading={isLoading} />
       </ScreenWrapper>
 

@@ -213,11 +213,12 @@ const getVotingPolls = async (
     const polls: TVotingPoll[] = propOr([], 'results', data);
     const formattedPolls = polls.map((poll): TFormattedVotingPoll => {
       const question = find(propEq(poll.poll_type, 'id'), polltypes)?.name;
-      // Log(dayjs(poll.createdAt, 'YYYY-MM-DD', 'es'));
+
       return {
+        id: poll.id,
         is_active: poll.is_active,
-        question: question ? `Vote For${question}` : '',
-        timestamp: dayjs(poll.createdAt).unix(),
+        question: question ? `Vote For ${question}` : '',
+        timestamp: dayjs(poll.created_at).valueOf(),
       };
     });
 

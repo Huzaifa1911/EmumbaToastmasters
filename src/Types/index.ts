@@ -37,6 +37,7 @@ export type TBottomTabConfig = {
 export type TPollStatus = 'active' | 'disabled';
 
 export type TFormattedVotingPoll = {
+  id: number;
   question: string;
   is_active: boolean;
   timestamp: number;
@@ -45,7 +46,7 @@ export type TFormattedVotingPoll = {
 export type TVotingPoll = {
   id: number;
   is_active: boolean;
-  createdAt: string;
+  created_at: string;
   updated_at: string;
   owner: number;
   poll_type: number;

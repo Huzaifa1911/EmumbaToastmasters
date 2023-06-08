@@ -1,14 +1,14 @@
 import React from 'react';
 import {AppText, Spacer} from 'Components';
 
-const ListHeader = () => {
+const Header = () => {
   return (
-    <Spacer bottom={13}>
+    <Spacer top={30} horizontal={16} bottom={13}>
       <AppText size={20} variant="bold">
-        Active Voting Polls
+        Voting Polls
       </AppText>
     </Spacer>
   );
 };
 
-export default ListHeader;
+export default Header;
