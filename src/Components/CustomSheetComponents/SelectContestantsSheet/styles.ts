@@ -1,5 +1,6 @@
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {TStandardObject} from 'Types';
-import {FlatList, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
 export const ListItemView = styled(TouchableOpacity)(
@@ -14,10 +15,12 @@ export const ListItemView = styled(TouchableOpacity)(
   }),
 );
 
-export const UsersList = styled(FlatList<TStandardObject>).attrs(() => ({
-  contentContainerStyle: {
-    paddingHorizontal: 16,
-    paddingTop: 15,
-    paddingBottom: 40,
-  },
-}))({});
+export const UsersList = styled(BottomSheetFlatList<TStandardObject>).attrs(
+  () => ({
+    contentContainerStyle: {
+      paddingHorizontal: 16,
+      paddingTop: 15,
+      paddingBottom: 40,
+    },
+  }),
+)({});
