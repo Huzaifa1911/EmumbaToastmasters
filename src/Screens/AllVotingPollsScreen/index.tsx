@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {createRef, useLayoutEffect, useState} from 'react';
+import React, {createRef, useLayoutEffect, useRef, useState} from 'react';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {Else, If, Then, When} from 'react-if';
 import {propOr} from 'ramda';
@@ -9,7 +9,7 @@ import {
   AppBottomSheet,
   PollTypeSheet,
   ScreenWrapper,
-  SelectContestentsSheet,
+  SelectContestantsSheet,
   Spacer,
   VotingPollCard,
 } from 'Components';
@@ -19,11 +19,17 @@ import {
   TDrawerParamList,
   TPollType,
   TFormattedVotingPoll,
+  TStandardObject,
 } from 'Types';
 import Header from './Components/Header';
-import {NavigationService, useGetVotingPolls} from 'Services';
-import {SCREENS, isEmptyOrNill} from 'Utils';
+import {
+  NavigationService,
+  useCreateVotingPoll,
+  useGetVotingPolls,
+} from 'Services';
+import {SCREENS} from 'Utils';
 import {SheetTypes, TSheetType} from './utils';
+import {selectUser, useAppSelector} from 'Store';
 
 const sheetRef = createRef<TBottomSheetHandler>();
 
@@ -34,14 +40,21 @@ const AllVotingPollsScreen = ({
     () => navigation.setOptions({headerRight: HeaderRightIcon}),
     [],
   );
-
+  // const [pollType, setPollType] = useState<TPollType>();
   const [sheetType, setSheetType] = useState<TSheetType>(
     SheetTypes.POLL_TYPE_SHEET,
   );
 
-  const {data, isLoading} = useGetVotingPolls({showLoading: false});
-  const polls: TFormattedVotingPoll[] = propOr([], 'pages', data);
+  const userId = useAppSelector(selectUser)?.id;
+  const pollTypeRef = useRef<TPollType>();
 
+  const {data, isLoading} = useGetVotingPolls({showLoading: false});
+  const {mutate: createPollMutation} = useCreateVotingPoll({
+    showLoading: true,
+  });
+
+  // constants
+  const polls: TFormattedVotingPoll[] = propOr([], 'pages', data);
   const isPollTypeSelected = sheetType === SheetTypes.CONTESTENTS_SHEET;
   const snapPoints = isPollTypeSelected ? ['90%', '90%'] : ['80%', '90%'];
   const sheetTitle = isPollTypeSelected
@@ -62,12 +75,19 @@ const AllVotingPollsScreen = ({
     );
   };
 
-  const onProceedNext = (pollType?: TPollType) => {
-    if (!isEmptyOrNill(pollType)) setSheetType(SheetTypes.CONTESTENTS_SHEET);
+  const onProceedNext = (type?: TPollType) => {
+    setSheetType(SheetTypes.CONTESTENTS_SHEET);
+    pollTypeRef.current = type;
   };
 
-  const onActivatePoll = () => {
-    //
+  const onActivatePoll = (contenstants: TStandardObject[]) => {
+    const payload = {
+      poll_type: pollTypeRef.current?.id ?? 0,
+      owner: userId ?? 0,
+      candidates: contenstants.map(item => item.value as number),
+      is_active: true,
+    };
+    createPollMutation(payload, {onSuccess: closeBottomSheet});
   };
 
   return (
@@ -96,7 +116,7 @@ const AllVotingPollsScreen = ({
             <PollTypeSheet onProceedNext={onProceedNext} />
           </Then>
           <Else>
-            <SelectContestentsSheet onActivatePolling={onActivatePoll} />
+            <SelectContestantsSheet onActivatePolling={onActivatePoll} />
           </Else>
         </If>
       </AppBottomSheet>

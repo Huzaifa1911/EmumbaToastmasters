@@ -2,7 +2,7 @@ import React from 'react';
 import {ButtonWrapper} from './styles';
 import {ButtonProps} from 'react-native-paper';
 
-interface IAppButtonProps extends Omit<ButtonProps, 'contentStyle'> {
+export interface IAppButtonProps extends Omit<ButtonProps, 'contentStyle'> {
   height?: number | string;
   width?: number | string;
   shiftIconToRight?: boolean;

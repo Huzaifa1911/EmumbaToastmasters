@@ -83,3 +83,14 @@ export type TCastVotePayload = {
   candidate: number;
   poll: number;
 };
+
+export type TCreatePollPayload = {
+  candidates: number[];
+  poll_type: number;
+  owner: number;
+  is_active: boolean;
+};
+
+export type TClosePollPayload = {
+  is_active: boolean;
+};

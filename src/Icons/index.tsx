@@ -87,3 +87,11 @@ export const MoonIcon = (props: TSpecificIcon) => (
 export const SunIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="Feather" name="sun" {...props} />
 );
+
+export const CheckCircleIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Feather" name="check-circle" {...props} />
+);
+
+export const StopIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Octicons" name="stop" {...props} />
+);

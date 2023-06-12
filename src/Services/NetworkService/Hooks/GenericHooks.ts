@@ -15,7 +15,7 @@ import {
   QueryErrorResponse,
 } from '../types';
 import {hideLoader, showLoader, updateUser, useAppDispatch} from 'Store';
-import {Log, showToast} from 'Utils';
+import {showToast} from 'Utils';
 import {TPaginatedResponse} from 'Types';
 
 export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
@@ -50,7 +50,6 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
       if (onError) onError(error);
       else {
         const message = error.response?.data.detail;
-        Log(error.response?.data);
         showToast(message ?? '', 'Error', 'error');
         if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));

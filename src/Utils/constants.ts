@@ -1,3 +1,4 @@
+import {TPollType} from 'Types';
 import {Dimensions, Platform} from 'react-native';
 
 export enum SCREENS {
@@ -15,18 +16,22 @@ export enum SCREENS {
   BOTTOM_TABS = 'BOTTOM_TABS',
 }
 
-export const POLL_TYPES = [
+export const POLL_TYPES: TPollType[] = [
   {
-    title: 'Best Prepared Speaker',
+    id: 1,
+    name: 'Best Prepared Speaker',
   },
   {
-    title: 'Best Table Topic Speaker',
+    id: 2,
+    name: 'Best Table Topic Speaker',
   },
   {
-    title: 'Best Speech Evaluator',
+    id: 3,
+    name: 'Best Speech Evaluator',
   },
   {
-    title: 'Best of Big 3',
+    id: 4,
+    name: 'Best of Big 3',
   },
 ];
 

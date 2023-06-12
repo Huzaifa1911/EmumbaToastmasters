@@ -26,7 +26,7 @@ import {axiosInstance} from './config';
 import {ReduxStore} from 'Store';
 import {AUTHORIZATION, decodeJwtToken, firstOrNull} from 'Utils';
 import {KeychainStorageService} from 'Services';
-import {TCastVotePayload} from './types';
+import {TCastVotePayload, TClosePollPayload, TCreatePollPayload} from './types';
 
 const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   try {
@@ -49,7 +49,7 @@ const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   }
 };
 
-export const castVote = async ({
+const castVote = async ({
   method = 'post',
   payload,
 }: {
@@ -63,6 +63,38 @@ export const castVote = async ({
       url,
       payload,
     )) as AxiosResponse<TVote>;
+    return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const createVotingPoll = async (
+  payload: TCreatePollPayload,
+): Promise<TVotingPoll> => {
+  try {
+    const {data} = (await axiosInstance.post(
+      ROUTES.VOTING_POLLS,
+      payload,
+    )) as AxiosResponse<TVotingPoll>;
+    return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const closeVotingPoll = async ({
+  payload,
+  pollId,
+}: {
+  payload: TClosePollPayload;
+  pollId: number;
+}): Promise<TVotingPoll> => {
+  try {
+    const {data} = (await axiosInstance.patch(
+      `${ROUTES.VOTING_POLLS}${pollId}`,
+      payload,
+    )) as AxiosResponse<TVotingPoll>;
     return {...data};
   } catch (error) {
     return Promise.reject(error);
@@ -312,7 +344,11 @@ export const getActiveVotingPollDetails = async (
       .filter(user => user.id !== poll.owner)
       .map(candidate => {
         return {
-          label: propOr('', 'first_name', candidate) as string,
+          label: `${propOr('', 'first_name', candidate)} ${propOr(
+            '',
+            'last_name',
+            candidate,
+          )}` as string,
           value: candidate.id,
         };
       });
@@ -326,6 +362,7 @@ export const getActiveVotingPollDetails = async (
       question: poll.question,
       timestamp: poll.timestamp,
       candidates,
+      is_active: poll.is_active,
       castedVote: propOr(0, 'id', castedVote),
     };
   } catch (error) {
@@ -345,4 +382,6 @@ export const API_HELPERS = Object.freeze({
   getActiveVotingPollDetails,
   getAllVotes,
   castVote,
+  createVotingPoll,
+  closeVotingPoll,
 });

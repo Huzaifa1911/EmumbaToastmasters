@@ -11,20 +11,20 @@ interface IPollTypeSheetProps {
 }
 
 const PollTypeSheet = ({onProceedNext}: IPollTypeSheetProps) => {
-  const [selectedPollType, setSelectedPollType] = useState<TPollType>();
+  const [pollType, setPollType] = useState<TPollType>();
 
   return (
     <Container>
       <ListContent>
         {POLL_TYPES.map((type, index) => {
-          const isSelected = selectedPollType?.title === type.title;
+          const isSelected = pollType?.id === type.id;
 
           return (
             <PollTypeButton
-              key={type.title + index.toString()}
-              title={type.title}
+              key={type.id + index.toString()}
+              title={type.name}
               isSelected={isSelected}
-              onPress={() => setSelectedPollType(type)}
+              onPress={() => setPollType(type)}
             />
           );
         })}
@@ -33,8 +33,8 @@ const PollTypeSheet = ({onProceedNext}: IPollTypeSheetProps) => {
       <Spacer top={30} />
       <NextButton
         mode="contained"
-        disabled={isEmptyOrNill(selectedPollType)}
-        onPress={() => onProceedNext(selectedPollType)}>
+        disabled={isEmptyOrNill(pollType)}
+        onPress={() => onProceedNext(pollType)}>
         Next
       </NextButton>
     </Container>

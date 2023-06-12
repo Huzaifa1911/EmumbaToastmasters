@@ -58,6 +58,7 @@ export type TStandardObject = {label: string; value: string | number};
 
 export type TStandardVotingPoll = {
   id: number;
+  is_active: boolean;
   question: string;
   createdBy: TStandardObject;
   timestamp: number;

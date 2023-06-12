@@ -16,14 +16,13 @@ type TDefaultValue = {selectedCandidate: number};
 
 const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const pollId = pathOr(0, ['params', 'pollId'], route);
+
   const userId: number = propOr(0, 'id', useAppSelector(selectUser));
 
   const {data: details = {}, isLoading} = useGetActiveVotingPollDetails({
     showLoading: true,
     pollId,
   });
-
-  const {mutate: castVoteMutation} = useCastVote({showLoading: true});
 
   const {
     createdBy = {label: '', value: 0},
@@ -33,6 +32,8 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
     castedVote = 0,
     id = 0,
   } = details as TStandardVotingPoll;
+
+  const {mutate: castVoteMutation} = useCastVote({showLoading: true});
 
   const {
     control,
@@ -96,7 +97,7 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
         <SubmitButton
           onPress={handleSubmit(onCastVote)}
           disabled={!isValid || !isDirty}>
-          Submit
+          Cast Vote
         </SubmitButton>
       </Spacer>
     </ScreenWrapper>
