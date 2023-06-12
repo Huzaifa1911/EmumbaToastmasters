@@ -24,7 +24,7 @@ import {
 import {ROUTES} from './Routes';
 import {axiosInstance} from './config';
 import {ReduxStore} from 'Store';
-import {AUTHORIZATION, decodeJwtToken, firstOrNull} from 'Utils';
+import {AUTHORIZATION, decodeJwtToken} from 'Utils';
 import {KeychainStorageService} from 'Services';
 import {TCastVotePayload, TClosePollPayload, TCreatePollPayload} from './types';
 
@@ -305,13 +305,18 @@ const getVotingPolls = async <T = TPaginatedResponse<TFormattedVotingPoll>>({
 
 export const getAllVotes = async <T = TPaginatedResponse<TVote>>({
   params = null,
+  pathParams = [],
 }: {
   params?: Record<string, any> | null;
+  pathParams?: any[];
 }): Promise<T> => {
   try {
-    const {data} = (await axiosInstance.get(ROUTES.VOTES, {
-      params,
-    })) as AxiosResponse<T>;
+    const {data} = (await axiosInstance.get(
+      `${ROUTES.VOTES}${pathParams?.join('/')}`,
+      {
+        params,
+      },
+    )) as AxiosResponse<T>;
 
     return {...data};
   } catch (error) {
@@ -327,18 +332,18 @@ export const getActiveVotingPollDetails = async (
       pathParams: [pollId],
     });
 
-    const {results: votes = []} = await getAllVotes({
+    const vote = await getAllVotes<TVote>({
       params: {voter: ReduxStore.getState().appUser.user?.id},
+      pathParams: [pollId],
     });
-
-    const vote: TVote | null = firstOrNull(votes);
 
     const {results: users = []} = await getAllUsers({
       params: {id__in: [...poll.candidates, poll.owner].join(',')},
     });
 
     const owner = find(propEq(poll.owner, 'id'), users);
-    const castedVote = find(propEq(vote?.candidate ?? 0, 'id'), users);
+
+    const castedVote = find(propEq(propOr(0, 'candidate', vote), 'id'), users);
 
     const candidates = users
       .filter(user => user.id !== poll.owner)
