@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppRadioButton, AppText, ScreenWrapper, Spacer} from 'Components';
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import {pathOr, propOr} from 'ramda';
+import {pathOr} from 'ramda';
 import {RadioButton} from 'react-native-paper';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -9,15 +9,20 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {Container, SubmitButton} from './styles';
 import {TDrawerParamList, TStandardVotingPoll} from 'Types';
 import {castVoteSchema, getTimeDifference} from 'Utils';
-import {useCastVote, useGetActiveVotingPollDetails} from 'Services';
-import {selectUser, useAppSelector} from 'Store';
+import {
+  useCastVote,
+  useGetActiveVotingPollDetails,
+  useUpdateVote,
+} from 'Services';
+import {useSelector} from 'react-redux';
+import {selectUser} from 'Store';
 
 type TDefaultValue = {selectedCandidate: number};
 
 const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const pollId = pathOr(0, ['params', 'pollId'], route);
 
-  const userId: number = propOr(0, 'id', useAppSelector(selectUser));
+  const voterId = useSelector(selectUser)?.id;
 
   const {data: details = {}, isLoading} = useGetActiveVotingPollDetails({
     showLoading: true,
@@ -29,18 +34,19 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
     candidates = [],
     question = '',
     timestamp = 0,
-    castedVote = 0,
+    castedVote = {candidateId: 0, voteId: 0},
     id = 0,
   } = details as TStandardVotingPoll;
 
   const {mutate: castVoteMutation} = useCastVote({showLoading: true});
+  const {mutate: updateVoteMutation} = useUpdateVote({showLoading: true});
 
   const {
     control,
     handleSubmit,
     formState: {isValid, isDirty},
   } = useForm<TDefaultValue>({
-    values: {selectedCandidate: castedVote},
+    values: {selectedCandidate: castedVote.candidateId},
     resolver: yupResolver(castVoteSchema),
     mode: 'onChange',
   });
@@ -50,10 +56,17 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   )}`;
 
   const onCastVote = (data: TDefaultValue) => {
-    castVoteMutation({
-      payload: {candidate: data.selectedCandidate, poll: id, voter: userId},
-      method: castedVote === 0 ? 'post' : 'patch', // *if castedVote==0, which means voter havent casted a vote, so the  request to an endpoint will be `post`, otherwise `patch`
-    });
+    if (castedVote.candidateId === 0)
+      castVoteMutation({
+        candidate: data.selectedCandidate,
+        poll: id,
+        voter: voterId ?? 0,
+      });
+    else
+      updateVoteMutation({
+        candidate: data.selectedCandidate,
+        vote: castedVote.voteId,
+      });
   };
 
   return (

@@ -63,7 +63,7 @@ export type TStandardVotingPoll = {
   createdBy: TStandardObject;
   timestamp: number;
   candidates: TStandardObject[];
-  castedVote: number; // candidate-id, 0 incase of null
+  castedVote: {candidateId: number; voteId: number}; // candidate-id, 0 incase of null
 };
 
 export type TVote = {

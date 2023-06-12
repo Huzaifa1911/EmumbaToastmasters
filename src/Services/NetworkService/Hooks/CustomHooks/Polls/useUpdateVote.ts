@@ -10,15 +10,14 @@ import {showToast} from 'Utils';
 
 const onSuccess = () => {
   // eslint-disable-next-line quotes
-  showToast("You've Successfully Casted Vote");
+  showToast("You've Successfully Updated a Vote");
   queryClient.invalidateQueries(['VOTING_POLL_DETAILS']);
-
   NavigationService.goBack();
 };
 
-export const useCastVote = ({showLoading = false}: TShowLoading) => {
-  return useAppMutation<TVote, NetworkTypes.TCastVotePayload>({
-    queryFn: payload => API_HELPERS.castVote({payload}),
+export const useUpdateVote = ({showLoading = false}: TShowLoading) => {
+  return useAppMutation<TVote, NetworkTypes.TUpdateVotePayload>({
+    queryFn: payload => API_HELPERS.updateVote({payload}),
     showLoading,
     onSuccess,
   });

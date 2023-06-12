@@ -25,5 +25,7 @@ export {useGetAllAttendedEvents} from './NetworkService/Hooks/CustomHooks/HomeSc
 export {useGetVotingPolls} from './NetworkService/Hooks/CustomHooks/Polls/useGetVotingPolls';
 export {useGetActiveVotingPollDetails} from './NetworkService/Hooks/CustomHooks/Polls/useGetActiveVotingPollDetails';
 export {useCastVote} from './NetworkService/Hooks/CustomHooks/Polls/useCastVote';
+export {useUpdateVote} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateVote';
+
 export {useCreateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useCreateVotingPoll';
 export {useCloseVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useCloseVotingPoll';

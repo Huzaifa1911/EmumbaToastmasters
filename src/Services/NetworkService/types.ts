@@ -79,9 +79,14 @@ export type InfiniteQueryArgs<TQueryData, TSelectData = TQueryData> = {
 };
 
 export type TCastVotePayload = {
-  voter: number;
   candidate: number;
   poll: number;
+  voter: number;
+};
+
+export type TUpdateVotePayload = {
+  candidate: number;
+  vote: number;
 };
 
 export type TCreatePollPayload = {

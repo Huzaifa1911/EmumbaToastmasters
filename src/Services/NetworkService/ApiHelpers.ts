@@ -24,9 +24,14 @@ import {
 import {ROUTES} from './Routes';
 import {axiosInstance} from './config';
 import {ReduxStore} from 'Store';
-import {AUTHORIZATION, decodeJwtToken} from 'Utils';
+import {AUTHORIZATION, decodeJwtToken, firstOrNull} from 'Utils';
 import {KeychainStorageService} from 'Services';
-import {TCastVotePayload, TClosePollPayload, TCreatePollPayload} from './types';
+import {
+  TCastVotePayload,
+  TClosePollPayload,
+  TCreatePollPayload,
+  TUpdateVotePayload,
+} from './types';
 
 const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
   try {
@@ -50,19 +55,32 @@ const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
 };
 
 const castVote = async ({
-  method = 'post',
   payload,
 }: {
   payload: TCastVotePayload;
-  method: 'patch' | 'post';
 }): Promise<TVote> => {
   try {
-    const url =
-      method === 'post' ? ROUTES.VOTES : `${ROUTES.VOTES}${payload.poll}`;
-    const {data} = (await axiosInstance[method](
-      url,
+    const {data} = (await axiosInstance.post(
+      ROUTES.VOTES,
       payload,
     )) as AxiosResponse<TVote>;
+    return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const updateVote = async ({
+  payload,
+}: {
+  payload: TUpdateVotePayload;
+}): Promise<TVote> => {
+  try {
+    const {data} = (await axiosInstance.patch(
+      `${ROUTES.VOTES}${payload.vote}`,
+      payload,
+    )) as AxiosResponse<TVote>;
+
     return {...data};
   } catch (error) {
     return Promise.reject(error);
@@ -332,10 +350,11 @@ export const getActiveVotingPollDetails = async (
       pathParams: [pollId],
     });
 
-    const vote = await getAllVotes<TVote>({
-      params: {voter: ReduxStore.getState().appUser.user?.id},
-      pathParams: [pollId],
+    const {results: votes = []} = await getAllVotes({
+      params: {voter: ReduxStore.getState().appUser.user?.id, poll: pollId},
     });
+
+    const vote: TVote | null = firstOrNull(votes.reverse());
 
     const {results: users = []} = await getAllUsers({
       params: {id__in: [...poll.candidates, poll.owner].join(',')},
@@ -343,7 +362,10 @@ export const getActiveVotingPollDetails = async (
 
     const owner = find(propEq(poll.owner, 'id'), users);
 
-    const castedVote = find(propEq(propOr(0, 'candidate', vote), 'id'), users);
+    const castedCandidate = find(
+      propEq(propOr(0, 'candidate', vote), 'id'),
+      users,
+    );
 
     const candidates = users
       .filter(user => user.id !== poll.owner)
@@ -368,7 +390,10 @@ export const getActiveVotingPollDetails = async (
       timestamp: poll.timestamp,
       candidates,
       is_active: poll.is_active,
-      castedVote: propOr(0, 'id', castedVote),
+      castedVote: {
+        candidateId: propOr(0, 'id', castedCandidate),
+        voteId: propOr(0, 'id', vote),
+      },
     };
   } catch (error) {
     return Promise.reject(error);
@@ -385,6 +410,7 @@ export const API_HELPERS = Object.freeze({
   getPollTypes,
   getVotingPolls,
   getActiveVotingPollDetails,
+  updateVote,
   getAllVotes,
   castVote,
   createVotingPoll,
