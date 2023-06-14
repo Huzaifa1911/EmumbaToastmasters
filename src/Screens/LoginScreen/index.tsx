@@ -6,7 +6,6 @@ import {yupResolver} from '@hookform/resolvers/yup';
 
 import {
   AppButton,
-  AppCheckbox,
   AppInputFormField,
   AppText,
   ScreenWrapper,
@@ -19,7 +18,6 @@ import {loginSchema} from 'Utils';
 type TDefaultValues = {
   username: string;
   password: string;
-  rememberMe: 'checked' | 'unchecked';
 };
 
 const LoginScreen = () => {
@@ -29,18 +27,11 @@ const LoginScreen = () => {
     defaultValues: {
       username: 'huzaifa.arshad@emumba.com',
       password: 'asdf@123',
-      rememberMe: 'unchecked',
     },
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
   });
 
-  const onRememberMe = () => {
-    methods.setValue(
-      'rememberMe',
-      methods.getValues('rememberMe') === 'checked' ? 'unchecked' : 'checked',
-    );
-  };
   const togglePassword = () => setSecureText(prev => !prev);
   const {mutate} = useLogin({showLoading: true});
 
@@ -82,15 +73,7 @@ const LoginScreen = () => {
               />
             }
           />
-
-          <Spacer top={10} bottom={80}>
-            <AppCheckbox
-              status={methods.watch('rememberMe')}
-              onPress={onRememberMe}
-              label="Remember Me"
-            />
-          </Spacer>
-
+          <Spacer top={100} />
           <AppButton
             onPress={methods.handleSubmit(onPress)}
             mode="contained"
