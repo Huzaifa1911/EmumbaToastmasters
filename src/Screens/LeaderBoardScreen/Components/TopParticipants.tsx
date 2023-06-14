@@ -1,17 +1,21 @@
 import React from 'react';
 
-import {ToasmtasterType} from 'Types';
+import {TStandardObject} from 'Types';
 import {FirstParticipantContainer, TopParticipantsContainer} from '../styles';
 import ParticipantAvatar from './ParticipantAvatar';
 
 interface ITopParticipantsProps {
-  first: ToasmtasterType;
-  second: ToasmtasterType;
-  third: ToasmtasterType;
+  first: TStandardObject;
+  second: TStandardObject;
+  third: TStandardObject;
 }
 
 const TopParticipants = (props: ITopParticipantsProps) => {
-  const {first, second, third} = props;
+  const {
+    first = {label: '', value: 0},
+    second = {label: '', value: 0},
+    third = {label: '', value: 0},
+  } = props;
   return (
     <TopParticipantsContainer>
       <ParticipantAvatar participant={second} position="second" />

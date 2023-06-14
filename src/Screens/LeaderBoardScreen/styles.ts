@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 import {ProfileAvatar} from 'Components';
 import {ToasmtasterType} from 'Types';
+import {CardSkeletonList} from 'Skeletons';
 
 export const ScreenContainer = styled(View)(() => ({
   paddingHorizontal: 16,
@@ -59,3 +60,10 @@ export const StyledProfileAvatar = styled(ProfileAvatar).attrs(
     shadowRadius: 10,
   }),
 }));
+
+export const ParticipantListSkeleton = styled(CardSkeletonList).attrs(() => ({
+  contentContainerStyle: {
+    paddingHorizontal: 16,
+    paddingVertical: 50,
+  },
+}))({});

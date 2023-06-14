@@ -3,68 +3,49 @@ import React from 'react';
 
 import {PositionHolderCard, ScreenWrapper, Spacer} from 'Components';
 import TopParticipants from './Components/TopParticipants';
-import {ParticipantFlatList, ScreenContainer} from './styles';
+import {
+  ParticipantFlatList,
+  ParticipantListSkeleton,
+  ScreenContainer,
+} from './styles';
 import {ToasmtasterType} from 'Types';
-
-const DATA = {
-  first: {name: 'Huzaifa', profileImage: '', points: 232, position: 1},
-  second: {name: 'Huzaifa', profileImage: '', points: 232, position: 2},
-  third: {name: 'Huzaifa', profileImage: '', points: 232, position: 3},
-  otherParticipants: [
-    {
-      name: 'Huzaifa',
-      profileImage: '',
-      points: 232,
-      position: 4,
-    },
-    {
-      name: 'Huzaifa',
-      profileImage: '',
-      points: 232,
-      position: 5,
-    },
-    {
-      name: 'Huzaifa',
-      profileImage: '',
-      points: 232,
-      position: 5,
-    },
-    {
-      name: 'Huzaifa',
-      profileImage: '',
-      points: 232,
-      position: 5,
-    },
-    {
-      name: 'Huzaifa',
-      profileImage: '',
-      points: 232,
-      position: 5,
-    },
-    {
-      name: 'Huzaifa',
-      profileImage: '',
-      points: 232,
-      position: 5,
-    },
-  ],
-};
+import {useGetGamificationPoints} from 'Services';
 
 const LeaderBoardScreen = () => {
-  const {first, second, third, otherParticipants = []} = DATA;
+  const {data = [], isLoading} = useGetGamificationPoints({showLoading: true});
 
-  const renderItem = ({item}: {item: ToasmtasterType}) => {
-    return <PositionHolderCard participant={item} />;
+  const topThree = data.slice(0, 3);
+  const rest = data.slice(3, data.length);
+
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: ToasmtasterType;
+    index: number;
+  }) => {
+    return <PositionHolderCard participant={item} position={index + 3} />;
   };
 
   return (
     <ScreenWrapper type="scroll">
       <ScreenContainer>
-        <TopParticipants first={first} second={second} third={third} />
+        <TopParticipants
+          first={topThree[0]}
+          second={topThree[1]}
+          third={topThree[2]}
+        />
       </ScreenContainer>
       <Spacer>
+        <ParticipantListSkeleton
+          length={8}
+          isLoading={isLoading}
+          height={53}
+          borderRadius={20}
+        />
+
         <ParticipantFlatList
-          data={otherParticipants}
+          data={rest}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}
           ItemSeparatorComponent={() => <Spacer top={15} />}

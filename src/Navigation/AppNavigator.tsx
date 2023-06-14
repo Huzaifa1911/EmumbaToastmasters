@@ -39,6 +39,7 @@ const AppNavigator = () => {
       <Screen
         name={SCREENS.VOTING_POLL_RESULT_SCREEN}
         component={VotingPollResultScreen}
+        options={{unmountOnBlur: true}}
       />
       <Screen
         name={SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN}
