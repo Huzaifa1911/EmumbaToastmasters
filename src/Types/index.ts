@@ -19,6 +19,12 @@ export type VectorIconType = {
   iconType: IconType;
 } & IconProps;
 
+export interface ISkeletonProps {
+  height?: string | number;
+  width?: string | number;
+  borderRadius?: number;
+}
+
 export type TSVGIcon = {
   height?: number;
   width?: number;
@@ -89,12 +95,7 @@ export type TPollType = {
   name: string;
 };
 
-export type ToasmtasterType = {
-  name: string;
-  profileImage: string;
-  points: number;
-  position: number;
-};
+export type ToasmtasterType = TStandardObject;
 
 export type TAttendedEvent = {
   id: number;
@@ -164,8 +165,20 @@ export type TPerformedRole = {
   role: number;
 };
 
-export interface ISkeletonProps {
-  height?: string | number;
-  width?: string | number;
-  borderRadius?: number;
-}
+export type TClosedPollCandidate = {id: number; label: string; votes: number};
+
+export type TClosedVotingPoll = {
+  id: number;
+  question: string;
+  createdBy: TStandardObject;
+  timestamp: number;
+  candidates: TClosedPollCandidate[];
+  winner: TStandardObject;
+};
+
+export type TPieChartDataPoint = {
+  value: number;
+  color: string;
+  text: string;
+  label: string;
+};

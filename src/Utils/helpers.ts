@@ -1,13 +1,15 @@
-import {TJWTDecode} from 'Types';
+import {TJWTDecode, TVote} from 'Types';
 import α from 'color-alpha';
 import dayjs from 'dayjs';
 import numbro from 'numbro';
-import {anyPass, isEmpty, isNil, propOr} from 'ramda';
+import {anyPass, isEmpty, isNil, propOr, reduce} from 'ramda';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Toast from 'react-native-toast-message';
 import {format as prettyFormat} from 'pretty-format';
 import jwtDecode from 'jwt-decode';
 import {KeychainStorageService} from 'Services';
+import {TAppColors} from 'Assets';
+import {PIE_CHART_COLORS_KEYS} from './constants';
 
 dayjs.extend(relativeTime);
 
@@ -96,3 +98,36 @@ export const truncateString = (text: string, length = 15): string => {
   }
   return text;
 };
+
+const getMaxValueKey = (obj: Record<number, number>): number | null => {
+  return reduce(
+    (maxKey: number | null, key: number) => {
+      if (maxKey === null || obj[key] > obj[maxKey]) {
+        return key;
+      }
+      return maxKey;
+    },
+    null,
+    Object.keys(obj).map(Number),
+  );
+};
+
+export const findCandidateWithMostVotes = (votes: TVote[]) => {
+  const countByCandidate = reduce(
+    (acc: Record<number, number>, vote: TVote) => {
+      const {candidate} = vote;
+      acc[candidate] = (acc[candidate] || 0) + 1;
+      return acc;
+    },
+    {},
+    votes,
+  );
+
+  return getMaxValueKey(countByCandidate);
+};
+
+export function getRandomColorForPieChart(colors: TAppColors) {
+  const randomIndex = Math.floor(Math.random() * PIE_CHART_COLORS_KEYS.length);
+  const colorKey = PIE_CHART_COLORS_KEYS[randomIndex] as AppTheme.TColors;
+  return colors[colorKey] as string;
+}
