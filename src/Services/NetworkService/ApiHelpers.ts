@@ -28,7 +28,7 @@ import {AUTHORIZATION, decodeJwtToken, firstOrNull} from 'Utils';
 import {KeychainStorageService} from 'Services';
 import {
   TCastVotePayload,
-  TClosePollPayload,
+  TUpdatePollPayload,
   TCreatePollPayload,
   TUpdateVotePayload,
 } from './types';
@@ -101,17 +101,31 @@ const createVotingPoll = async (
   }
 };
 
-const closeVotingPoll = async ({
+const updateVotingPoll = async ({
   payload,
-  pollId,
 }: {
-  payload: TClosePollPayload;
-  pollId: number;
+  payload: TUpdatePollPayload;
 }): Promise<TVotingPoll> => {
+  const {pollId, is_active} = payload;
   try {
     const {data} = (await axiosInstance.patch(
       `${ROUTES.VOTING_POLLS}${pollId}`,
-      payload,
+      {is_active},
+    )) as AxiosResponse<TVotingPoll>;
+    return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const deleteVotingPoll = async ({
+  pollId,
+}: {
+  pollId: number;
+}): Promise<TVotingPoll> => {
+  try {
+    const {data} = (await axiosInstance.delete(
+      `${ROUTES.VOTING_POLLS}${pollId}`,
     )) as AxiosResponse<TVotingPoll>;
     return {...data};
   } catch (error) {
@@ -414,5 +428,6 @@ export const API_HELPERS = Object.freeze({
   getAllVotes,
   castVote,
   createVotingPoll,
-  closeVotingPoll,
+  updateVotingPoll,
+  deleteVotingPoll,
 });

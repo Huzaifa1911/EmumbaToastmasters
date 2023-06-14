@@ -6,6 +6,8 @@ export {
   BASE_URL,
   AUTHORIZATION,
   TOTAL_WIDTH,
+  ACTIVE_POLL_SWIPEABLE_ACTIONS,
+  CLOSED_POLL_SWIPEABLE_ACTIONS,
 } from './constants';
 export {
   getAlphaColor,

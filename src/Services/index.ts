@@ -28,4 +28,4 @@ export {useCastVote} from './NetworkService/Hooks/CustomHooks/Polls/useCastVote'
 export {useUpdateVote} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateVote';
 
 export {useCreateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useCreateVotingPoll';
-export {useCloseVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useCloseVotingPoll';
+export {useUpdateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateVotingPoll';
