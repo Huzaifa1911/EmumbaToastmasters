@@ -8,6 +8,7 @@ import {
   ToastmasterAttendedSessionCard,
   Spacer,
   AppActivityIndicator,
+  BlankState,
 } from 'Components';
 import {TAttendedEvent} from 'Types';
 import AttendedSessionListHeader from './Components/AttendedSessionListHeader';
@@ -49,7 +50,7 @@ const AttendedToastmasterSessions = (props: IAttendedToastmasterSessions) => {
         onEndReached={onLoadMoreData}
         ListHeaderComponent={
           <AttendedSessionListHeader
-            showViewAllComponent={sessions.length > 5}
+            showViewAllComponent={sessions.length > 5 && showLatestSessions}
           />
         }
         ListFooterComponent={
@@ -57,6 +58,14 @@ const AttendedToastmasterSessions = (props: IAttendedToastmasterSessions) => {
             isLoading={isFetchingNextPage}
             spacerProps={{top: 10}}
           />
+        }
+        ListEmptyComponent={
+          !(isLoading || isFetchingNextPage) ? (
+            <BlankState
+              label="No Attended Sessions"
+              infoText="There are no Sessions Available that you have attended "
+            />
+          ) : null
         }
       />
       <CardSkeletonList isLoading={isLoading} length={5} />

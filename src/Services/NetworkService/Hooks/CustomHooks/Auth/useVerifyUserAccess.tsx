@@ -7,7 +7,7 @@ import {decodeJwtToken} from 'Utils';
 import {updateUser, useAppDispatch} from 'Store';
 
 const onSettled = () => {
-  setTimeout(() => SplashScreen.hide(), 1000);
+  setTimeout(() => SplashScreen.hide(), 2000);
 };
 
 export const useVerifyUserAccess = ({showLoading = false}: TShowLoading) => {

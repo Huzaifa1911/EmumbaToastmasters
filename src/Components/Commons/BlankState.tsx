@@ -16,10 +16,14 @@ const BlankState = ({infoText, label}: IBlankStateProps) => {
       </Spacer>
 
       <JustifyCenter>
-        <AppText variant="bold" size={18} textTransform="uppercase">
+        <AppText
+          variant="bold"
+          textAlign="center"
+          size={18}
+          textTransform="uppercase">
           {label}
         </AppText>
-        <AppText>{infoText}</AppText>
+        <AppText textAlign="center">{infoText}</AppText>
       </JustifyCenter>
     </JustifyCenter>
   );

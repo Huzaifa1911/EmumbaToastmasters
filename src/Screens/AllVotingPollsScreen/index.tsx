@@ -6,7 +6,9 @@ import {propOr} from 'ramda';
 
 import HeaderRightIcon from './Components/HeaderRightIcon';
 import {
+  AppActivityIndicator,
   AppBottomSheet,
+  BlankState,
   PollTypeSheet,
   ScreenWrapper,
   SelectContestantsSheet,
@@ -49,7 +51,8 @@ const AllVotingPollsScreen = ({
   const userId = useAppSelector(selectUser)?.id;
   const pollTypeRef = useRef<TPollType>();
 
-  const {data, isLoading} = useGetVotingPolls({showLoading: false});
+  const {data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage} =
+    useGetVotingPolls({showLoading: false});
   const {mutate: updatePollMutation} = useUpdateVotingPoll({showLoading: true});
   const {mutate: createPollMutation} = useCreateVotingPoll({showLoading: true});
 
@@ -58,7 +61,7 @@ const AllVotingPollsScreen = ({
   const isPollTypeSelected = sheetType === SheetTypes.CONTESTENTS_SHEET;
   const snapPoints = isPollTypeSelected ? ['90%', '90%'] : ['80%', '90%'];
   const sheetTitle = isPollTypeSelected
-    ? 'Add Contestents'
+    ? 'Add Contestants'
     : 'Select Poll type';
 
   const onProceedNext = (type?: TPollType) => {
@@ -74,6 +77,10 @@ const AllVotingPollsScreen = ({
       is_active: true,
     };
     createPollMutation(payload, {onSuccess: closeBottomSheet});
+  };
+
+  const onLoadMoreData = () => {
+    if (hasNextPage) fetchNextPage();
   };
 
   const renderItem = ({item}: {item: TFormattedVotingPoll; index: number}) => {
@@ -105,6 +112,21 @@ const AllVotingPollsScreen = ({
             keyExtractor={(item, index) => index.toString() + item.id}
             renderItem={renderItem}
             ItemSeparatorComponent={() => <Spacer top={11} />}
+            onEndReached={onLoadMoreData}
+            ListFooterComponent={
+              <AppActivityIndicator
+                isLoading={isFetchingNextPage}
+                spacerProps={{top: 15}}
+              />
+            }
+            ListEmptyComponent={
+              !(isLoading || isFetchingNextPage) ? (
+                <BlankState
+                  label="No Voting Polls Available"
+                  infoText="There are no Voting Polls Created"
+                />
+              ) : null
+            }
           />
         </When>
 

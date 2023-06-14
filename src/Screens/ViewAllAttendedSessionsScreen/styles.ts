@@ -3,6 +3,6 @@ import styled from 'styled-components/native';
 
 export const AttendedSessionList = styled(AttendedToastmastersSessions).attrs(
   () => ({
-    contentContainerStyle: {paddingHorizontal: 16},
+    contentContainerStyle: {paddingHorizontal: 16, paddingBottom: 30},
   }),
 )({});
