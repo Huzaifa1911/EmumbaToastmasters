@@ -41,7 +41,15 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
   const users: TStandardObject[] = propOr([], 'pages', data);
 
   const onUserItemPress = (user: TStandardObject) => {
-    setSelectedContestants([...selectedContestants, user]);
+    if (includes(user, selectedContestants)) {
+      setSelectedContestants([
+        ...selectedContestants.filter(
+          contestant => contestant.value !== user.value,
+        ),
+      ]);
+    } else {
+      setSelectedContestants([...selectedContestants, user]);
+    }
   };
 
   const onLoadMoreData = () => {

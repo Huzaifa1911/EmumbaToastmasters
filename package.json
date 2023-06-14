@@ -10,6 +10,8 @@
     "start": "react-native start --reset-cache",
     "test": "jest",
     "release": "cd android && ./gradlew assembleRelease && cd ..",
+    "rm-bundle": "rm android/app/src/main/assets/index.android.bundle",
+    "add-bundle": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
     "gradle-clean": "cd android && ./gradlew clean",
     "link-fonts": "npx react-native-asset",
     "postinstall": "patch-package",
