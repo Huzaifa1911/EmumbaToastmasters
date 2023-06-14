@@ -5,10 +5,10 @@ import {DEFAULT_IMAGE} from 'Utils';
 
 interface IProfileAvatarProps
   extends Omit<AvatarImageProps, 'source' | 'onError'> {
-  uri: string;
+  uri?: string;
 }
 
-const ProfileAvatar = ({size = 50, uri, ...rest}: IProfileAvatarProps) => {
+const ProfileAvatar = ({size = 50, uri = '', ...rest}: IProfileAvatarProps) => {
   const [hasError, setHasError] = useState(uri.length === 0);
 
   const onError = () => {

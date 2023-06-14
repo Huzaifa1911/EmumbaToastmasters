@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ToasmtasterType} from 'Types';
+import {TStandardObject} from 'Types';
 import {StyledProfileAvatar, TextContent} from '../styles';
 import {AppText} from 'Components';
 import {JustifyCenter} from 'Styles';
@@ -8,7 +8,7 @@ import {JustifyCenter} from 'Styles';
 type TPosition = 'first' | 'second' | 'third';
 
 interface IParticipantAvatarProps {
-  participant: ToasmtasterType;
+  participant: TStandardObject;
   position: TPosition;
 }
 
@@ -36,7 +36,7 @@ const getPositionInfo = (position: TPosition) => {
 
 const ParticipantAvatar = (props: IParticipantAvatarProps) => {
   const {
-    participant: {name = '', points = 0, profileImage = ''},
+    participant: {label, value},
     position,
   } = props;
 
@@ -52,16 +52,16 @@ const ParticipantAvatar = (props: IParticipantAvatarProps) => {
 
       <AppText size={45}>{positionInfo.badge}</AppText>
 
-      <StyledProfileAvatar uri={profileImage} isFirst={isFirst} />
+      <StyledProfileAvatar isFirst={isFirst} />
 
       <TextContent isFirst={isFirst}>
         <AppText numberOfLines={1} textAlign="center" size={10}>
-          {`@${name}`}
+          {`@${label}`}
         </AppText>
       </TextContent>
 
       <AppText color="primary" textAlign="center" variant="bold" size={10}>
-        {points}
+        {value}
       </AppText>
     </JustifyCenter>
   );
