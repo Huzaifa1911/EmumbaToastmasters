@@ -9,6 +9,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import AppWrapper from './AppWrapper';
 import {ReduxStore, persistedStore} from 'Store';
 import {queryClient} from 'Services';
+import ErrorBoundary from './ErrorBoundary';
 
 const App = () => {
   LogBox.ignoreLogs([
@@ -20,16 +21,18 @@ const App = () => {
   ]);
 
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <ReduxProvider store={ReduxStore}>
-        <PersistGate persistor={persistedStore}>
-          <QueryClientProvider client={queryClient}>
-            <AppWrapper />
-            <Toast />
-          </QueryClientProvider>
-        </PersistGate>
-      </ReduxProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <ReduxProvider store={ReduxStore}>
+          <PersistGate persistor={persistedStore}>
+            <QueryClientProvider client={queryClient}>
+              <AppWrapper />
+              <Toast />
+            </QueryClientProvider>
+          </PersistGate>
+        </ReduxProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 };
 

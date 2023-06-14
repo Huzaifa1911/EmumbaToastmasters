@@ -95,3 +95,7 @@ export const CheckCircleIcon = (props: TSpecificIcon) => (
 export const StopIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="Octicons" name="stop" {...props} />
 );
+
+export const ErrorIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="MaterialIcons" name="error-outline" {...props} />
+);

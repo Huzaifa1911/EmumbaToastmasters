@@ -296,14 +296,26 @@ const getPollTypes = async (): Promise<TPaginatedResponse<TPollType>> => {
 const getVotingPolls = async <T = TPaginatedResponse<TFormattedVotingPoll>>({
   params,
   pathParams = [],
+  getAllPolls = false,
 }: {
   params?: Record<string, any>;
   pathParams?: any[];
+  getAllPolls?: boolean;
 }): Promise<T> => {
   try {
+    const yesterday = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+    const tomorrow = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const {data} = (await axiosInstance.get(
       `${ROUTES.VOTING_POLLS}${pathParams?.join('/')}`,
-      {params},
+      {
+        params: {
+          ...(!getAllPolls && {
+            created_at__gte: yesterday,
+            created_at__lt: tomorrow,
+          }),
+          ...params,
+        },
+      },
     )) as AxiosResponse<T>;
     const {results: polltypes = []} = await getPollTypes();
 
