@@ -4,6 +4,7 @@ import {LogBox} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {QueryClientProvider} from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import AppWrapper from './AppWrapper';
 import {ReduxStore, persistedStore} from 'Store';
@@ -19,14 +20,16 @@ const App = () => {
   ]);
 
   return (
-    <ReduxProvider store={ReduxStore}>
-      <PersistGate persistor={persistedStore}>
-        <QueryClientProvider client={queryClient}>
-          <AppWrapper />
-          <Toast />
-        </QueryClientProvider>
-      </PersistGate>
-    </ReduxProvider>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <ReduxProvider store={ReduxStore}>
+        <PersistGate persistor={persistedStore}>
+          <QueryClientProvider client={queryClient}>
+            <AppWrapper />
+            <Toast />
+          </QueryClientProvider>
+        </PersistGate>
+      </ReduxProvider>
+    </GestureHandlerRootView>
   );
 };
 

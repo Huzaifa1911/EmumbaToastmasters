@@ -96,6 +96,7 @@ export type TCreatePollPayload = {
   is_active: boolean;
 };
 
-export type TClosePollPayload = {
+export type TUpdatePollPayload = {
+  pollId: number;
   is_active: boolean;
 };

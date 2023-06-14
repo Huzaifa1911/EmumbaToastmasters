@@ -24,6 +24,7 @@ import {
 import Header from './Components/Header';
 import {
   NavigationService,
+  useUpdateVotingPoll,
   useCreateVotingPoll,
   useGetVotingPolls,
 } from 'Services';
@@ -40,7 +41,7 @@ const AllVotingPollsScreen = ({
     () => navigation.setOptions({headerRight: HeaderRightIcon}),
     [],
   );
-  // const [pollType, setPollType] = useState<TPollType>();
+
   const [sheetType, setSheetType] = useState<TSheetType>(
     SheetTypes.POLL_TYPE_SHEET,
   );
@@ -49,9 +50,8 @@ const AllVotingPollsScreen = ({
   const pollTypeRef = useRef<TPollType>();
 
   const {data, isLoading} = useGetVotingPolls({showLoading: false});
-  const {mutate: createPollMutation} = useCreateVotingPoll({
-    showLoading: true,
-  });
+  const {mutate: updatePollMutation} = useUpdateVotingPoll({showLoading: true});
+  const {mutate: createPollMutation} = useCreateVotingPoll({showLoading: true});
 
   // constants
   const polls: TFormattedVotingPoll[] = propOr([], 'pages', data);
@@ -60,20 +60,6 @@ const AllVotingPollsScreen = ({
   const sheetTitle = isPollTypeSelected
     ? 'Add Contestents'
     : 'Select Poll type';
-
-  const renderItem = ({item}: {item: TFormattedVotingPoll; index: number}) => {
-    const navigateTo = item.is_active
-      ? SCREENS.CAST_VOTE_SCREEN
-      : SCREENS.VOTING_POLL_RESULT_SCREEN;
-    return (
-      <VotingPollCard
-        votingPoll={item}
-        onPress={() =>
-          NavigationService.navigate(navigateTo, {pollId: item.id})
-        }
-      />
-    );
-  };
 
   const onProceedNext = (type?: TPollType) => {
     setSheetType(SheetTypes.CONTESTENTS_SHEET);
@@ -88,6 +74,25 @@ const AllVotingPollsScreen = ({
       is_active: true,
     };
     createPollMutation(payload, {onSuccess: closeBottomSheet});
+  };
+
+  const renderItem = ({item}: {item: TFormattedVotingPoll; index: number}) => {
+    const navigateTo = item.is_active
+      ? SCREENS.CAST_VOTE_SCREEN
+      : SCREENS.VOTING_POLL_RESULT_SCREEN;
+
+    const updatePoll = () =>
+      updatePollMutation({pollId: item.id, is_active: !item.is_active});
+
+    return (
+      <VotingPollCard
+        actions={[updatePoll]}
+        votingPoll={item}
+        onPress={() =>
+          NavigationService.navigate(navigateTo, {pollId: item.id})
+        }
+      />
+    );
   };
 
   return (

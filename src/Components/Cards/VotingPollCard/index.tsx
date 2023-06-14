@@ -5,14 +5,17 @@ import {AppChip, AppText, GoToIndicator, Spacer} from 'Components';
 import {TFormattedVotingPoll} from 'Types';
 import {RowContent, TextWrapper} from './styles';
 import {getTimeDifference, getVotingPollStatus} from 'Utils';
+import {Swipeable} from 'react-native-gesture-handler';
+import SwipeableActions from './Components/SwipeableActions';
 
 interface IVotingPollCardProps {
   votingPoll: TFormattedVotingPoll;
   onPress?: () => void;
+  actions: (() => void)[];
 }
 
 const VotingPollCard = (props: IVotingPollCardProps) => {
-  const {votingPoll = {}, onPress} = props;
+  const {votingPoll = {}, onPress, actions} = props;
 
   const {
     question = '',
@@ -24,30 +27,35 @@ const VotingPollCard = (props: IVotingPollCardProps) => {
   const date = `About ${getTimeDifference(timestamp)}`;
 
   return (
-    <AppCard
-      mode="contained"
-      height={100}
-      innerSpacerProps={{horizontal: 12}}
-      onPress={onPress}>
-      <RowContent>
-        {/* Info Content */}
-        <TextWrapper>
-          <AppText size={16} variant="bold" numberOfLines={2}>
-            {question}
-          </AppText>
-        </TextWrapper>
+    <Swipeable
+      renderRightActions={() => (
+        <SwipeableActions actions={actions} isActive={is_active} />
+      )}>
+      <AppCard
+        mode="contained"
+        height={100}
+        innerSpacerProps={{horizontal: 12}}
+        onPress={onPress}>
+        <RowContent>
+          {/* Info Content */}
+          <TextWrapper>
+            <AppText size={16} variant="bold" numberOfLines={2}>
+              {question}
+            </AppText>
+          </TextWrapper>
 
-        <Spacer left={5}>
-          <AppChip label={label} chipColor={color} />
-        </Spacer>
+          <Spacer left={5}>
+            <AppChip label={label} chipColor={color} />
+          </Spacer>
 
-        <GoToIndicator />
-      </RowContent>
+          <GoToIndicator />
+        </RowContent>
 
-      {/* timestamp */}
-      <Spacer top={12} />
-      <AppText size={12}>{date}</AppText>
-    </AppCard>
+        {/* timestamp */}
+        <Spacer top={12} />
+        <AppText size={12}>{date}</AppText>
+      </AppCard>
+    </Swipeable>
   );
 };
 
