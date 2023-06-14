@@ -21,6 +21,8 @@ export {
   decodeJwtToken,
   Log,
   firstOrNull,
+  findCandidateWithMostVotes,
+  getRandomColorForPieChart,
   truncateString,
 } from './helpers';
 

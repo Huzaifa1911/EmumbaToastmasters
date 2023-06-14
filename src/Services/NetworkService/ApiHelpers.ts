@@ -7,6 +7,7 @@ dayjs.extend(customParseFormat);
 
 import {
   TAttendedEvent,
+  TClosedVotingPoll,
   TDataItem,
   TEvent,
   TFormattedVotingPoll,
@@ -24,7 +25,12 @@ import {
 import {ROUTES} from './Routes';
 import {axiosInstance} from './config';
 import {ReduxStore} from 'Store';
-import {AUTHORIZATION, decodeJwtToken, firstOrNull} from 'Utils';
+import {
+  AUTHORIZATION,
+  decodeJwtToken,
+  findCandidateWithMostVotes,
+  firstOrNull,
+} from 'Utils';
 import {KeychainStorageService} from 'Services';
 import {
   TCastVotePayload,
@@ -397,7 +403,11 @@ export const getActiveVotingPollDetails = async (
     return {
       id: poll.id,
       createdBy: {
-        label: propOr('', 'first_name', owner),
+        label: `${propOr('', 'first_name', owner)} ${propOr(
+          '',
+          'last_name',
+          owner,
+        )}`,
         value: propOr(0, 'id', owner),
       },
       question: poll.question,
@@ -414,6 +424,66 @@ export const getActiveVotingPollDetails = async (
   }
 };
 
+export const getClosedVotingPollDetails = async (
+  pollId: number,
+): Promise<TClosedVotingPoll> => {
+  try {
+    const poll = await getVotingPolls<TFormattedVotingPoll>({
+      pathParams: [pollId],
+    });
+
+    const {results: votes = []} = await getAllVotes({params: {poll: pollId}});
+
+    const userIds = [...new Set(votes.map(vote => vote.candidate))].join(',');
+
+    let users: TUser[] = [];
+    if (userIds.length > 0) {
+      const {results} = await getAllUsers({
+        params: {id__in: userIds},
+      });
+      users = results;
+    }
+
+    const owner = await getAllUsers<TUser>({pathParams: [poll.owner]});
+
+    const candidates = users.map(user => {
+      return {
+        label: `${propOr('', 'first_name', user)}`,
+        id: user.id,
+        votes: votes.filter(vote => vote.candidate === user.id).length,
+      };
+    });
+
+    const winnerId = findCandidateWithMostVotes(votes) ?? 0;
+    const winner = find(propEq(winnerId, 'id'), users);
+
+    return {
+      id: poll.id,
+      createdBy: {
+        label: `${propOr('', 'first_name', owner)} ${propOr(
+          '',
+          'last_name',
+          owner,
+        )}`,
+        value: propOr(0, 'id', owner),
+      },
+      timestamp: poll.timestamp,
+      candidates,
+      winner: {
+        value: propOr(0, 'id', winner),
+        label: `${propOr('', 'first_name', winner)} ${propOr(
+          '',
+          'last_name',
+          winner,
+        )}`,
+      },
+      question: poll.question,
+    };
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const API_HELPERS = Object.freeze({
   getAllAttendedEvents,
   getAllPerformedRoles,
@@ -424,6 +494,7 @@ export const API_HELPERS = Object.freeze({
   getPollTypes,
   getVotingPolls,
   getActiveVotingPollDetails,
+  getClosedVotingPollDetails,
   updateVote,
   getAllVotes,
   castVote,

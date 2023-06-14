@@ -26,6 +26,6 @@ export {useGetVotingPolls} from './NetworkService/Hooks/CustomHooks/Polls/useGet
 export {useGetActiveVotingPollDetails} from './NetworkService/Hooks/CustomHooks/Polls/useGetActiveVotingPollDetails';
 export {useCastVote} from './NetworkService/Hooks/CustomHooks/Polls/useCastVote';
 export {useUpdateVote} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateVote';
-
 export {useCreateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useCreateVotingPoll';
 export {useUpdateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateVotingPoll';
+export {useGetClosedPollDetails} from './NetworkService/Hooks/CustomHooks/Polls/useGetClosedPollDetails';
