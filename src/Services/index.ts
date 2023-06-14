@@ -19,9 +19,9 @@ export {useGetAllParticipants} from './NetworkService/Hooks/CustomHooks/Particip
 // HomeScreen Hooks
 export {useGetGamificationPoints} from './NetworkService/Hooks/CustomHooks/HomeScreenHooks/useGetChartData';
 export {useGetAllAttendedEvents} from './NetworkService/Hooks/CustomHooks/HomeScreenHooks/useGetAllAttendedEvents';
+export {useGetStatPoints} from './NetworkService/Hooks/CustomHooks/HomeScreenHooks/useGetStatPoints';
 
 // Voting Polls
-
 export {useGetVotingPolls} from './NetworkService/Hooks/CustomHooks/Polls/useGetVotingPolls';
 export {useGetActiveVotingPollDetails} from './NetworkService/Hooks/CustomHooks/Polls/useGetActiveVotingPollDetails';
 export {useCastVote} from './NetworkService/Hooks/CustomHooks/Polls/useCastVote';
