@@ -6,6 +6,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 import {
+  StatType,
   TAttendedEvent,
   TClosedVotingPoll,
   TDataItem,
@@ -496,6 +497,26 @@ export const getClosedVotingPollDetails = async (
   }
 };
 
+export const getStatPoints = async (): Promise<StatType> => {
+  try {
+    const {data: events = {total: 0}} = (await axiosInstance.get(
+      ROUTES.EVENTS,
+    )) as AxiosResponse<TPaginatedResponse<TEvent>>;
+    const userFirstName = ReduxStore.getState().appUser.user?.first_name;
+
+    const totalEvents = events.total;
+    const attendedEvents = (await getAllAttendedEvents()).results.length;
+    const points = await getGamificationPoints();
+    const hightestPoints: number = propOr(0, 'value', firstOrNull(points));
+    const userPoints =
+      points.find(point => point.label === userFirstName)?.value ?? 0;
+
+    return {totalEvents, attendedEvents, hightestPoints, userPoints};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const API_HELPERS = Object.freeze({
   getAllAttendedEvents,
   getAllPerformedRoles,
@@ -513,4 +534,5 @@ export const API_HELPERS = Object.freeze({
   createVotingPoll,
   updateVotingPoll,
   deleteVotingPoll,
+  getStatPoints,
 });

@@ -182,3 +182,10 @@ export type TPieChartDataPoint = {
   text: string;
   label: string;
 };
+
+export type StatType = {
+  totalEvents: number;
+  attendedEvents: number;
+  hightestPoints: number;
+  userPoints: number;
+};

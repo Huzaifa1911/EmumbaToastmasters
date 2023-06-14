@@ -27,3 +27,4 @@ export {default as AppActivityIndicator} from './Commons/AppActivityIndicator';
 export {default as Map} from './Commons/Map';
 export {default as AppSearchbar} from './AppSearchbar';
 export {default as BlankState} from './Commons/BlankState';
+export {default as AnimatedNumber} from './AnimatedNumber';
