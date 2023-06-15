@@ -12,10 +12,11 @@ interface IVotingPollCardProps {
   votingPoll: TFormattedVotingPoll;
   onPress?: () => void;
   actions: (() => void)[];
+  disabled?: boolean;
 }
 
 const VotingPollCard = (props: IVotingPollCardProps) => {
-  const {votingPoll = {}, onPress, actions} = props;
+  const {votingPoll = {}, onPress, actions, disabled = false} = props;
 
   const {
     question = '',
@@ -24,7 +25,7 @@ const VotingPollCard = (props: IVotingPollCardProps) => {
   } = votingPoll as TFormattedVotingPoll;
 
   const {label, color} = getVotingPollStatus(is_active);
-  const date = `About ${getTimeDifference(timestamp)}`;
+  const date = `Created ${getTimeDifference(timestamp)}`;
 
   return (
     <Swipeable
@@ -35,6 +36,7 @@ const VotingPollCard = (props: IVotingPollCardProps) => {
         mode="contained"
         height={100}
         innerSpacerProps={{horizontal: 12}}
+        disabled={disabled}
         onPress={onPress}>
         <RowContent>
           {/* Info Content */}

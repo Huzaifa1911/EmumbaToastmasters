@@ -1,5 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {createRef, useLayoutEffect, useRef, useState} from 'react';
+import React, {
+  createRef,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {Else, If, Then, When} from 'react-if';
 import {propOr} from 'ramda';
@@ -30,7 +36,7 @@ import {
   useCreateVotingPoll,
   useGetVotingPolls,
 } from 'Services';
-import {SCREENS} from 'Utils';
+import {SCREENS, showToast} from 'Utils';
 import {SheetTypes, TSheetType} from './utils';
 import {selectUser, useAppSelector} from 'Store';
 
@@ -83,24 +89,37 @@ const AllVotingPollsScreen = ({
     if (hasNextPage) fetchNextPage();
   };
 
-  const renderItem = ({item}: {item: TFormattedVotingPoll; index: number}) => {
-    const navigateTo = item.is_active
-      ? SCREENS.CAST_VOTE_SCREEN
-      : SCREENS.VOTING_POLL_RESULT_SCREEN;
+  const renderItem = useCallback(
+    ({item}: {item: TFormattedVotingPoll; index: number}) => {
+      const isOwner = item.owner === userId;
+      const navigateTo = item.is_active
+        ? SCREENS.CAST_VOTE_SCREEN
+        : SCREENS.VOTING_POLL_RESULT_SCREEN;
 
-    const updatePoll = () =>
-      updatePollMutation({pollId: item.id, is_active: !item.is_active});
+      const updatePoll = () => {
+        if (isOwner)
+          updatePollMutation({pollId: item.id, is_active: !item.is_active});
+        else
+          showToast(
+            `Only poll owner can ${item.is_active ? 'close' : 'activate'} poll`,
+            'Error',
+            'error',
+          );
+      };
 
-    return (
-      <VotingPollCard
-        actions={[updatePoll]}
-        votingPoll={item}
-        onPress={() =>
-          NavigationService.navigate(navigateTo, {pollId: item.id})
-        }
-      />
-    );
-  };
+      return (
+        <VotingPollCard
+          actions={[updatePoll]}
+          votingPoll={item}
+          disabled={isOwner && !item.is_active}
+          onPress={() =>
+            NavigationService.navigate(navigateTo, {pollId: item.id})
+          }
+        />
+      );
+    },
+    [],
+  );
 
   return (
     <>

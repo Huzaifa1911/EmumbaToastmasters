@@ -10,7 +10,7 @@ interface IAnimatedNumberProps {
 }
 
 const AnimatedNumber = (props: IAnimatedNumberProps) => {
-  const {duration = 500, value = 0, valueProps} = props;
+  const {duration = 800, value = 0, valueProps} = props;
 
   const animatedValue = useRef(new Animated.Value(0)).current;
   const [displayValue, setDisplayValue] = useState(0);
