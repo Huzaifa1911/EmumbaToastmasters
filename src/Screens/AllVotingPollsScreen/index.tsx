@@ -117,7 +117,7 @@ const AllVotingPollsScreen = ({
         <VotingPollCard
           actions={[updatePoll]}
           votingPoll={item}
-          disabled={isOwner && !item.is_active}
+          disabled={!isOwner && !item.is_active}
           onPress={() =>
             NavigationService.navigate(navigateTo, {pollId: item.id})
           }
