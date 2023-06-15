@@ -24,7 +24,7 @@ const LeaderBoardScreen = () => {
     item: ToasmtasterType;
     index: number;
   }) => {
-    return <PositionHolderCard participant={item} position={index + 3} />;
+    return <PositionHolderCard participant={item} position={index + 4} />;
   };
 
   return (
