@@ -8,6 +8,7 @@ export {
   TOTAL_WIDTH,
   ACTIVE_POLL_SWIPEABLE_ACTIONS,
   CLOSED_POLL_SWIPEABLE_ACTIONS,
+  PIE_CHART_COLORS,
 } from './constants';
 export {
   getAlphaColor,
@@ -22,7 +23,6 @@ export {
   Log,
   firstOrNull,
   findCandidateWithMostVotes,
-  getRandomColorForPieChart,
   truncateString,
 } from './helpers';
 

@@ -2,18 +2,22 @@ import React from 'react';
 import {AppText, Spacer} from 'Components';
 import {EmptyStateIcon} from 'SvgIcons';
 import {JustifyCenter} from 'Styles';
+import {When} from 'react-if';
 
 export interface IBlankStateProps {
   label?: string;
   infoText?: string;
+  showIcon?: boolean;
 }
 
-const BlankState = ({infoText, label}: IBlankStateProps) => {
+const BlankState = ({infoText, label, showIcon = true}: IBlankStateProps) => {
   return (
     <JustifyCenter style={{flex: 1}}>
-      <Spacer top={50} bottom={30}>
-        <EmptyStateIcon />
-      </Spacer>
+      <When condition={showIcon}>
+        <Spacer top={50} bottom={30}>
+          <EmptyStateIcon />
+        </Spacer>
+      </When>
 
       <JustifyCenter>
         <AppText

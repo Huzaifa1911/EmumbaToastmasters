@@ -76,12 +76,16 @@ export const CLOSED_POLL_SWIPEABLE_ACTIONS: {
   },
 ];
 
-export const PIE_CHART_COLORS_KEYS = [
-  'primary',
-  'primaryContainer',
-  'onPrimaryContainer',
-  'inversePrimary',
-  'secondary',
-  'secondaryContainer',
-  'onSecondaryContainer',
+export const PIE_CHART_COLORS = [
+  '#27374D',
+  '#526D82',
+  '#4F709C',
+  'rgb(71, 85, 182)',
+  'rgb(91, 93, 114)',
+  'rgb(187, 195, 255)',
+  '#002B5B',
+  'rgb(70, 70, 79)',
+  'rgb(45, 60, 156)',
+  '#256D85',
+  '#4D4C7D',
 ];

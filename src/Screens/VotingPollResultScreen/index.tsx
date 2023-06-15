@@ -45,21 +45,26 @@ const VotingPollResultScreen = ({
             {info}
           </AppText>
         </Spacer>
-        <When condition={winner.label || isLoading}>
+
+        <When
+          condition={isLoading || (candidates.length !== 0 && winner.label)}>
           <Spacer bottom={10}>
             <AppText size={18} variant="bold" isLoading={isLoading}>
               {/* Trim out `Vote For` from question */}
               {question.slice(8, question.length)}
             </AppText>
           </Spacer>
-
           <ToastmasterCard isLoading={isLoading} toastmaster={winner} />
-
           <Spacer bottom={30} />
         </When>
 
         {/* Result Pie Chart */}
-        <PollResultChart isLoading={isLoading} data={candidates} />
+
+        <PollResultChart
+          isLoading={isLoading}
+          data={candidates}
+          winner={winner.label}
+        />
       </Container>
     </ScreenWrapper>
   );

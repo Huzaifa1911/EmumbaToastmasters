@@ -484,11 +484,13 @@ export const getClosedVotingPollDetails = async (
       candidates,
       winner: {
         value: propOr(0, 'id', winner),
-        label: `${propOr('', 'first_name', winner)} ${propOr(
-          '',
-          'last_name',
-          winner,
-        )}`,
+        label: winner
+          ? `${propOr('', 'first_name', winner)} ${propOr(
+              '',
+              'last_name',
+              winner,
+            )}`
+          : '',
       },
       question: poll.question,
     };

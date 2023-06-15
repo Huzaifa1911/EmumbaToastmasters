@@ -7,9 +7,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Toast from 'react-native-toast-message';
 import {format as prettyFormat} from 'pretty-format';
 import jwtDecode from 'jwt-decode';
+
 import {KeychainStorageService} from 'Services';
-import {TAppColors} from 'Assets';
-import {PIE_CHART_COLORS_KEYS} from './constants';
 
 dayjs.extend(relativeTime);
 
@@ -100,16 +99,21 @@ export const truncateString = (text: string, length = 15): string => {
 };
 
 const getMaxValueKey = (obj: Record<number, number>): number | null => {
-  return reduce(
-    (maxKey: number | null, key: number) => {
-      if (maxKey === null || obj[key] > obj[maxKey]) {
-        return key;
-      }
-      return maxKey;
-    },
-    null,
-    Object.keys(obj).map(Number),
-  );
+  const values = Object.values(obj);
+  const hasDuplicates = values.length !== new Set(values).size; // If Two candidate have same votes, means its a tie.
+
+  if (hasDuplicates) {
+    return null;
+  } else {
+    return Object.keys(obj)
+      .map(Number)
+      .reduce((maxKey: number | null, key: number) => {
+        if (maxKey === null || obj[key] > obj[maxKey]) {
+          return key;
+        }
+        return maxKey;
+      }, null);
+  }
 };
 
 export const findCandidateWithMostVotes = (votes: TVote[]) => {
@@ -125,9 +129,3 @@ export const findCandidateWithMostVotes = (votes: TVote[]) => {
 
   return getMaxValueKey(countByCandidate);
 };
-
-export function getRandomColorForPieChart(colors: TAppColors) {
-  const randomIndex = Math.floor(Math.random() * PIE_CHART_COLORS_KEYS.length);
-  const colorKey = PIE_CHART_COLORS_KEYS[randomIndex] as AppTheme.TColors;
-  return colors[colorKey] as string;
-}

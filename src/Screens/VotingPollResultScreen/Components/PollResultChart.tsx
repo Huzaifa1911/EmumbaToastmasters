@@ -1,38 +1,37 @@
 import React from 'react';
 import {PieChart} from 'react-native-gifted-charts';
+import {Else, If, Then, When} from 'react-if';
 
 import {ChartContainer, LegendRow} from '../styles';
 import {AppCard, AppText, BlankState, Spacer} from 'Components';
-import {TAppColors, useAppTheme} from 'Assets';
+import {useAppTheme} from 'Assets';
 import ChartLegend from './ChartLegend';
 import {TClosedPollCandidate, TPieChartDataPoint} from 'Types';
-import {getRandomColorForPieChart} from 'Utils';
-import {Else, If, Then} from 'react-if';
+import {PIE_CHART_COLORS} from 'Utils';
 import {CardSkeleton} from 'Skeletons';
 
-const transFormData = (
-  data: TClosedPollCandidate[],
-  colors: TAppColors,
-): TPieChartDataPoint[] => {
-  return data.map(item => {
+const transFormData = (data: TClosedPollCandidate[]): TPieChartDataPoint[] => {
+  return data.map((item, index) => {
     return {
       label: item.label,
       value: item.votes,
       text: item.votes.toString(),
-      color: getRandomColorForPieChart(colors),
+      color: PIE_CHART_COLORS[index],
     };
   });
 };
 const PollResultChart = ({
   data = [],
   isLoading = false,
+  winner,
 }: {
   data: TClosedPollCandidate[];
   isLoading?: boolean;
+  winner?: string;
 }) => {
   const {colors} = useAppTheme();
-
-  const pieData = transFormData(data, colors);
+  const pieData = transFormData(data);
+  const hasVotes = pieData.length !== 0;
 
   return (
     <>
@@ -48,7 +47,7 @@ const PollResultChart = ({
         </Then>
 
         <Else>
-          <If condition={pieData.length === 0}>
+          <If condition={!hasVotes}>
             {/* Blank State */}
             <Then>
               <BlankState label="No Vote Casted Yet" />
@@ -83,6 +82,17 @@ const PollResultChart = ({
               </AppCard>
             </Else>
           </If>
+
+          {/* Display Tie Label when there is no winner */}
+          <When condition={!winner && hasVotes}>
+            <Spacer top={30} bottom={40}>
+              <BlankState
+                showIcon={false}
+                label="It's a Tie"
+                infoText="Both competitors reached an equal score, resulting in a draw"
+              />
+            </Spacer>
+          </When>
         </Else>
       </If>
     </>
