@@ -89,6 +89,12 @@ const AllVotingPollsScreen = ({
     if (hasNextPage) fetchNextPage();
   };
 
+  const onCloseSheet = () => {
+    closeBottomSheet();
+    if (sheetType !== 'POLL_TYPE_SHEET')
+      setSheetType(SheetTypes.POLL_TYPE_SHEET);
+  };
+
   const renderItem = useCallback(
     ({item}: {item: TFormattedVotingPoll; index: number}) => {
       const isOwner = item.owner === userId;
@@ -156,7 +162,7 @@ const AllVotingPollsScreen = ({
         ref={sheetRef}
         title={sheetTitle}
         snapPoints={snapPoints}
-        onCloseSheet={closeBottomSheet}>
+        onCloseSheet={onCloseSheet}>
         <If condition={sheetType === 'POLL_TYPE_SHEET'}>
           <Then>
             <PollTypeSheet onProceedNext={onProceedNext} />

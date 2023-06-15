@@ -16,6 +16,7 @@ import {TStandardObject} from 'Types';
 import ListItem from './Components/ListItem';
 import {useGetAllParticipants} from 'Services';
 import {Flex} from 'Styles';
+import {showToast} from 'Utils';
 
 interface ISelectContestantsSheet {
   onActivatePolling: (contestants: TStandardObject[]) => void;
@@ -48,7 +49,14 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
         ),
       ]);
     } else {
-      setSelectedContestants([...selectedContestants, user]);
+      if (selectedContestants.length < 10)
+        setSelectedContestants([...selectedContestants, user]);
+      else
+        showToast(
+          'You can only select at max 10 Contestants',
+          'Error',
+          'error',
+        );
     }
   };
 
