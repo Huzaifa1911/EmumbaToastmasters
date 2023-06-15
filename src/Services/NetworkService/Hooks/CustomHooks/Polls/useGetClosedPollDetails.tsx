@@ -10,6 +10,5 @@ export const useGetClosedPollDetails = ({
     queryKey: ['CLOSE_POLL_DETAILS', pollId],
     queryFn: () => API_HELPERS.getClosedVotingPollDetails(pollId),
     showLoading,
-    refetchInterval: 5000,
   });
 };
