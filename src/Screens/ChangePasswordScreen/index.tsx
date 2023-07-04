@@ -1,11 +1,14 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {AppText, ScreenWrapper} from 'Components';
+import {Container} from './styles';
 
 const ChangePassword = () => {
   return (
-    <View>
-      <Text>ChangePassword</Text>
-    </View>
+    <ScreenWrapper>
+      <Container>
+        <AppText>To be Implemented</AppText>
+      </Container>
+    </ScreenWrapper>
   );
 };
 
