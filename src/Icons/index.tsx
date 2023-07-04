@@ -99,3 +99,23 @@ export const StopIcon = (props: TSpecificIcon) => (
 export const ErrorIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="MaterialIcons" name="error-outline" {...props} />
 );
+
+export const EditIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Feather" name="edit-3" {...props} />
+);
+
+export const LockIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="SimpleLineIcons" name="lock" {...props} />
+);
+
+export const SmartPhoneIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Feather" name="smartphone" {...props} />
+);
+
+export const DisableAccountIcon = (props: TSpecificIcon) => (
+  <VectorIcon
+    iconType="MaterialCommunityIcons"
+    name="account-remove-outline"
+    {...props}
+  />
+);
