@@ -10,17 +10,19 @@ import {
   LogoutIcon,
   SmartPhoneIcon,
 } from 'Icons';
-import {NavigationService} from 'Services';
+import {NavigationService, useLogout} from 'Services';
 import {SCREENS} from 'Utils';
 
 const goToEditProfileScreen = () =>
   NavigationService.navigate(SCREENS.EDIT_PROFILE_SCREEN);
 
 const goToChangePasswordScreen = () =>
-  NavigationService.navigate(SCREENS.EDIT_PROFILE_SCREEN);
+  NavigationService.navigate(SCREENS.CHANGE_PASSWORD_SCREEN);
 
 const ProfileScreen = () => {
   const user = useAppSelector(selectUser);
+
+  const {mutate: logoutMutation} = useLogout({showLoading: true});
 
   const userName = `${user?.first_name} ${user?.last_name}`;
   const email = user?.email;
@@ -61,6 +63,7 @@ const ProfileScreen = () => {
         <InfoButton
           spacerProps={{top: 20}}
           title="Logout"
+          onPress={logoutMutation}
           icon={<LogoutIcon size={20} />}
           iconBackgroundColor="accentRed"
         />

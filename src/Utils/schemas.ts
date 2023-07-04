@@ -8,3 +8,9 @@ export const loginSchema = yup.object().shape({
 export const castVoteSchema = yup.object().shape({
   selectedCandidate: yup.number().required('Please Select Candidate'),
 });
+
+export const updateProfileSchema = yup.object().shape({
+  email: yup.string().email('Must be a valid email').required(),
+  first_name: yup.string().required(),
+  last_name: yup.string().required(),
+});

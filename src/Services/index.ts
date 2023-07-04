@@ -12,6 +12,7 @@ export {type NetworkTypes};
 export {useLogin} from './NetworkService/Hooks/CustomHooks/Auth/useLogin';
 export {useVerifyUserAccess} from './NetworkService/Hooks/CustomHooks/Auth/useVerifyUserAccess';
 export {useLogout} from './NetworkService/Hooks/CustomHooks/Auth/useLogout';
+export {useUpdateProfile} from './NetworkService/Hooks/CustomHooks/Auth/useUpdateProfile';
 
 // all participants
 export {useGetAllParticipants} from './NetworkService/Hooks/CustomHooks/Participants/useGetAllParticipants';
