@@ -100,3 +100,9 @@ export type TUpdatePollPayload = {
   pollId: number;
   is_active: boolean;
 };
+
+export type TUpdateProfile = {
+  first_name: string;
+  last_name: string;
+  email: string;
+};

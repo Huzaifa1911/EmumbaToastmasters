@@ -38,6 +38,7 @@ import {
   TUpdatePollPayload,
   TCreatePollPayload,
   TUpdateVotePayload,
+  TUpdateProfile,
 } from './types';
 
 const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
@@ -135,6 +136,25 @@ const deleteVotingPoll = async ({
       `${ROUTES.VOTING_POLLS}${pollId}`,
     )) as AxiosResponse<TVotingPoll>;
     return {...data};
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const updateProfile = async ({
+  payload,
+  userId,
+}: {
+  payload: TUpdateProfile;
+  userId: number;
+}): Promise<TUser> => {
+  try {
+    const {data} = (await axiosInstance.patch(
+      `${ROUTES.USER}${userId}`,
+      payload,
+    )) as AxiosResponse<TUser>;
+
+    return data;
   } catch (error) {
     return Promise.reject(error);
   }
@@ -537,4 +557,5 @@ export const API_HELPERS = Object.freeze({
   updateVotingPoll,
   deleteVotingPoll,
   getStatPoints,
+  updateProfile,
 });
