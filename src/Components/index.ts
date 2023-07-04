@@ -28,3 +28,4 @@ export {default as Map} from './Commons/Map';
 export {default as AppSearchbar} from './AppSearchbar';
 export {default as BlankState} from './Commons/BlankState';
 export {default as AnimatedNumber} from './AnimatedNumber';
+export {default as InfoButton} from './InfoButton';

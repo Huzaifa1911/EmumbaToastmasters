@@ -6,6 +6,8 @@ import BottomTabNavigator from './BottomTabs';
 import {
   AllVotingPollsScreen,
   CastVoteScreen,
+  ChangePasswordScreen,
+  EditProfileScreen,
   ViewAllAttendedSessionsScreen,
   VotingPollResultScreen,
 } from 'Screens';
@@ -44,6 +46,14 @@ const AppNavigator = () => {
       <Screen
         name={SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN}
         component={ViewAllAttendedSessionsScreen}
+      />
+      <Screen
+        name={SCREENS.EDIT_PROFILE_SCREEN}
+        component={EditProfileScreen}
+      />
+      <Screen
+        name={SCREENS.CHANGE_PASSWORD_SCREEN}
+        component={ChangePasswordScreen}
       />
     </Navigator>
   );

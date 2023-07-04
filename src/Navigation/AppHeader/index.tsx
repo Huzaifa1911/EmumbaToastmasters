@@ -34,7 +34,7 @@ const getHeaderInfo = (route: string) => {
       };
     case SCREENS.PROFILE_SCREEN:
       return {
-        title: 'Profile',
+        title: 'My Profile',
         leftAccessory: <Menu />,
       };
     case SCREENS.ALL_VOTING_POLLS_SCREEN:
@@ -55,6 +55,16 @@ const getHeaderInfo = (route: string) => {
     case SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN:
       return {
         title: 'Attended Sessions',
+        leftAccessory: <BackAction />,
+      };
+    case SCREENS.EDIT_PROFILE_SCREEN:
+      return {
+        title: 'Edit Profile',
+        leftAccessory: <BackAction />,
+      };
+    case SCREENS.CHANGE_PASSWORD_SCREEN:
+      return {
+        title: 'Change Password',
         leftAccessory: <BackAction />,
       };
     default:

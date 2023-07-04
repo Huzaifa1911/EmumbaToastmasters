@@ -6,3 +6,5 @@ export {default as CastVoteScreen} from './CastVoteScreen';
 export {default as VotingPollResultScreen} from './VotingPollResultScreen';
 export {default as LeaderBoardScreen} from './LeaderBoardScreen';
 export {default as ViewAllAttendedSessionsScreen} from './ViewAllAttendedSessionsScreen';
+export {default as EditProfileScreen} from './EditProfileScreen';
+export {default as ChangePasswordScreen} from './ChangePasswordScreen';

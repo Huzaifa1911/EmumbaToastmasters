@@ -85,6 +85,8 @@ export type TDrawerParamList = {
   [SCREENS.BOTTOM_TABS]: undefined;
   [SCREENS.VOTING_POLL_RESULT_SCREEN]: undefined;
   [SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN]: undefined;
+  [SCREENS.CHANGE_PASSWORD_SCREEN]: undefined;
+  [SCREENS.EDIT_PROFILE_SCREEN]: undefined;
 };
 
 export type TColorScheme = 'dark' | 'light';
