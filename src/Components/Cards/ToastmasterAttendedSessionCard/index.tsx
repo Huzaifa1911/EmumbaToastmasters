@@ -15,13 +15,14 @@ interface IToastmasterSessionCardProps {
 const ToastmasterAttendedSessionCard = (
   props: IToastmasterSessionCardProps,
 ) => {
-  const {session} = props;
+  const {session, onCardPress} = props;
   const {performedRole = '', type = '', timestamp = 0} = session;
 
   return (
     <AppCard
       height={102}
       mode="contained"
+      onPress={onCardPress}
       innerSpacerProps={{top: 8, horizontal: 15}}>
       <Container>
         <CalendarIcon timestamp={timestamp} />

@@ -123,3 +123,7 @@ export const DisableAccountIcon = (props: TSpecificIcon) => (
 export const PlusIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="Feather" name="plus" {...props} />
 );
+
+export const WarningIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="Ionicons" name="warning" {...props} />
+);

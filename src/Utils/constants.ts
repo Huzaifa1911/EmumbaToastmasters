@@ -54,10 +54,6 @@ export const ACTIVE_POLL_SWIPEABLE_ACTIONS: {
   name: string;
   color: AppTheme.TColors;
 }[] = [
-  // {
-  //   name: 'Delete\nPoll',
-  //   color: 'secondary',
-  // },
   {
     name: 'Close\nPoll',
     color: 'primary',
@@ -68,10 +64,6 @@ export const CLOSED_POLL_SWIPEABLE_ACTIONS: {
   name: string;
   color: AppTheme.TColors;
 }[] = [
-  // {
-  //   name: 'Delete\nPoll',
-  //   color: 'secondary',
-  // },
   {
     name: 'Activate\nPoll',
     color: 'primary',

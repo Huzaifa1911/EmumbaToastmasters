@@ -15,6 +15,7 @@ export {default as GoToIndicator} from './Commons/GoToIndicator';
 export {default as AppRadioButton} from './AppRadioButton';
 export {default as AppBottomSheet} from './AppBottomSheet';
 export {default as PollTypeSheet} from './CustomSheetComponents/PollTypeSheet';
+export {default as DeactivateAccountSheet} from './CustomSheetComponents/DeactivateAccountSheet';
 export {default as SelectContestantsSheet} from './CustomSheetComponents/SelectContestantsSheet';
 export {default as ToastmasterCard} from './Cards/ToastmasterCard';
 export {default as ProfileAvatar} from './Commons/ProfileAvatar';

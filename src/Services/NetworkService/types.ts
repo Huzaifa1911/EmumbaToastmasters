@@ -33,21 +33,18 @@ export type QueryArgs<TQueryData, TSelectData = TQueryData> = {
   >;
 };
 
-export type MutationArgs<TData, TVariables> = {
+export type MutationArgs<TData, TVariables, TError = QueryErrorResponse> = {
   queryFn: MutationFunction<TData, TVariables>;
   onSuccess?: (data: TData, variables: TVariables) => void;
-  onError?: (
-    error: AxiosError<QueryErrorResponse>,
-    variables: TVariables,
-  ) => void;
+  onError?: (error: AxiosError<TError>, variables: TVariables) => void;
   onSettled?: (
     data: TData | undefined,
-    error: AxiosError<QueryErrorResponse> | null,
+    error: AxiosError<TError> | null,
   ) => void;
   onMutate?: (variables: TVariables) => void;
   showLoading?: boolean;
   options?: Omit<
-    MutationOptions<TData, AxiosError<QueryErrorResponse>>,
+    MutationOptions<TData, AxiosError<TError>>,
     'onMutate' | 'onSuccess' | 'onError' | 'onSettled'
   >;
 };
@@ -105,4 +102,9 @@ export type TUpdateProfile = {
   first_name: string;
   last_name: string;
   email: string;
+};
+
+export type TUpdatePassword = {
+  password: string;
+  confirmPassword: string;
 };

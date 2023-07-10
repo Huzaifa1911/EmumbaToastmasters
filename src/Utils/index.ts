@@ -26,5 +26,10 @@ export {
   truncateString,
 } from './helpers';
 
-export {loginSchema, castVoteSchema, updateProfileSchema} from './schemas';
+export {
+  loginSchema,
+  castVoteSchema,
+  updateProfileSchema,
+  changePasswordSchema,
+} from './schemas';
 export {useDebounce} from './hooks';

@@ -13,6 +13,8 @@ export {useLogin} from './NetworkService/Hooks/CustomHooks/Auth/useLogin';
 export {useVerifyUserAccess} from './NetworkService/Hooks/CustomHooks/Auth/useVerifyUserAccess';
 export {useLogout} from './NetworkService/Hooks/CustomHooks/Auth/useLogout';
 export {useUpdateProfile} from './NetworkService/Hooks/CustomHooks/Auth/useUpdateProfile';
+export {useDeActivateAccount} from './NetworkService/Hooks/CustomHooks/Auth/useDeActivateAccount';
+export {useUpdatePassword} from './NetworkService/Hooks/CustomHooks/Auth/useUpdatePassword';
 
 // all participants
 export {useGetAllParticipants} from './NetworkService/Hooks/CustomHooks/Participants/useGetAllParticipants';

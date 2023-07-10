@@ -14,3 +14,14 @@ export const updateProfileSchema = yup.object().shape({
   first_name: yup.string().required(),
   last_name: yup.string().required(),
 });
+
+export const changePasswordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be 8 chars minimum.'),
+  confirmPassword: yup
+    .string()
+    .required('Please confirm password')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
+});

@@ -39,6 +39,7 @@ import {
   TCreatePollPayload,
   TUpdateVotePayload,
   TUpdateProfile,
+  TUpdatePassword,
 } from './types';
 
 const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
@@ -153,6 +154,36 @@ const updateProfile = async ({
       `${ROUTES.USER}${userId}`,
       payload,
     )) as AxiosResponse<TUser>;
+
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const deactivateAccount = async (): Promise<TUser> => {
+  try {
+    const {data} = (await axiosInstance.patch(
+      `${ROUTES.USER}${ReduxStore.getState().appUser.user?.id}`,
+      {is_active: false},
+    )) as AxiosResponse<TUser>;
+
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const updatePassword = async ({
+  payload,
+}: {
+  payload: TUpdatePassword;
+}): Promise<{detail: string}> => {
+  try {
+    const {data} = (await axiosInstance.post(ROUTES.CHANGE_PASSWORD, {
+      new_password1: payload.password,
+      new_password2: payload.confirmPassword,
+    })) as AxiosResponse<{detail: string}>;
 
     return data;
   } catch (error) {
@@ -558,4 +589,6 @@ export const API_HELPERS = Object.freeze({
   deleteVotingPoll,
   getStatPoints,
   updateProfile,
+  deactivateAccount,
+  updatePassword,
 });

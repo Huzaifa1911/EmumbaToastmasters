@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query';
 import {useEffect} from 'react';
 import {AxiosError} from 'axios';
+import {pathOr} from 'ramda';
 
 import {
   InfiniteQueryArgs,
@@ -75,8 +76,12 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
   return {isLoading, ...query};
 };
 
-export const useAppMutation = <TData, TVariables = null>(
-  args: MutationArgs<TData, TVariables>,
+export const useAppMutation = <
+  TData,
+  TVariables = null,
+  TError = QueryErrorResponse,
+>(
+  args: MutationArgs<TData, TVariables, TError>,
 ) => {
   const {
     onError,
@@ -104,8 +109,8 @@ export const useAppMutation = <TData, TVariables = null>(
     onError: (error, variables) => {
       if (onError) onError(error, variables);
       else {
-        const message = error.response?.data.detail;
-        showToast(message ?? '', 'Error', 'error');
+        const message = pathOr('', ['response', 'data', 'detail'], error);
+        showToast(message, 'Error', 'error');
 
         if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));
