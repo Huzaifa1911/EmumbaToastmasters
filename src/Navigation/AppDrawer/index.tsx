@@ -4,9 +4,16 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import {Divider, Switch} from 'react-native-paper';
+import {propOr} from 'ramda';
 
 import {Container, ProfileWrapper} from './styles';
-import {AngleRightIcon, LogoutIcon, SunIcon, VotingPollIcon} from 'Icons';
+import {
+  AngleRightIcon,
+  LogoutIcon,
+  StopwatchIcon,
+  SunIcon,
+  VotingPollIcon,
+} from 'Icons';
 import DrawerItem from './Components/DrawerItem';
 import {AppText, ProfileAvatar, Spacer} from 'Components';
 import {NavigationService, useLogout} from 'Services';
@@ -19,10 +26,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'Store';
-import {propOr} from 'ramda';
 
 const goToAllVotingPollScreen = () =>
   NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
+const goToSpeechTimeSlotsScreen = () =>
+  NavigationService.navigate(SCREENS.SPEECH_TIME_SLOTS_SCREEN);
 
 const AppDrawer = (props: DrawerContentComponentProps) => {
   const {colors} = useAppTheme();
@@ -59,6 +67,12 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
           left={<VotingPollIcon size={18} />}
           right={<AngleRightIcon size={18} />}
           onPress={goToAllVotingPollScreen}
+        />
+        <DrawerItem
+          label="Timer"
+          left={<StopwatchIcon size={18} />}
+          right={<AngleRightIcon size={18} />}
+          onPress={goToSpeechTimeSlotsScreen}
         />
       </DrawerContentScrollView>
 

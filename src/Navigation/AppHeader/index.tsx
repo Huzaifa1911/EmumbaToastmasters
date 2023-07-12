@@ -20,6 +20,7 @@ const BackAction = () => (
 const Menu = () => (
   <Appbar.Action icon="menu" onPress={NavigationService.openDrawer} />
 );
+
 const getHeaderInfo = (route: string) => {
   switch (route) {
     case SCREENS.HOME_SCREEN:
@@ -65,6 +66,16 @@ const getHeaderInfo = (route: string) => {
     case SCREENS.CHANGE_PASSWORD_SCREEN:
       return {
         title: 'Change Password',
+        leftAccessory: <BackAction />,
+      };
+    case SCREENS.SPEECH_TIME_SLOTS_SCREEN:
+      return {
+        title: 'Timer Logs',
+        leftAccessory: <BackAction />,
+      };
+    case SCREENS.TIMER_SCREEN:
+      return {
+        title: 'Timer',
         leftAccessory: <BackAction />,
       };
     default:

@@ -1,4 +1,4 @@
-import {TJWTDecode, TVote} from 'Types';
+import {TJWTDecode, TSpeech, TVote} from 'Types';
 import α from 'color-alpha';
 import dayjs from 'dayjs';
 import numbro from 'numbro';
@@ -128,4 +128,88 @@ export const findCandidateWithMostVotes = (votes: TVote[]) => {
   );
 
   return getMaxValueKey(countByCandidate);
+};
+
+export const getSpeechDuration = (type: TSpeech) => {
+  switch (type) {
+    case 'Prepared Speech':
+      return '(5-7 min)';
+    case 'Table Topic':
+      return '(1-2 min)';
+    case 'Speech Evaluation':
+      return '(2-3 min)';
+    default:
+      return '(5-7 min)';
+  }
+};
+
+const getPreparedSpeechQualificationTime = (
+  minutes: number,
+  seconds: number,
+): AppTheme.TColors => {
+  if (minutes === 0 && seconds === 0) {
+    return 'background';
+  } else if (minutes >= 5 && minutes < 7) {
+    return 'accentGreen';
+  } else if (minutes >= 6 && minutes < 7) {
+    return 'yellow';
+  } else if (minutes >= 7) {
+    return 'error';
+  } else {
+    return 'background';
+  }
+};
+
+const getTableTopicSpeechQualificationTime = (
+  minutes: number,
+  seconds: number,
+): AppTheme.TColors => {
+  if (minutes === 0 && seconds === 0) {
+    return 'background';
+  } else if (minutes >= 1 && seconds < 30 && minutes < 2) {
+    return 'accentGreen';
+  } else if (minutes >= 1 && seconds >= 30) {
+    return 'yellow';
+  } else if (minutes >= 2) {
+    return 'error';
+  } else {
+    return 'background';
+  }
+};
+const getSpeechEvluationQualificaitonTime = (
+  minutes: number,
+  seconds: number,
+): AppTheme.TColors => {
+  if (minutes === 0 && seconds === 0) {
+    return 'background';
+  } else if (minutes >= 2 && seconds < 30 && minutes < 3) {
+    return 'accentGreen';
+  } else if (minutes >= 2 && seconds >= 30) {
+    return 'yellow';
+  } else if (minutes >= 3) {
+    return 'error';
+  } else {
+    return 'background';
+  }
+};
+
+export const getSpeechQualificationColor = ({
+  minutes,
+  seconds,
+  speechType,
+}: {
+  minutes: number;
+  seconds: number;
+  speechType: TSpeech;
+}): AppTheme.TColors => {
+  switch (speechType) {
+    case 'Prepared Speech':
+      return getPreparedSpeechQualificationTime(minutes, seconds);
+    case 'Table Topic':
+      return getTableTopicSpeechQualificationTime(minutes, seconds);
+    case 'Speech Evaluation':
+      return getSpeechEvluationQualificaitonTime(minutes, seconds);
+    default:
+      return 'background';
+  }
 };

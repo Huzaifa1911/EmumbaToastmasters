@@ -87,6 +87,8 @@ export type TDrawerParamList = {
   [SCREENS.VIEW_ALL_ATTENDED_SESSIONS_SCREEN]: undefined;
   [SCREENS.CHANGE_PASSWORD_SCREEN]: undefined;
   [SCREENS.EDIT_PROFILE_SCREEN]: undefined;
+  [SCREENS.TIMER_SCREEN]: {slot: TSpeechTimeSlot};
+  [SCREENS.SPEECH_TIME_SLOTS_SCREEN]: undefined;
 };
 
 export type TColorScheme = 'dark' | 'light';
@@ -190,4 +192,14 @@ export type StatType = {
   attendedEvents: number;
   hightestPoints: number;
   userPoints: number;
+};
+
+export type TSpeech = 'Prepared Speech' | 'Table Topic' | 'Speech Evaluation';
+
+export type TSpeechTimeSlot = {
+  id: number;
+  speaker: string;
+  speech_type: TSpeech;
+  endTime: number;
+  createdAt: number;
 };
