@@ -127,3 +127,7 @@ export const PlusIcon = (props: TSpecificIcon) => (
 export const WarningIcon = (props: TSpecificIcon) => (
   <VectorIcon iconType="Ionicons" name="warning" {...props} />
 );
+
+export const StopwatchIcon = (props: TSpecificIcon) => (
+  <VectorIcon iconType="MaterialIcons" name="timer" {...props} />
+);

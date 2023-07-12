@@ -24,6 +24,8 @@ export {
   firstOrNull,
   findCandidateWithMostVotes,
   truncateString,
+  getSpeechDuration,
+  getSpeechQualificationColor,
 } from './helpers';
 
 export {
@@ -32,4 +34,4 @@ export {
   updateProfileSchema,
   changePasswordSchema,
 } from './schemas';
-export {useDebounce} from './hooks';
+export {useDebounce, useClearSpeechTimeSlots} from './hooks';

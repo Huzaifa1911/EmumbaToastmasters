@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import themeReducer from './Theme';
 import loaderReducer from './Loader';
 import userReducer from './User';
+import speechTimeSlotsReducer from './SpeechTimeSlots';
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   appTheme: themeReducer,
   appLoader: loaderReducer,
   appUser: userReducer,
+  speechTimeSlots: speechTimeSlotsReducer,
 });
 
 const persistedReducer = persistReducer<ReturnType<typeof reducer>>(
