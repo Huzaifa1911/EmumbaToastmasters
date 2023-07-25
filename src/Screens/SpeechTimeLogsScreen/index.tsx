@@ -3,7 +3,7 @@ import React, {useMemo, useState} from 'react';
 import {AppModal, FloatingActions, ScreenWrapper} from 'Components';
 import {Container} from './styles';
 
-import SpeechTimeLogs from './Components/SpeechTimeSlots';
+import SpeechTimeLogs from './Components/SpeechTimeLogs';
 import ModalContent from './Components/ModalContent';
 import {TSpeech} from 'Types';
 

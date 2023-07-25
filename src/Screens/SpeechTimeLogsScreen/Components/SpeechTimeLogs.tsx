@@ -40,8 +40,8 @@ const SpeechTimeLogs = () => {
       ItemSeparatorComponent={() => <Spacer top={13} />}
       ListEmptyComponent={
         <BlankState
-          label="No Speech Time Slot"
-          infoText="There are no speech time slot created"
+          label="No Speech Time Logs"
+          infoText="There are no speech time log created"
         />
       }
     />

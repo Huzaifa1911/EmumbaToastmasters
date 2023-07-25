@@ -23,7 +23,7 @@ const persistConfig: PersistConfig<any> = {
   storage: AsyncStorage,
   version: 1,
   // put reducer name that you dont want to persist
-  blacklist: ['appLoader', 'appUser', 'speechTimeLogs'],
+  blacklist: ['appLoader', 'appUser'],
 };
 
 const reducer = combineReducers({
