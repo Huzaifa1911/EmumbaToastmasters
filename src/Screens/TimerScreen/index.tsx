@@ -22,8 +22,8 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   useEffect(() => {
     let intervalId: NodeJS.Timer;
     if (isRunning) {
-      // setting time from 0 to 1 every 10 milisecond
-      intervalId = setInterval(() => setTimer(timer + 3), 10);
+      // setting time from 0 to 5 every 10 milisecond
+      intervalId = setInterval(() => setTimer(timer + 5), 10);
     }
     return () => {
       clearInterval(intervalId);
