@@ -26,6 +26,8 @@ export {
   truncateString,
   getSpeechDuration,
   getSpeechQualificationColor,
+  getSpeechQualificationResult,
+  groupSpeechTimeLogsBySpeechType,
 } from './helpers';
 
 export {
@@ -34,4 +36,4 @@ export {
   updateProfileSchema,
   changePasswordSchema,
 } from './schemas';
-export {useDebounce, useClearSpeechTimeSlots} from './hooks';
+export {useDebounce, useClearSpeechTimeLogs} from './hooks';

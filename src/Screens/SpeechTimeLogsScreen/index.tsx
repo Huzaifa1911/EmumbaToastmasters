@@ -3,11 +3,11 @@ import React, {useMemo, useState} from 'react';
 import {AppModal, FloatingActions, ScreenWrapper} from 'Components';
 import {Container} from './styles';
 
-import SpeechTimeSlots from './Components/SpeechTimeSlots';
+import SpeechTimeLogs from './Components/SpeechTimeSlots';
 import ModalContent from './Components/ModalContent';
 import {TSpeech} from 'Types';
 
-const SpeechTimeSlotsScreen = () => {
+const SpeechTimeLogsScreen = () => {
   const [openModal, setOpenModal] = useState(false);
   const [speechType, setSpeechType] = useState<TSpeech>('Prepared Speech');
 
@@ -47,7 +47,7 @@ const SpeechTimeSlotsScreen = () => {
     <>
       <ScreenWrapper>
         <Container>
-          <SpeechTimeSlots />
+          <SpeechTimeLogs />
         </Container>
 
         <FloatingActions
@@ -64,4 +64,4 @@ const SpeechTimeSlotsScreen = () => {
   );
 };
 
-export default SpeechTimeSlotsScreen;
+export default SpeechTimeLogsScreen;

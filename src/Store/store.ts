@@ -16,21 +16,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import themeReducer from './Theme';
 import loaderReducer from './Loader';
 import userReducer from './User';
-import speechTimeSlotsReducer from './SpeechTimeSlots';
+import speechTimeLogsReducer from './SpeechTimeLogs';
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
   storage: AsyncStorage,
   version: 1,
   // put reducer name that you dont want to persist
-  blacklist: ['appLoader', 'appUser'],
+  blacklist: ['appLoader', 'appUser', 'speechTimeLogs'],
 };
 
 const reducer = combineReducers({
   appTheme: themeReducer,
   appLoader: loaderReducer,
   appUser: userReducer,
-  speechTimeSlots: speechTimeSlotsReducer,
+  speechTimeLogs: speechTimeLogsReducer,
 });
 
 const persistedReducer = persistReducer<ReturnType<typeof reducer>>(

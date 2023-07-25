@@ -1,4 +1,10 @@
-import {TJWTDecode, TSpeech, TVote} from 'Types';
+import {
+  TJWTDecode,
+  TSpeech,
+  TSpeechTimeLog,
+  TSpeechTimeLogSection,
+  TVote,
+} from 'Types';
 import α from 'color-alpha';
 import dayjs from 'dayjs';
 import numbro from 'numbro';
@@ -143,7 +149,7 @@ export const getSpeechDuration = (type: TSpeech) => {
   }
 };
 
-const getPreparedSpeechQualificationTime = (
+const getPreparedSpeechQualificationColor = (
   minutes: number,
   seconds: number,
 ): AppTheme.TColors => {
@@ -160,7 +166,7 @@ const getPreparedSpeechQualificationTime = (
   }
 };
 
-const getTableTopicSpeechQualificationTime = (
+const getTableTopicSpeechQualificationColor = (
   minutes: number,
   seconds: number,
 ): AppTheme.TColors => {
@@ -168,7 +174,7 @@ const getTableTopicSpeechQualificationTime = (
     return 'background';
   } else if (minutes >= 1 && seconds < 30 && minutes < 2) {
     return 'accentGreen';
-  } else if (minutes >= 1 && seconds >= 30) {
+  } else if (minutes >= 1 && minutes < 2 && seconds >= 30) {
     return 'yellow';
   } else if (minutes >= 2) {
     return 'error';
@@ -176,7 +182,7 @@ const getTableTopicSpeechQualificationTime = (
     return 'background';
   }
 };
-const getSpeechEvluationQualificaitonTime = (
+const getSpeechEvluationQualificaitonColor = (
   minutes: number,
   seconds: number,
 ): AppTheme.TColors => {
@@ -184,7 +190,7 @@ const getSpeechEvluationQualificaitonTime = (
     return 'background';
   } else if (minutes >= 2 && seconds < 30 && minutes < 3) {
     return 'accentGreen';
-  } else if (minutes >= 2 && seconds >= 30) {
+  } else if (minutes >= 2 && minutes < 3 && seconds >= 30) {
     return 'yellow';
   } else if (minutes >= 3) {
     return 'error';
@@ -204,12 +210,47 @@ export const getSpeechQualificationColor = ({
 }): AppTheme.TColors => {
   switch (speechType) {
     case 'Prepared Speech':
-      return getPreparedSpeechQualificationTime(minutes, seconds);
+      return getPreparedSpeechQualificationColor(minutes, seconds);
     case 'Table Topic':
-      return getTableTopicSpeechQualificationTime(minutes, seconds);
+      return getTableTopicSpeechQualificationColor(minutes, seconds);
     case 'Speech Evaluation':
-      return getSpeechEvluationQualificaitonTime(minutes, seconds);
+      return getSpeechEvluationQualificaitonColor(minutes, seconds);
     default:
       return 'background';
   }
 };
+
+export const getSpeechQualificationResult = ({
+  minutes,
+  seconds,
+  speechType,
+}: {
+  minutes: number;
+  seconds: number;
+  speechType: TSpeech;
+}): {color: AppTheme.TColors; label: string} => {
+  switch (speechType) {
+    case 'Prepared Speech':
+      if (minutes >= 5 && minutes <= 7 && seconds <= 30)
+        return {color: 'accentGreen', label: 'Qualified'};
+      else return {color: 'onSurfaceDisabled', label: 'Disqualified'};
+    case 'Table Topic':
+      if (minutes >= 1 && minutes <= 2 && seconds <= 30)
+        return {color: 'accentGreen', label: 'Qualified'};
+      else return {color: 'onSurfaceDisabled', label: 'Disqualified'};
+    case 'Speech Evaluation':
+      if (minutes >= 2 && minutes <= 3 && seconds <= 30)
+        return {color: 'accentGreen', label: 'Qualified'};
+      else return {color: 'onSurfaceDisabled', label: 'Disqualified'};
+    default:
+      return {color: 'onSurfaceDisabled', label: 'Disqualified'};
+  }
+};
+
+export const groupSpeechTimeLogsBySpeechType = (
+  slots: TSpeechTimeLog[],
+): TSpeechTimeLogSection[] =>
+  slots.map(slot => ({
+    title: slot.speech_type,
+    data: slots.filter(item => item.speech_type === slot.speech_type && item),
+  }));

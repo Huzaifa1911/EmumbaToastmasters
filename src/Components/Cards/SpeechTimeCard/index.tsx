@@ -1,20 +1,22 @@
 import {View} from 'react-native';
 import React from 'react';
-import {TSpeechTimeSlot} from 'Types';
-import AppCard from '../AppCard';
+import dayjs from 'dayjs';
+import {When} from 'react-if';
 
-import {AppButton, AppText, Spacer} from 'Components';
-import {ColorBox, Content} from './styles';
-import {RowBetween} from 'Styles';
+import {TSpeechTimeLog} from 'Types';
+import AppCard from '../AppCard';
+import {AppButton, AppChip, AppText, Spacer} from 'Components';
+import {ColorBox, Content, NameWrapper} from './styles';
+import {Row, RowBetween} from 'Styles';
 import {
   formateTimeStamp,
   getSpeechDuration,
   getSpeechQualificationColor,
+  getSpeechQualificationResult,
 } from 'Utils';
-import dayjs from 'dayjs';
 
 interface ISpeechTimeCardProps {
-  speech: TSpeechTimeSlot;
+  speech: TSpeechTimeLog;
 
   onPrimaryButtonPress?: () => void;
 }
@@ -26,11 +28,21 @@ const SpeechTimeCard = (props: ISpeechTimeCardProps) => {
   const duration = getSpeechDuration(speech_type);
   const end_timestamp =
     endTime !== 0 ? formateTimeStamp(endTime, 'mm:ss:SSS') : 'Not started yet';
+
+  const minutes = dayjs(endTime).get('minutes');
+  const seconds = dayjs(endTime).get('seconds');
   const color = getSpeechQualificationColor({
-    minutes: dayjs(endTime).get('minutes'),
-    seconds: dayjs(endTime).get('seconds'),
+    minutes,
+    seconds,
     speechType: speech_type,
   });
+
+  const {color: chipColor, label: chipLabel} = getSpeechQualificationResult({
+    minutes,
+    seconds,
+    speechType: speech_type,
+  });
+  const hasSpeechStarted = minutes > 0 || seconds > 0;
 
   return (
     <AppCard
@@ -38,11 +50,19 @@ const SpeechTimeCard = (props: ISpeechTimeCardProps) => {
       mode="contained"
       innerSpacerProps={{horizontal: 20, top: 10}}>
       <Content>
-        <ColorBox color={color} />
-        <AppText variant="medium" size={20} numberOfLines={1}>
-          {speaker}
-        </AppText>
+        <Row>
+          <ColorBox color={color} />
+          <NameWrapper>
+            <AppText variant="medium" size={20} numberOfLines={1}>
+              {speaker}
+            </AppText>
+          </NameWrapper>
+        </Row>
+        <When condition={hasSpeechStarted}>
+          <AppChip label={chipLabel} chipColor={chipColor} />
+        </When>
       </Content>
+
       <Spacer top={20} />
 
       {/* Speech Duration */}

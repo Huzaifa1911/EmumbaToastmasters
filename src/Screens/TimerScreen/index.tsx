@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 import dayjs from 'dayjs';
 
 import {AppButton, AppText, ScreenWrapper, Spacer} from 'Components';
-import {TDrawerParamList, TSpeechTimeSlot} from 'Types';
+import {TDrawerParamList, TSpeechTimeLog} from 'Types';
 import {ButtonWrapper, Container, CounterWrapper} from './styles';
 import {getSpeechDuration, getSpeechQualificationColor} from 'Utils';
 import {JustifyCenter, RowBetween} from 'Styles';
@@ -13,7 +13,7 @@ import {lockSpeechTime} from 'Store';
 import {NavigationService} from 'Services';
 
 const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
-  const slot = pathOr<TSpeechTimeSlot | null>(null, ['params', 'slot'], route);
+  const slot = pathOr<TSpeechTimeLog | null>(null, ['params', 'slot'], route);
 
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -23,7 +23,7 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
     let intervalId: NodeJS.Timer;
     if (isRunning) {
       // setting time from 0 to 1 every 10 milisecond
-      intervalId = setInterval(() => setTimer(timer + 5), 10);
+      intervalId = setInterval(() => setTimer(timer + 3), 10);
     }
     return () => {
       clearInterval(intervalId);
@@ -66,6 +66,8 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
     NavigationService.goBack();
   };
 
+  const disableLockButton = !isRunning && milliseconds <= 0;
+
   return (
     <ScreenWrapper>
       <Container color={color}>
@@ -100,7 +102,7 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
           <AppButton
             mode="contained"
             onPress={onLockButtonPress}
-            disabled={!isRunning}>
+            disabled={disableLockButton}>
             Lock
           </AppButton>
         </ButtonWrapper>

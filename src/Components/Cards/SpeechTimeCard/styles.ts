@@ -13,6 +13,10 @@ export const ColorBox = styled(View)(
 
 export const Content = styled(View)({
   flexDirection: 'row' as const,
-  alignItems: 'flex-start',
-  width: 300,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+export const NameWrapper = styled(View)({
+  width: '55%',
 });

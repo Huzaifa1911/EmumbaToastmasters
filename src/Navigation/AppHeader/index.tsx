@@ -68,7 +68,7 @@ const getHeaderInfo = (route: string) => {
         title: 'Change Password',
         leftAccessory: <BackAction />,
       };
-    case SCREENS.SPEECH_TIME_SLOTS_SCREEN:
+    case SCREENS.SPEECH_TIME_LOGS_SCREEN:
       return {
         title: 'Timer Logs',
         leftAccessory: <BackAction />,

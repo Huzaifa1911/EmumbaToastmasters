@@ -7,8 +7,8 @@ import {AppButton, AppInputField, AppText, Spacer} from 'Components';
 import {RowBetween} from 'Styles';
 import {TSpeech} from 'Types';
 import {
-  addSpeechTimeSlot,
-  selectSpeechTimeSlots,
+  addSpeechTimeLog,
+  selectSpeechTimeLogs,
   useAppDispatch,
   useAppSelector,
 } from 'Store';
@@ -24,11 +24,11 @@ const ModalContent = (props: IModalContentProps) => {
 
   const [name, setName] = useState('');
   const dispatch = useAppDispatch();
-  const slots = useAppSelector(selectSpeechTimeSlots);
+  const slots = useAppSelector(selectSpeechTimeLogs);
 
   const onSubmit = () => {
     dispatch(
-      addSpeechTimeSlot({
+      addSpeechTimeLog({
         id: slots.length + 1,
         speaker: name,
         speech_type: speechType,

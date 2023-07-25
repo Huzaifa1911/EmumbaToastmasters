@@ -8,5 +8,5 @@ export {default as LeaderBoardScreen} from './LeaderBoardScreen';
 export {default as ViewAllAttendedSessionsScreen} from './ViewAllAttendedSessionsScreen';
 export {default as EditProfileScreen} from './EditProfileScreen';
 export {default as ChangePasswordScreen} from './ChangePasswordScreen';
-export {default as SpeechTimeSlotScreen} from './SpeechTimeSlotsScreen';
+export {default as SpeechTimeLogsScreen} from './SpeechTimeLogsScreen';
 export {default as TimerScreen} from './TimerScreen';

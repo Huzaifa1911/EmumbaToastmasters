@@ -7,11 +7,11 @@ import {AppDarkTheme, AppLightTheme} from 'Assets';
 import {selectLoading, selectTheme, useAppSelector} from 'Store';
 import {AppLoader} from 'Components';
 import {useVerifyUserAccess} from 'Services';
-import {useClearSpeechTimeSlots} from 'Utils';
+import {useClearSpeechTimeLogs} from 'Utils';
 
 const AppWrapper = () => {
   useVerifyUserAccess({showLoading: true});
-  useClearSpeechTimeSlots();
+  useClearSpeechTimeLogs();
   const colorScheme = useAppSelector(selectTheme);
   const isLoading = useAppSelector(selectLoading);
 

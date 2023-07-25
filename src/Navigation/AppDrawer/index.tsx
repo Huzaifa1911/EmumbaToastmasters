@@ -29,8 +29,8 @@ import {
 
 const goToAllVotingPollScreen = () =>
   NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
-const goToSpeechTimeSlotsScreen = () =>
-  NavigationService.navigate(SCREENS.SPEECH_TIME_SLOTS_SCREEN);
+const goToSpeechTimeLogsScreen = () =>
+  NavigationService.navigate(SCREENS.SPEECH_TIME_LOGS_SCREEN);
 
 const AppDrawer = (props: DrawerContentComponentProps) => {
   const {colors} = useAppTheme();
@@ -72,7 +72,7 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
           label="Timer"
           left={<StopwatchIcon size={18} />}
           right={<AngleRightIcon size={18} />}
-          onPress={goToSpeechTimeSlotsScreen}
+          onPress={goToSpeechTimeLogsScreen}
         />
       </DrawerContentScrollView>
 

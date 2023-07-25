@@ -5,9 +5,9 @@ export {selectTheme, themeSlice, updateTheme} from './Theme';
 export {selectLoading, loaderSlice, showLoader, hideLoader} from './Loader';
 export {selectUser, userSlice, updateUser} from './User';
 export {
-  addSpeechTimeSlot,
-  selectSpeechTimeSlots,
-  speechTimeSlotSlice,
+  addSpeechTimeLog,
+  selectSpeechTimeLogs,
+  speechTimeLogsSlice,
   lockSpeechTime,
-  updateSlots,
-} from './SpeechTimeSlots';
+  updateLogs,
+} from './SpeechTimeLogs';
