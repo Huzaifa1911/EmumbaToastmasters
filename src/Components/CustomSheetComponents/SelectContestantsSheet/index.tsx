@@ -18,6 +18,8 @@ import {useGetAllParticipants} from 'Services';
 import {Flex} from 'Styles';
 import {showToast} from 'Utils';
 
+const MAX_CONTESTANT_COUNT = 15;
+
 interface ISelectContestantsSheet {
   onActivatePolling: (contestants: TStandardObject[]) => void;
 }
@@ -49,11 +51,11 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
         ),
       ]);
     } else {
-      if (selectedContestants.length < 10)
+      if (selectedContestants.length < MAX_CONTESTANT_COUNT)
         setSelectedContestants([...selectedContestants, user]);
       else
         showToast(
-          'You can only select at max 10 Contestants',
+          `You can only select at max ${MAX_CONTESTANT_COUNT} Contestants`,
           'Error',
           'error',
         );
