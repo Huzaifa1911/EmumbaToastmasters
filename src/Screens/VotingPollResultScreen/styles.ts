@@ -1,11 +1,12 @@
 import {View} from 'react-native';
+import {DataTable} from 'react-native-paper';
 import styled from 'styled-components/native';
 
 export const Container = styled(View)(() => ({
   flex: 1,
   paddingTop: 30,
   paddingHorizontal: 16,
-  paddingBottom: 50,
+  paddingBottom: 80,
 }));
 
 export const ChartContainer = styled(View)(() => ({
@@ -32,4 +33,8 @@ export const LegendRow = styled(View)(() => ({
   gap: 10,
   marginHorizontal: 20,
   alignSelf: 'center',
+}));
+
+export const VotesTable = styled(DataTable)(() => ({
+  marginTop: 10,
 }));

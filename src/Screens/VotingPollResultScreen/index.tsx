@@ -4,7 +4,7 @@ import {DrawerScreenProps} from '@react-navigation/drawer';
 import {When} from 'react-if';
 
 import {AppText, ScreenWrapper, Spacer, ToastmasterCard} from 'Components';
-import {Container} from './styles';
+import {Container, VotesTable} from './styles';
 import {getTimeDifference} from 'Utils';
 import PollResultChart from './Components/PollResultChart';
 import {TClosedVotingPoll, TDrawerParamList} from 'Types';
@@ -38,14 +38,12 @@ const VotingPollResultScreen = ({
         <AppText size={20} variant="bold" isLoading={isLoading}>
           {question}
         </AppText>
-
         {/* Poll Info */}
         <Spacer top={5} bottom={30} right={30}>
           <AppText size={12} color="outline">
             {info}
           </AppText>
         </Spacer>
-
         <When
           condition={isLoading || (candidates.length !== 0 && winner.label)}>
           <Spacer bottom={10}>
@@ -57,14 +55,26 @@ const VotingPollResultScreen = ({
           <ToastmasterCard isLoading={isLoading} toastmaster={winner} />
           <Spacer bottom={30} />
         </When>
-
         {/* Result Pie Chart */}
-
         <PollResultChart
           isLoading={isLoading}
           data={candidates}
           winner={winner.label}
         />
+
+        <VotesTable>
+          <VotesTable.Header>
+            <VotesTable.Title>Speakers</VotesTable.Title>
+            <VotesTable.Title numeric>Votes</VotesTable.Title>
+          </VotesTable.Header>
+
+          {candidates.map((candidate, index) => (
+            <VotesTable.Row key={index.toString() + candidate.id}>
+              <VotesTable.Cell>{candidate.label}</VotesTable.Cell>
+              <VotesTable.Cell numeric>{candidate.votes}</VotesTable.Cell>
+            </VotesTable.Row>
+          ))}
+        </VotesTable>
       </Container>
     </ScreenWrapper>
   );

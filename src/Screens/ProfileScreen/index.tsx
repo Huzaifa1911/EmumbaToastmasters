@@ -39,7 +39,7 @@ const ProfileScreen = () => {
 
   return (
     <>
-      <ScreenWrapper>
+      <ScreenWrapper type="scroll">
         <Container>
           <StyledAvatar size={80} />
           <Spacer top={10}>
