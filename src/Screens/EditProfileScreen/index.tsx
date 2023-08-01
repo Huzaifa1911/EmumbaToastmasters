@@ -1,5 +1,6 @@
 import React from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 import {
   AppButton,
@@ -20,7 +21,6 @@ import {selectUser, useAppSelector} from 'Store';
 import {TUser} from 'Types';
 import {showToast, updateProfileSchema} from 'Utils';
 import {NetworkTypes, useUpdateProfile} from 'Services';
-import {yupResolver} from '@hookform/resolvers/yup';
 
 const onProfileUpdateButtonPress = () => {
   showToast(
@@ -53,7 +53,9 @@ const EditProfile = () => {
 
   return (
     <FormProvider {...methods}>
-      <ScreenWrapper>
+      <ScreenWrapper
+        type="scroll"
+        scrollViewProps={{contentContainerStyle: {flex: 1}}}>
         <Container>
           {/* Upload Profile Container */}
           <UploadAvatarWrapper>

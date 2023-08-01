@@ -22,7 +22,7 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   useEffect(() => {
     let intervalId: NodeJS.Timer;
     if (isRunning) {
-      intervalId = setInterval(() => setTimer(timer + 1), 10);
+      intervalId = setInterval(() => setTimer(timer + 5), 10);
     }
     return () => {
       clearInterval(intervalId);
