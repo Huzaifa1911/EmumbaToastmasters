@@ -18,7 +18,7 @@ import {useGetAllParticipants} from 'Services';
 import {Flex} from 'Styles';
 import {showToast} from 'Utils';
 
-const MAX_CONTESTANT_COUNT = 15;
+const MAX_CONTESTANT_COUNT = 25;
 
 interface ISelectContestantsSheet {
   onActivatePolling: (contestants: TStandardObject[]) => void;

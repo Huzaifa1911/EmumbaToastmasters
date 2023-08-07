@@ -89,7 +89,7 @@ const PollResultChart = ({
               <BlankState
                 showIcon={false}
                 label="It's a Tie"
-                infoText="Both competitors reached an equal score, resulting in a draw"
+                infoText="Both speakers reached an equal score, resulting in a draw"
               />
             </Spacer>
           </When>

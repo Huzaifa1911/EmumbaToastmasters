@@ -452,7 +452,16 @@ export const getActiveVotingPollDetails = async (
     );
 
     const candidates = users
-      .filter(user => user.id !== poll.owner) // excluding the vote owner/counter from candidate list
+      .filter(user => {
+        // if owner present in candidates, then do not filter the users, otherwise remove the owner from users and return it.
+        if (poll.candidates.includes(poll.owner)) {
+          return user;
+        } else {
+          if (user.id !== poll.owner) {
+            return user;
+          }
+        }
+      }) // excluding the vote owner/counter from candidate list
       .map(candidate => {
         return {
           label: `${propOr('', 'first_name', candidate)} ${propOr(
