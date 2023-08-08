@@ -9,12 +9,7 @@ import {
   ScreenWrapper,
   Spacer,
 } from 'Components';
-import {
-  ButtonWrapper,
-  Container,
-  StyledAvatar,
-  UploadAvatarWrapper,
-} from './styles';
+import {Container, StyledAvatar, UploadAvatarWrapper} from './styles';
 import {PlusIcon} from 'Icons';
 import {useAppTheme} from 'Assets';
 import {selectUser, useAppSelector} from 'Store';
@@ -55,7 +50,7 @@ const EditProfile = () => {
     <FormProvider {...methods}>
       <ScreenWrapper
         type="scroll"
-        scrollViewProps={{contentContainerStyle: {flex: 1}}}>
+        scrollViewProps={{contentContainerStyle: {flexGrow: 1}}}>
         <Container>
           {/* Upload Profile Container */}
           <UploadAvatarWrapper>
@@ -78,17 +73,15 @@ const EditProfile = () => {
 
           <Spacer top={15} />
           <AppInputFormField name="last_name" mode="flat" label="Last Name" />
-          <ButtonWrapper>
-            <AppButton
-              mode="contained"
-              disabled={
-                !methods.formState.isDirty || !methods.formState.isValid
-              }
-              onPress={methods.handleSubmit(onSubmit)}>
-              Save
-            </AppButton>
-          </ButtonWrapper>
         </Container>
+        <Spacer bottom={50} horizontal={16}>
+          <AppButton
+            mode="contained"
+            disabled={!methods.formState.isDirty || !methods.formState.isValid}
+            onPress={methods.handleSubmit(onSubmit)}>
+            Save
+          </AppButton>
+        </Spacer>
       </ScreenWrapper>
     </FormProvider>
   );

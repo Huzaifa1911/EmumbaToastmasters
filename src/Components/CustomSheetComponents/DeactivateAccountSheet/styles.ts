@@ -2,7 +2,7 @@ import {ScrollView, View} from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled(ScrollView).attrs(() => ({
-  contentContainerStyle: {flex: 1, paddingHorizontal: 20},
+  contentContainerStyle: {flexGrow: 1, paddingHorizontal: 20},
 }))({});
 
 export const ActionWrapper = styled(View)(() => ({

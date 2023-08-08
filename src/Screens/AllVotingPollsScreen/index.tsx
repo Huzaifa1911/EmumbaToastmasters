@@ -65,7 +65,7 @@ const AllVotingPollsScreen = ({
   // constants
   const polls: TFormattedVotingPoll[] = propOr([], 'pages', data);
   const isPollTypeSelected = sheetType === SheetTypes.CONTESTENTS_SHEET;
-  const snapPoints = isPollTypeSelected ? ['90%', '90%'] : ['80%', '90%'];
+  const snapPoints = isPollTypeSelected ? ['95%', '95%'] : [540, '90%'];
   const sheetTitle = isPollTypeSelected
     ? 'Add Contestants'
     : 'Select Poll type';

@@ -91,7 +91,7 @@ const ProfileScreen = () => {
         ref={sheetRef}
         title="Deactivate Account"
         onCloseSheet={closeBottomSheet}
-        snapPoints={['60%']}>
+        snapPoints={[450]}>
         <DeactivateAccountSheet onCloseBottomSheet={closeBottomSheet} />
       </AppBottomSheet>
     </>

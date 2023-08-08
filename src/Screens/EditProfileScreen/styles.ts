@@ -6,7 +6,6 @@ import {ProfileAvatar} from 'Components';
 export const Container = styled(View)(() => ({
   flex: 1,
   paddingTop: 50,
-  paddingBottom: 100,
   paddingHorizontal: 16,
 }));
 
@@ -16,8 +15,3 @@ export const UploadAvatarWrapper = styled(View)(() => ({
   alignItems: 'center',
   paddingHorizontal: 20,
 }));
-
-export const ButtonWrapper = styled(View)({
-  flex: 1,
-  justifyContent: 'flex-end',
-});

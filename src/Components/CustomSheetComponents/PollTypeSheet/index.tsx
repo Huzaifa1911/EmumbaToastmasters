@@ -16,27 +16,28 @@ const PollTypeSheet = ({onProceedNext}: IPollTypeSheetProps) => {
   return (
     <Container>
       <ListContent>
-        {POLL_TYPES.map((type, index) => {
-          const isSelected = pollType?.id === type.id;
-
+        {POLL_TYPES.map((item, index) => {
+          const isSelected = pollType?.id === item.id;
           return (
-            <PollTypeButton
-              key={type.id + index.toString()}
-              title={type.name}
-              isSelected={isSelected}
-              onPress={() => setPollType(type)}
-            />
+            <Spacer right={index % 2 === 0 ? 15 : 0} key={index} top={20}>
+              <PollTypeButton
+                title={item.name}
+                isSelected={isSelected}
+                onPress={() => setPollType(item)}
+              />
+            </Spacer>
           );
         })}
       </ListContent>
 
-      <Spacer top={30} />
-      <NextButton
-        mode="contained"
-        disabled={isEmptyOrNill(pollType)}
-        onPress={() => onProceedNext(pollType)}>
-        Next
-      </NextButton>
+      <Spacer top={30}>
+        <NextButton
+          mode="contained"
+          disabled={isEmptyOrNill(pollType)}
+          onPress={() => onProceedNext(pollType)}>
+          Next
+        </NextButton>
+      </Spacer>
     </Container>
   );
 };

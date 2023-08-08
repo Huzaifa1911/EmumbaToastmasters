@@ -20,5 +20,13 @@ export const CounterWrapper = styled(View)(() => ({
 export const ButtonWrapper = styled(View)(() => ({
   flex: 1,
   justifyContent: 'flex-end',
-  paddingHorizontal: 100,
+  alignSelf: 'center',
+  width: '55%',
 }));
+
+export const Row = styled(View)({
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});

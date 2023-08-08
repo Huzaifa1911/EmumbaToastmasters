@@ -1,35 +1,35 @@
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View, ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 
 import {AppButton} from 'Components';
 
 type TPollTypeButton = {isSelected: boolean} & AppTheme.ThemeType;
 
-export const Container = styled(View)(() => ({
-  flex: 1,
-  paddingTop: 10,
-  paddingHorizontal: 16,
-}));
+export const Container = styled(ScrollView).attrs(() => ({
+  contentContainerStyle: {
+    paddingBottom: 50,
+    paddingHorizontal: 16,
+  },
+}))({});
 
 export const ListContent = styled(View)(() => ({
   flexDirection: 'row' as const,
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'space-evenly',
+  alignSelf: 'center',
   flexWrap: 'wrap' as const,
-  width: '97%',
 }));
 
 export const PollButtonContainer = styled(TouchableOpacity)(
   ({isSelected, theme}: TPollTypeButton) => ({
-    height: 150,
-    width: 165,
+    height: 140,
+    width: 155,
     alignItems: 'flex-end',
     borderColor: isSelected ? theme?.colors.primary : theme?.colors.outline,
     borderWidth: 1,
     borderRadius: 20,
     paddingBottom: 10,
     paddingHorizontal: 5,
-    marginBottom: 20,
     paddingTop: 5,
   }),
 );
