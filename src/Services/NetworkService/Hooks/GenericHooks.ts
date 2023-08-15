@@ -109,7 +109,11 @@ export const useAppMutation = <
     onError: (error, variables) => {
       if (onError) onError(error, variables);
       else {
-        const message = pathOr('Error', ['response', 'data', 'detail'], error);
+        const message = pathOr(
+          'Something went wrong!',
+          ['response', 'data', 'detail'],
+          error,
+        );
         showToast(message, 'Error', 'error');
 
         if (error.response?.status === 401) {
