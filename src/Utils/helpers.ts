@@ -254,3 +254,15 @@ export const groupSpeechTimeLogsBySpeechType = (
     title: slot.speech_type,
     data: slots.filter(item => item.speech_type === slot.speech_type && item),
   }));
+
+export const handleToastMessages = (error: Record<string, any>) => {
+  const value = Object.values(error);
+  if (Array.isArray(value)) {
+    const firstMessage: string = firstOrNull(value) ?? '';
+    showToast(firstMessage, 'Error', 'error');
+  } else if (typeof value === 'string') {
+    showToast(value, 'Error', 'error');
+  } else {
+    showToast('Something went wrong!', 'Error', 'error');
+  }
+};

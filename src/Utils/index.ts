@@ -28,6 +28,7 @@ export {
   getSpeechQualificationColor,
   getSpeechQualificationResult,
   groupSpeechTimeLogsBySpeechType,
+  handleToastMessages,
 } from './helpers';
 
 export {

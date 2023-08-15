@@ -16,8 +16,9 @@ import {
   QueryErrorResponse,
 } from '../types';
 import {hideLoader, showLoader, updateUser, useAppDispatch} from 'Store';
-import {showToast} from 'Utils';
+
 import {TPaginatedResponse} from 'Types';
+import {handleToastMessages} from 'Utils';
 
 export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
   args: QueryArgs<TQueryData, TSelectData>,
@@ -50,8 +51,8 @@ export const useAppQuery = <TQueryData, TSelectData = TQueryData>(
     onError: error => {
       if (onError) onError(error);
       else {
-        const message = error.response?.data.detail;
-        showToast(message ?? '', 'Error', 'error');
+        const errorData = pathOr({}, ['response', 'data'], error);
+        handleToastMessages(errorData);
         if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));
         }
@@ -109,13 +110,8 @@ export const useAppMutation = <
     onError: (error, variables) => {
       if (onError) onError(error, variables);
       else {
-        const message = pathOr(
-          'Something went wrong!',
-          ['response', 'data', 'detail'],
-          error,
-        );
-        showToast(message, 'Error', 'error');
-
+        const errorData = pathOr({}, ['response', 'data'], error);
+        handleToastMessages(errorData);
         if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));
         }
@@ -160,8 +156,8 @@ export const useAppInfiniteQuery = <TQueryData, TSelectData = TQueryData>(
     onError: error => {
       if (onError) onError(error);
       else {
-        const message = error.response?.data.detail;
-        showToast(message ?? '', 'Error', 'error');
+        const errorData = pathOr({}, ['response', 'data'], error);
+        handleToastMessages(errorData);
         if (error.response?.status === 401) {
           dispatch(updateUser({user: null}));
         }
