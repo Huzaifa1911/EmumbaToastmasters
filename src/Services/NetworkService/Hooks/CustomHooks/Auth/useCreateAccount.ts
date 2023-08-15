@@ -14,8 +14,8 @@ export const useCreateAccount = ({
 
   const onSuccess = useCallback(async (data: TUser) => {
     showToast('Logged In Successfully', 'Login');
-    queryClient.invalidateQueries(['APP_USER']);
     dispatch(updateUser({user: data}));
+    queryClient.invalidateQueries(['APP_USER']);
   }, []);
 
   return useAppMutation<TUser, TCreateAccountPayload>({
