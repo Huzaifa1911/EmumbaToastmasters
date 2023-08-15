@@ -15,6 +15,8 @@
     "gradle-clean": "cd android && ./gradlew clean",
     "link-fonts": "npx react-native-asset",
     "postinstall": "patch-package",
+    "codepush-staging": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters -d Staging",
+    "codepush-production": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters -d Production",
     "pretty": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\""
   },
   "dependencies": {
