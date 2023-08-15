@@ -9,7 +9,10 @@ export {ROUTES} from './NetworkService/Routes';
 export {API_HELPERS} from './NetworkService/ApiHelpers';
 export {type NetworkTypes};
 
+// auth
 export {useLogin} from './NetworkService/Hooks/CustomHooks/Auth/useLogin';
+export {useCreateAccount} from './NetworkService/Hooks/CustomHooks/Auth/useCreateAccount';
+
 export {useVerifyUserAccess} from './NetworkService/Hooks/CustomHooks/Auth/useVerifyUserAccess';
 export {useLogout} from './NetworkService/Hooks/CustomHooks/Auth/useLogout';
 export {useUpdateProfile} from './NetworkService/Hooks/CustomHooks/Auth/useUpdateProfile';

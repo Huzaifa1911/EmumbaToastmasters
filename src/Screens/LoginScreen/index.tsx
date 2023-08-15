@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React, {useState} from 'react';
 import {FadeInDown} from 'react-native-reanimated';
 import {TextInput} from 'react-native-paper';
@@ -11,23 +12,26 @@ import {
   ScreenWrapper,
   Spacer,
 } from 'Components';
-import {Footer, Header} from './styles';
-import {useLogin} from 'Services';
-import {loginSchema} from 'Utils';
+import {Footer, Header, RowWrapper} from './styles';
+import {NavigationService, useLogin} from 'Services';
+import {SCREENS, loginSchema} from 'Utils';
 
 type TDefaultValues = {
-  username: string;
+  email: string;
   password: string;
 };
+
+const goToSignupScreen = () =>
+  NavigationService.navigate(SCREENS.SIGNUP_SCREEN);
 
 const LoginScreen = () => {
   const [secureText, setSecureText] = useState(true);
 
   const methods = useForm<TDefaultValues>({
     defaultValues: {
-      // username: 'huzaifa.arshad@emumba.com',
-      // password: 'asdf@123',
-      username: '',
+      // email: 'huzaifa.arshad@emumba.com',
+      // password: 'asdf@1234',
+      email: '',
       password: '',
     },
     mode: 'onChange',
@@ -37,8 +41,8 @@ const LoginScreen = () => {
   const togglePassword = () => setSecureText(prev => !prev);
   const {mutate} = useLogin({showLoading: true});
 
-  const onPress = ({username, password}: TDefaultValues) => {
-    mutate({username, password});
+  const onPress = ({email, password}: TDefaultValues) => {
+    mutate({email, password});
   };
 
   return (
@@ -53,14 +57,14 @@ const LoginScreen = () => {
         <Footer entering={FadeInDown.duration(800)}>
           <AppInputFormField
             autoCapitalize="none"
-            name="username"
-            label="Username"
+            name="email"
+            label="Email"
             mode="outlined"
-            placeholder="Enter username"
+            placeholder="Enter your email"
             autoFocus
           />
 
-          <Spacer top={22} />
+          <Spacer top={20} />
           <AppInputFormField
             name="password"
             label="Password"
@@ -83,6 +87,15 @@ const LoginScreen = () => {
             disabled={!methods.formState.isValid}>
             Login
           </AppButton>
+          <RowWrapper>
+            <AppText>{"Don't Have an account?"}</AppText>
+            <AppText
+              color="primary"
+              variant="medium"
+              onPress={goToSignupScreen}>
+              Create One
+            </AppText>
+          </RowWrapper>
         </Footer>
       </ScreenWrapper>
     </FormProvider>

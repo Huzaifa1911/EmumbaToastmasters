@@ -1,8 +1,24 @@
 import * as yup from 'yup';
 
 export const loginSchema = yup.object().shape({
-  username: yup.string().required('Please enter username'),
+  email: yup.string().email().required('Please enter your email'),
+  // .matches(/\@emumba.com$/, 'Domain not allowed'),
   password: yup.string().required('Pleasee enter password'),
+});
+
+export const signupSchema = yup.object().shape({
+  firstName: yup.string().required('Please enter your firstname'),
+  lastName: yup.string().required('Please enter your lastname'),
+  email: yup.string().email().required('Please enter your email'),
+  // .matches(/\@emumba.com$/, 'Domain not allowed'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be 8 chars minimum.'),
+  confirmPassword: yup
+    .string()
+    .required('Please confirm password')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
 });
 
 export const castVoteSchema = yup.object().shape({

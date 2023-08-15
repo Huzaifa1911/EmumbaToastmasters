@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
@@ -6,20 +6,19 @@ export const Header = styled(View)({
   flex: 1,
   justifyContent: 'flex-end',
   paddingHorizontal: 20,
-  paddingBottom: 50,
+  paddingBottom: 55,
 });
+
 export const Footer = styled(Animated.View)(({theme}: AppTheme.ThemeType) => ({
-  flex: 2,
+  flex: 3,
   borderTopLeftRadius: 30,
   borderTopRightRadius: 30,
   backgroundColor: theme?.colors.background,
-  paddingHorizontal: 20,
-  paddingVertical: 50,
 }));
 
-export const RowWrapper = styled(View)(() => ({
-  flexDirection: 'row' as const,
-  marginTop: 20,
-  aliginItems: 'center',
-  justifyContent: 'center',
-}));
+export const ScrollContent = styled(ScrollView).attrs(() => ({
+  contentContainerStyle: {
+    paddingHorizontal: 20,
+    paddingVertical: 50,
+  },
+}))({});
