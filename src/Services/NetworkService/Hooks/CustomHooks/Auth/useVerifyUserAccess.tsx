@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
 import {TShowLoading, TUser} from 'Types';
-import {API_HELPERS, useAppQuery} from 'Services';
+import {API_HELPERS, queryClient, useAppQuery} from 'Services';
 import {decodeJwtToken} from 'Utils';
 import {updateUser, useAppDispatch} from 'Store';
 
@@ -15,6 +15,7 @@ export const useVerifyUserAccess = ({showLoading = false}: TShowLoading) => {
 
   const onSuccess = useCallback((data: TUser) => {
     dispatch(updateUser({user: data}));
+    queryClient.invalidateQueries(['APP_USER']);
   }, []);
 
   return useAppQuery<TUser>({

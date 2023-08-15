@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 
-import {API_HELPERS, useAppMutation} from 'Services';
+import {API_HELPERS, queryClient, useAppMutation} from 'Services';
 import {updateUser, useAppDispatch} from 'Store';
 import {TCreateAccountPayload, TUser} from 'Types';
 import {showToast} from 'Utils';
@@ -14,7 +14,7 @@ export const useCreateAccount = ({
 
   const onSuccess = useCallback(async (data: TUser) => {
     showToast('Logged In Successfully', 'Login');
-
+    queryClient.invalidateQueries(['APP_USER']);
     dispatch(updateUser({user: data}));
   }, []);
 
