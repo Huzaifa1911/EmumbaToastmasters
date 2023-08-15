@@ -5,6 +5,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {QueryClientProvider} from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import CodePush from 'react-native-code-push';
 
 import AppWrapper from './AppWrapper';
 import {ReduxStore, persistedStore} from 'Store';
@@ -36,4 +37,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default CodePush(App);

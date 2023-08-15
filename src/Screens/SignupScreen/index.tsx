@@ -84,7 +84,6 @@ const SignupScreen = () => {
               label="Last Name"
               mode="outlined"
               placeholder="Enter lastname"
-              autoFocus
             />
 
             <Spacer top={20} />
@@ -94,7 +93,7 @@ const SignupScreen = () => {
               label="Email"
               mode="outlined"
               placeholder="Enter email"
-              autoFocus
+              keyboardType="email-address"
             />
 
             <Spacer top={20} />

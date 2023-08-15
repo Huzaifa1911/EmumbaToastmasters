@@ -62,6 +62,7 @@ const LoginScreen = () => {
             mode="outlined"
             placeholder="Enter your email"
             autoFocus
+            keyboardType="email-address"
           />
 
           <Spacer top={20} />
