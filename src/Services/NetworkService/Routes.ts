@@ -2,6 +2,7 @@ export enum ROUTES {
   LOGIN = 'accounts/token/',
   USER = 'api/accounts.user/',
   CHANGE_PASSWORD = 'auth/password/change/',
+  REGISTRATION = 'auth/registration/',
   GAMIFICATION_POINTS = 'api/gamification.awardedpoint/',
   EVENTS = 'api/event.event/',
   ROLES = 'api/event.role/',

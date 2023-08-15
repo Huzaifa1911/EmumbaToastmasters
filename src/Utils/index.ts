@@ -35,5 +35,6 @@ export {
   castVoteSchema,
   updateProfileSchema,
   changePasswordSchema,
+  signupSchema,
 } from './schemas';
 export {useDebounce, useClearSpeechTimeLogs} from './hooks';

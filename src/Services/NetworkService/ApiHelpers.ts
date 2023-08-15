@@ -9,6 +9,7 @@ import {
   StatType,
   TAttendedEvent,
   TClosedVotingPoll,
+  TCreateAccountPayload,
   TDataItem,
   TEvent,
   TFormattedVotingPoll,
@@ -42,12 +43,12 @@ import {
   TUpdatePassword,
 } from './types';
 
-const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
+const loginWithEmail = async (payload: TLoginPayload): Promise<TUser> => {
   try {
-    const {data} = (await axiosInstance.post(
-      ROUTES.LOGIN,
-      payload,
-    )) as AxiosResponse<{access: string; refresh: string}>;
+    const {data} = (await axiosInstance.post(ROUTES.LOGIN, {
+      username: payload.email,
+      password: payload.password,
+    })) as AxiosResponse<{access: string; refresh: string}>;
     await KeychainStorageService.setToken(
       AUTHORIZATION.ACCESS_TOKEN,
       data.access,
@@ -58,6 +59,20 @@ const loginWithUsername = async (payload: TLoginPayload): Promise<TUser> => {
       pathParams: [jwtdata?.user_id],
     });
     return user;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const createAccount = async (
+  payload: TCreateAccountPayload,
+): Promise<TUser> => {
+  try {
+    await axiosInstance.post(ROUTES.REGISTRATION, payload);
+    return await loginWithEmail({
+      email: payload.email,
+      password: payload.password1,
+    });
   } catch (error) {
     return Promise.reject(error);
   }
@@ -585,7 +600,7 @@ export const API_HELPERS = Object.freeze({
   getAllRoles,
   getAllUsers,
   getGamificationPoints,
-  loginWithUsername,
+  loginWithEmail,
   getPollTypes,
   getVotingPolls,
   getActiveVotingPollDetails,
@@ -600,4 +615,5 @@ export const API_HELPERS = Object.freeze({
   updateProfile,
   deactivateAccount,
   updatePassword,
+  createAccount,
 });
