@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {SectionList} from 'react-native';
 import React from 'react';
 
 import {TSpeechTimeLog, TSpeechTimeLogSection} from 'Types';
@@ -7,6 +6,7 @@ import {AppText, BlankState, Spacer, SpeechTimeCard} from 'Components';
 import {selectSpeechTimeLogs, useAppSelector} from 'Store';
 import {NavigationService} from 'Services';
 import {SCREENS, groupSpeechTimeLogsBySpeechType} from 'Utils';
+import {SpeechTimeLogSectionList} from '../styles';
 
 const SpeechTimeLogs = () => {
   const slots = useAppSelector(selectSpeechTimeLogs);
@@ -32,7 +32,7 @@ const SpeechTimeLogs = () => {
   };
 
   return (
-    <SectionList
+    <SpeechTimeLogSectionList
       sections={groupedData}
       renderItem={renderItem}
       renderSectionHeader={sectionHeader}

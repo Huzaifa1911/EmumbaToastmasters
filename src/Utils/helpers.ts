@@ -200,14 +200,15 @@ const getSpeechEvluationQualificaitonColor = (
 };
 
 export const getSpeechQualificationColor = ({
-  minutes,
-  seconds,
+  elapsedTime,
   speechType,
 }: {
-  minutes: number;
-  seconds: number;
+  elapsedTime: number;
   speechType: TSpeech;
 }): AppTheme.TColors => {
+  const minutes = dayjs(elapsedTime).get('minutes');
+  const seconds = dayjs(elapsedTime).get('seconds');
+
   switch (speechType) {
     case 'Prepared Speech':
       return getPreparedSpeechQualificationColor(minutes, seconds);
@@ -221,25 +222,23 @@ export const getSpeechQualificationColor = ({
 };
 
 export const getSpeechQualificationResult = ({
-  minutes,
-  seconds,
+  elapsedTime,
   speechType,
 }: {
-  minutes: number;
-  seconds: number;
+  elapsedTime: number;
   speechType: TSpeech;
 }): {color: AppTheme.TColors; label: string} => {
   switch (speechType) {
     case 'Prepared Speech':
-      if (minutes >= 5 && minutes <= 7 && seconds <= 30)
+      if (elapsedTime <= 450000 && elapsedTime >= 300000)
         return {color: 'accentGreen', label: 'Qualified'};
       else return {color: 'onSurfaceDisabled', label: 'Disqualified'};
     case 'Table Topic':
-      if (minutes >= 1 && minutes <= 2 && seconds <= 30)
+      if (elapsedTime <= 150000 && elapsedTime >= 60000)
         return {color: 'accentGreen', label: 'Qualified'};
       else return {color: 'onSurfaceDisabled', label: 'Disqualified'};
     case 'Speech Evaluation':
-      if (minutes >= 2 && minutes <= 3 && seconds <= 30)
+      if (elapsedTime <= 210000 && elapsedTime >= 120000)
         return {color: 'accentGreen', label: 'Qualified'};
       else return {color: 'onSurfaceDisabled', label: 'Disqualified'};
     default:

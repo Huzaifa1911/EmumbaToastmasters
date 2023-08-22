@@ -106,8 +106,7 @@ export const useTimer = ({speechType}: {speechType: TSpeech}) => {
     reset,
     getSnapshot,
     color: getSpeechQualificationColor({
-      minutes: Math.floor(countInSeconds / 60),
-      seconds: countInSeconds,
+      elapsedTime: getSnapshot(),
       speechType,
     }),
   };

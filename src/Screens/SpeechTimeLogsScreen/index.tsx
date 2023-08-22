@@ -1,7 +1,6 @@
 import React, {useMemo, useState} from 'react';
 
 import {AppModal, FloatingActions, ScreenWrapper} from 'Components';
-import {Container} from './styles';
 
 import SpeechTimeLogs from './Components/SpeechTimeLogs';
 import ModalContent from './Components/ModalContent';
@@ -46,9 +45,7 @@ const SpeechTimeLogsScreen = () => {
   return (
     <>
       <ScreenWrapper>
-        <Container>
-          <SpeechTimeLogs />
-        </Container>
+        <SpeechTimeLogs />
 
         <FloatingActions
           icon="plus"

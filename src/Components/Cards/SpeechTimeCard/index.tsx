@@ -1,6 +1,5 @@
 import {View} from 'react-native';
 import React from 'react';
-import dayjs from 'dayjs';
 import {When} from 'react-if';
 
 import {TSpeechTimeLog} from 'Types';
@@ -29,20 +28,15 @@ const SpeechTimeCard = (props: ISpeechTimeCardProps) => {
   const end_timestamp =
     endTime !== 0 ? formateTimeStamp(endTime, 'mm:ss:SSS') : 'Not started yet';
 
-  const minutes = dayjs(endTime).get('minutes');
-  const seconds = dayjs(endTime).get('seconds');
   const color = getSpeechQualificationColor({
-    minutes,
-    seconds,
+    elapsedTime: endTime,
     speechType: speech_type,
   });
 
   const {color: chipColor, label: chipLabel} = getSpeechQualificationResult({
-    minutes,
-    seconds,
+    elapsedTime: endTime,
     speechType: speech_type,
   });
-  const hasSpeechStarted = minutes > 0 || seconds > 0;
 
   return (
     <AppCard
@@ -58,7 +52,7 @@ const SpeechTimeCard = (props: ISpeechTimeCardProps) => {
             </AppText>
           </NameWrapper>
         </Row>
-        <When condition={hasSpeechStarted}>
+        <When condition={endTime > 0}>
           <AppChip label={chipLabel} chipColor={chipColor} />
         </When>
       </Content>
