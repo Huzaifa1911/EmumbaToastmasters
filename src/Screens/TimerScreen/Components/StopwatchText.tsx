@@ -156,7 +156,7 @@ const StopwatchText = ({
               textCharStyleWithoutWidth,
               separatorStyle,
             ]}>
-            ,
+            :
           </Text>
           <Text
             style={[

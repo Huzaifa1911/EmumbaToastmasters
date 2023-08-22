@@ -42,14 +42,6 @@ export const useTimer = ({speechType}: {speechType: TSpeech}) => {
   const intervalId = useRef<NodeJS.Timer | null>(null);
 
   function getSnapshot() {
-    const seconds = Math.floor(getAbsElapsedInMs() / 1000);
-    return {
-      seconds,
-      minutes: Math.floor(countInSeconds / 60),
-    };
-  }
-
-  function getAbsElapsedInMs() {
     return Math.abs(elapsedInMs);
   }
 
@@ -102,10 +94,10 @@ export const useTimer = ({speechType}: {speechType: TSpeech}) => {
     resetState();
   }
 
-  const countInSeconds = Math.floor(getAbsElapsedInMs() / 1000);
+  const countInSeconds = Math.floor(getSnapshot() / 1000);
 
   return {
-    tensOfMs: Math.floor(getAbsElapsedInMs() / 10) % 100,
+    tensOfMs: Math.floor(getSnapshot() / 10) % 100,
     lastDigit: countInSeconds % 10,
     tens: Math.floor(countInSeconds / 10) % 6,
     minutes: Math.floor(countInSeconds / 60),

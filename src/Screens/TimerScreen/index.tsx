@@ -15,7 +15,6 @@ import {getSpeechDuration, useTimer} from 'Utils';
 import {JustifyCenter, RowBetween} from 'Styles';
 import {lockSpeechTime} from 'Store';
 import {NavigationService} from 'Services';
-import dayjs from 'dayjs';
 
 const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const slot = pathOr<TSpeechTimeLog | null>(null, ['params', 'slot'], route);
@@ -57,11 +56,7 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const duration = getSpeechDuration(speech_type);
 
   const onLockButtonPress = () => {
-    const {minutes: finalMinutes, seconds: finalSeconds} = getSnapshot();
-    const endTime = dayjs()
-      .set('minutes', finalMinutes)
-      .set('seconds', finalSeconds)
-      .valueOf();
+    const endTime = getSnapshot();
     dispatch(lockSpeechTime({endTime, id: slot?.id ?? 0}));
     NavigationService.goBack();
     resetTimer();
