@@ -38,4 +38,4 @@ export {
   changePasswordSchema,
   signupSchema,
 } from './schemas';
-export {useDebounce, useClearSpeechTimeLogs} from './hooks';
+export {useDebounce, useClearSpeechTimeLogs, useTimer} from './hooks';

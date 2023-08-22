@@ -1,71 +1,71 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {pathOr} from 'ramda';
 import {useDispatch} from 'react-redux';
-import dayjs from 'dayjs';
 
 import {AppButton, AppText, ScreenWrapper, Spacer} from 'Components';
 import {TDrawerParamList, TSpeechTimeLog} from 'Types';
-import {ButtonWrapper, Container, CounterWrapper} from './styles';
-import {getSpeechDuration, getSpeechQualificationColor} from 'Utils';
+import {
+  ButtonWrapper,
+  Container,
+  CounterWrapper,
+  StopWatchCounter,
+} from './styles';
+import {getSpeechDuration, useTimer} from 'Utils';
 import {JustifyCenter, RowBetween} from 'Styles';
 import {lockSpeechTime} from 'Store';
 import {NavigationService} from 'Services';
+import dayjs from 'dayjs';
 
 const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const slot = pathOr<TSpeechTimeLog | null>(null, ['params', 'slot'], route);
+  const speaker = slot?.speaker;
+  const speech_type = slot?.speech_type ?? 'Prepared Speech';
 
-  const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timer;
-    if (isRunning) {
-      intervalId = setInterval(() => setTimer(timer + 5), 10);
-    }
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [timer, isRunning]);
+  const {
+    color,
+    getSnapshot,
+    lastDigit,
+    minutes,
+    pause,
+    play,
+    reset,
+    tens,
+    tensOfMs,
+  } = useTimer({speechType: speech_type});
 
-  const speaker = slot?.speaker;
-  const speech_type = slot?.speech_type ?? 'Prepared Speech';
-  const minutes = Math.floor((timer % 360000) / 6000);
-  const seconds = Math.floor((timer % 6000) / 100);
-  const milliseconds = timer % 100;
+  const onPressStart = () => {
+    if (isRunning) {
+      pause();
+      setIsRunning(false);
+    } else {
+      play();
+      setIsRunning(true);
+    }
+  };
+
+  const resetTimer = () => {
+    reset();
+    setIsRunning(false);
+  };
+
   const startButtonTitle = isRunning ? 'Stop' : 'Start';
 
   const duration = getSpeechDuration(speech_type);
-  const color = getSpeechQualificationColor({
-    minutes,
-    seconds,
-    speechType: speech_type,
-  });
-
-  const reset = () => {
-    setIsRunning(false);
-    setTimer(0);
-  };
-
-  const onPressStart = () => {
-    setIsRunning(prev => !prev);
-  };
 
   const onLockButtonPress = () => {
-    setIsRunning(false);
+    const {minutes: finalMinutes, seconds: finalSeconds} = getSnapshot();
     const endTime = dayjs()
-      .set('minutes', minutes)
-      .set('seconds', seconds)
-      .set('milliseconds', milliseconds)
+      .set('minutes', finalMinutes)
+      .set('seconds', finalSeconds)
       .valueOf();
-
     dispatch(lockSpeechTime({endTime, id: slot?.id ?? 0}));
-    setTimer(0);
     NavigationService.goBack();
+    resetTimer();
   };
-
-  const disableLockButton = !isRunning && milliseconds <= 0;
 
   return (
     <ScreenWrapper>
@@ -80,16 +80,19 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
         </JustifyCenter>
 
         <CounterWrapper>
-          <AppText variant="medium" color="primary" size={40}>
-            {`${minutes.toString().padStart(2, '0')}:${seconds
-              .toString()
-              .padStart(2, '0')}:${milliseconds.toString().padStart(2, '0')}`}
-          </AppText>
+          <StopWatchCounter
+            tens={tens}
+            lastDigit={lastDigit}
+            minutes={minutes}
+            tensOfMs={tensOfMs}
+            trailingZeros={2}
+            leadingZeros={2}
+          />
         </CounterWrapper>
 
         <ButtonWrapper>
           <RowBetween>
-            <AppButton mode="outlined" onPress={reset}>
+            <AppButton mode="outlined" onPress={resetTimer}>
               Reset
             </AppButton>
             <AppButton mode="outlined" onPress={onPressStart}>
@@ -101,7 +104,7 @@ const TimerScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
           <AppButton
             mode="contained"
             onPress={onLockButtonPress}
-            disabled={disableLockButton}>
+            disabled={!isRunning}>
             Lock
           </AppButton>
         </ButtonWrapper>
