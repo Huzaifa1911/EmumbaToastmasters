@@ -248,16 +248,29 @@ export const getSpeechQualificationResult = ({
 
 export const groupSpeechTimeLogsBySpeechType = (
   slots: TSpeechTimeLog[],
-): TSpeechTimeLogSection[] =>
-  slots.map(slot => ({
-    title: slot.speech_type,
-    data: slots.filter(item => item.speech_type === slot.speech_type && item),
-  }));
+): TSpeechTimeLogSection[] => {
+  const groupedData: {[key: string]: {title: TSpeech; data: TSpeechTimeLog[]}} =
+    {};
+
+  slots.forEach(slot => {
+    if (!groupedData[slot.speech_type]) {
+      groupedData[slot.speech_type] = {
+        title: slot.speech_type,
+        data: [],
+      };
+    }
+    // Only include logs with the same speech_type
+    if (slot.speech_type === groupedData[slot.speech_type].title) {
+      groupedData[slot.speech_type].data.push(slot);
+    }
+  });
+  return Object.values(groupedData);
+};
 
 export const handleToastMessages = (error: Record<string, any>) => {
   const value = Object.values(error);
   if (Array.isArray(value)) {
-    const firstMessage: string = firstOrNull(value) ?? '';
+    const firstMessage: string = firstOrNull(value) ?? 'Something went wrong!';
     showToast(firstMessage, 'Error', 'error');
   } else if (typeof value === 'string') {
     showToast(value, 'Error', 'error');
