@@ -38,4 +38,9 @@ export {
   changePasswordSchema,
   signupSchema,
 } from './schemas';
-export {useDebounce, useClearSpeechTimeLogs, useTimer} from './hooks';
+export {
+  useDebounce,
+  useClearSpeechTimeLogs,
+  useTimer,
+  useCheckForNewUpdates,
+} from './hooks';

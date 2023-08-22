@@ -15,8 +15,10 @@
     "gradle-clean": "cd android && ./gradlew clean",
     "link-fonts": "npx react-native-asset",
     "postinstall": "patch-package",
-    "codepush-staging": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters -d Staging",
-    "codepush-production": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters -d Production",
+    "codepush-staging-android": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters -d Staging",
+    "codepush-production-android": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters -d Production",
+    "codepush-staging-ios": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters-1 -d Staging",
+    "codepush-production-ios": "appcenter codepush release-react -a huzaifa.arshad-emumba.com/EmumbaToastmasters-1 -d Production",
     "pretty": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\""
   },
   "dependencies": {

@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import useConstant from 'use-constant';
+import {AppState, AppStateStatus} from 'react-native';
 
 import {selectSpeechTimeLogs, updateLogs, useAppSelector} from 'Store';
 import {getSpeechQualificationColor} from './helpers';
 import {TSpeech} from 'Types';
+import CodePush from 'react-native-code-push';
 
 export const useDebounce = (fn: (text: string) => void, wait = 500) =>
   useConstant(() => AwesomeDebouncePromise(fn, wait, {onlyResolvesLast: true}));
@@ -112,4 +114,47 @@ export const useTimer = ({speechType}: {speechType: TSpeech}) => {
   };
 };
 
-export default useTimer;
+const UPDATE_CHECK_INITIAL_STATE: {
+  lastBackgroundedTime: Dayjs | null;
+  appState: AppStateStatus;
+} = {
+  lastBackgroundedTime: null,
+  appState: AppState.currentState,
+};
+const MIN_BACKGROUND_DURATION_IN_MIN = 30;
+
+export const useCheckForNewUpdates = () => {
+  const [state, setState] = useState(UPDATE_CHECK_INITIAL_STATE);
+
+  const handleAppStateChange = async (nextAppState: AppStateStatus) => {
+    const {appState, lastBackgroundedTime} = state;
+
+    // Try to run the CodePush sync whenever app comes to foreground
+    if (appState.match(/inactive|background/) && nextAppState === 'active') {
+      // Only run the sync if app has been in the background for a certain amount of time
+      const elapsedTime = dayjs().diff(lastBackgroundedTime, 'minutes');
+
+      if (elapsedTime > MIN_BACKGROUND_DURATION_IN_MIN) {
+        // Please show the user some feedback while running this
+        // This might take some time, especially if an update is available
+        await CodePush.sync({
+          installMode: CodePush.InstallMode.IMMEDIATE,
+        });
+      }
+    }
+
+    if (nextAppState.match(/inactive|background/)) {
+      setState({appState: nextAppState, lastBackgroundedTime: dayjs()});
+    }
+  };
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+    return () => {
+      subscription.remove();
+    };
+  }, [state.appState, state.lastBackgroundedTime]);
+};
