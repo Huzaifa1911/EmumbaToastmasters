@@ -1,5 +1,8 @@
-import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import React, {useMemo} from 'react';
+import {
+  DrawerNavigationOptions,
+  createDrawerNavigator,
+} from '@react-navigation/drawer';
 
 import {SCREENS} from 'Utils';
 import BottomTabNavigator from './BottomTabs';
@@ -16,13 +19,26 @@ import {
 import AppHeader from './AppHeader';
 import AppDrawer from './AppDrawer';
 import {TDrawerParamList} from 'Types';
+import {useAppTheme} from 'Assets';
 
 const {Navigator, Screen} = createDrawerNavigator<TDrawerParamList>();
 
 const AppNavigator = () => {
+  const {colors} = useAppTheme();
+
+  const drawerOptions: DrawerNavigationOptions = useMemo(() => {
+    return {
+      drawerStyle: {width: '65%'},
+      drawerType: 'slide',
+      sceneContainerStyle: {backgroundColor: colors.background},
+      overlayColor: 'transparent',
+      header: AppHeader,
+    };
+  }, [colors.background]);
+
   return (
     <Navigator
-      screenOptions={{header: AppHeader}}
+      screenOptions={drawerOptions}
       drawerContent={AppDrawer}
       backBehavior="history">
       <Screen

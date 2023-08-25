@@ -4,7 +4,11 @@ import {TouchableOpacity, View} from 'react-native';
 import {Layout} from 'Components';
 import {TColorScheme} from 'Types';
 
-export const Container = styled(Layout)({flex: 1, paddingBottom: 50});
+export const Container = styled(Layout)(({theme}: AppTheme.ThemeType) => ({
+  flex: 1,
+  paddingBottom: 50,
+  backgroundColor: theme?.colors.background,
+}));
 
 export const ProfileWrapper = styled(View)(
   ({theme, mode}: {mode: TColorScheme} & AppTheme.ThemeType) => ({

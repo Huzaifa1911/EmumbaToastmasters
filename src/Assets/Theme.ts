@@ -1,4 +1,4 @@
-import {useColorScheme} from 'react-native';
+import {Appearance, useColorScheme} from 'react-native';
 import {
   MD3DarkTheme as DarkTheme,
   MD3LightTheme as LightTheme,
@@ -175,3 +175,6 @@ export const useAppTheme = (): TAppTheme => {
   const lightTheme = useTheme<TAppLightTheme>();
   return colorScheme === 'dark' ? darkTheme : lightTheme;
 };
+
+export const AppTheme =
+  Appearance.getColorScheme() === 'light' ? AppLightTheme : AppDarkTheme;
