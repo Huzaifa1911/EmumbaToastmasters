@@ -2,11 +2,12 @@ import {TSpeechTimeLog, TSpeechTimeLogSection} from 'Types';
 import {SectionList, View} from 'react-native';
 import styled from 'styled-components/native';
 
-export const ModalWrapper = styled(View)(() => ({
+export const ModalWrapper = styled(View)(({theme}: AppTheme.ThemeType) => ({
   flex: 1,
   paddingHorizontal: 16,
   paddingTop: 20,
   paddingBottom: 35,
+  backgroundColor: theme?.colors.background,
 }));
 
 export const ButtonWrapper = styled(View)({

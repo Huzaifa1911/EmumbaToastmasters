@@ -67,6 +67,7 @@ const LoginScreen = () => {
 
           <Spacer top={20} />
           <AppInputFormField
+            autoCapitalize="none"
             name="password"
             label="Password"
             mode="outlined"
