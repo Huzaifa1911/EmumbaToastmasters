@@ -18,6 +18,9 @@ export enum SCREENS {
   TIMER_SCREEN = 'TIMER_SCREEN',
   // Navigator
   BOTTOM_TABS = 'BOTTOM_TABS',
+
+  // !Guest Mode Code
+  ALL_VOTING_POLLS_FOR_GUEST_SCREEN = 'ALL_VOTING_POLLS_FOR_GUEST_SCREEN',
 }
 
 export const POLL_TYPES: TPollType[] = [

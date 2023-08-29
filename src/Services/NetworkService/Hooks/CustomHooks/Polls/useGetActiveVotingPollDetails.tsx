@@ -5,10 +5,11 @@ import {API_HELPERS} from 'Services';
 export const useGetActiveVotingPollDetails = ({
   showLoading,
   pollId,
-}: TShowLoading & {pollId: number}) => {
+  voterId,
+}: TShowLoading & {pollId: number; voterId: number}) => {
   return useAppQuery<TStandardVotingPoll>({
-    queryKey: ['VOTING_POLL_DETAILS', pollId],
-    queryFn: () => API_HELPERS.getActiveVotingPollDetails(pollId),
+    queryKey: ['VOTING_POLL_DETAILS', pollId, voterId],
+    queryFn: () => API_HELPERS.getActiveVotingPollDetails(pollId, voterId),
     showLoading,
   });
 };

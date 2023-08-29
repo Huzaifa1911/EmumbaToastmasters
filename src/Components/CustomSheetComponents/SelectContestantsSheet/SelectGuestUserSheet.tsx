@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 
 import React, {useState} from 'react';
-import {includes, propOr} from 'ramda';
+import {equals, propOr} from 'ramda';
 import {When} from 'react-if';
 
 import {
@@ -16,20 +16,21 @@ import {TStandardObject} from 'Types';
 import ListItem from './Components/ListItem';
 import {useGetAllParticipants} from 'Services';
 import {Flex} from 'Styles';
-import {showToast} from 'Utils';
+import {isEmptyOrNill} from 'Utils';
 
-const MAX_CONTESTANT_COUNT = 25;
+const INITIAL_STATE: TStandardObject = {
+  label: '',
+  value: 0,
+};
 
-interface ISelectContestantsSheet {
-  onActivatePolling: (contestants: TStandardObject[]) => void;
+interface ISelectGuestUserSheet {
+  onSelectGuestUser: (user: TStandardObject) => void;
 }
 
-const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
-  const {onActivatePolling} = props;
+const SelectGuestUserSheet = (props: ISelectGuestUserSheet) => {
+  const {onSelectGuestUser} = props;
 
-  const [selectedContestants, setSelectedContestants] = useState<
-    TStandardObject[]
-  >([]);
+  const [guestUser, setGuestUser] = useState<TStandardObject>(INITIAL_STATE);
 
   const {
     data,
@@ -43,25 +44,6 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
   });
   const users: TStandardObject[] = propOr([], 'pages', data);
 
-  const onUserItemPress = (user: TStandardObject) => {
-    if (includes(user, selectedContestants)) {
-      setSelectedContestants([
-        ...selectedContestants.filter(
-          contestant => contestant.value !== user.value,
-        ),
-      ]);
-    } else {
-      if (selectedContestants.length < MAX_CONTESTANT_COUNT)
-        setSelectedContestants([...selectedContestants, user]);
-      else
-        showToast(
-          `You can only select at max ${MAX_CONTESTANT_COUNT} Contestants`,
-          'Error',
-          'error',
-        );
-    }
-  };
-
   const onLoadMoreData = () => {
     if (hasNextPage) fetchNextPage();
   };
@@ -70,8 +52,8 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
     return (
       <ListItem
         item={item}
-        onPress={() => onUserItemPress(item)}
-        isSelected={includes(item, selectedContestants)}
+        onPress={() => setGuestUser(item)}
+        isSelected={equals(item, guestUser)}
       />
     );
   };
@@ -106,12 +88,12 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
           ) : null
         }
       />
-      <When condition={!isLoading && selectedContestants.length > 1}>
+      <When condition={!isLoading && !isEmptyOrNill(guestUser.label)}>
         <Spacer horizontal={16} bottom={40}>
           <AppButton
             mode="contained"
-            onPress={() => onActivatePolling(selectedContestants)}>
-            Activate Polling
+            onPress={() => onSelectGuestUser(guestUser)}>
+            Next
           </AppButton>
         </Spacer>
       </When>
@@ -119,4 +101,4 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
   );
 };
 
-export default SelectContestantsSheet;
+export default SelectGuestUserSheet;

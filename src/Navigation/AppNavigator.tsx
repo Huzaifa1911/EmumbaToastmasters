@@ -7,6 +7,7 @@ import {
 import {SCREENS} from 'Utils';
 import BottomTabNavigator from './BottomTabs';
 import {
+  AllVotingPollsForGuestModeScreen,
   AllVotingPollsScreen,
   CastVoteScreen,
   ChangePasswordScreen,
@@ -79,6 +80,12 @@ const AppNavigator = () => {
         options={{unmountOnBlur: true}}
       />
       <Screen name={SCREENS.TIMER_SCREEN} component={TimerScreen} />
+
+      <Screen
+        name={SCREENS.ALL_VOTING_POLLS_FOR_GUEST_SCREEN}
+        component={AllVotingPollsForGuestModeScreen}
+        options={{unmountOnBlur: true}}
+      />
     </Navigator>
   );
 };

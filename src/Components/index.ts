@@ -34,3 +34,6 @@ export {default as FloatingActionButton} from './FloatingActionButton';
 export {default as FloatingActions} from './FloatingActions';
 export {default as SpeechTimeCard} from './Cards/SpeechTimeCard';
 export {default as AppModal} from './AppModal';
+
+// !Guest Mode code
+export {default as SelectGuestModeSheet} from './CustomSheetComponents/SelectContestantsSheet/SelectGuestUserSheet';

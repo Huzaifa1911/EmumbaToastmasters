@@ -21,12 +21,16 @@ type TDefaultValue = {selectedCandidate: number};
 
 const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const pollId = pathOr(0, ['params', 'pollId'], route);
+  // !Guest Mode Code
+  const guestVoterId = pathOr(0, ['params', 'voterId'], route);
+  const userId = pathOr(0, ['id'], useSelector(selectUser));
 
-  const voterId = useSelector(selectUser)?.id;
+  const hasGuestVoterId = guestVoterId > 0;
 
   const {data: details = {}, isLoading} = useGetActiveVotingPollDetails({
     showLoading: true,
     pollId,
+    voterId: hasGuestVoterId ? guestVoterId : userId,
   });
 
   const {
@@ -60,7 +64,8 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
       castVoteMutation({
         candidate: data.selectedCandidate,
         poll: id,
-        voter: voterId ?? 0,
+        // !Guest Mode Code
+        voter: hasGuestVoterId ? guestVoterId : userId,
       });
     else
       updateVoteMutation({
@@ -89,7 +94,7 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
           render={({field: {value: candidateId, onChange}}) => (
             <RadioButton.Group
               value={candidateId as unknown as string}
-              onValueChange={onChange}>
+              onValueChange={value => onChange(parseInt(value))}>
               {candidates.map((candidate, key) => {
                 return (
                   <AppRadioButton
