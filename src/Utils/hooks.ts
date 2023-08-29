@@ -5,11 +5,12 @@ import {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import useConstant from 'use-constant';
 import {AppState, AppStateStatus} from 'react-native';
+import CodePush from 'react-native-code-push';
+import BackgroundTimer from 'react-native-background-timer';
 
 import {selectSpeechTimeLogs, updateLogs, useAppSelector} from 'Store';
 import {getSpeechQualificationColor} from './helpers';
 import {TSpeech} from 'Types';
-import CodePush from 'react-native-code-push';
 
 export const useDebounce = (fn: (text: string) => void, wait = 500) =>
   useConstant(() => AwesomeDebouncePromise(fn, wait, {onlyResolvesLast: true}));
@@ -41,24 +42,18 @@ export const useTimer = ({speechType}: {speechType: TSpeech}) => {
   const [elapsedInMs, setElapsedInMs] = useState(0);
   const startTime = useRef<number | null>(null);
   const pausedTime = useRef<number | null>(null);
-  const intervalId = useRef<NodeJS.Timer | null>(null);
 
   function getSnapshot() {
     return Math.abs(elapsedInMs);
   }
 
   function play() {
-    // Already playing, returning early
-    if (intervalId.current) {
-      return;
-    }
-
     // First time playing, recording the start time
     if (!startTime.current) {
       startTime.current = Date.now();
     }
 
-    intervalId.current = setInterval(() => {
+    BackgroundTimer.runBackgroundTimer(() => {
       if (!pausedTime.current) {
         setElapsedInMs(Date.now() - startTime.current!);
       } else {
@@ -77,10 +72,7 @@ export const useTimer = ({speechType}: {speechType: TSpeech}) => {
   }
 
   function removeInterval() {
-    if (intervalId.current) {
-      clearInterval(intervalId.current);
-      intervalId.current = null;
-    }
+    BackgroundTimer.stopBackgroundTimer();
   }
 
   function pause() {
