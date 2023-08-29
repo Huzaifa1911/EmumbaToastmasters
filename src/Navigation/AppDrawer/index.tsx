@@ -31,6 +31,8 @@ const goToAllVotingPollScreen = () =>
   NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_SCREEN);
 const goToSpeechTimeLogsScreen = () =>
   NavigationService.navigate(SCREENS.SPEECH_TIME_LOGS_SCREEN);
+const goToAllVotingPollScreenForGuest = () =>
+  NavigationService.navigate(SCREENS.ALL_VOTING_POLLS_FOR_GUEST_SCREEN);
 
 const AppDrawer = (props: DrawerContentComponentProps) => {
   const {colors} = useAppTheme();
@@ -66,13 +68,19 @@ const AppDrawer = (props: DrawerContentComponentProps) => {
           label="Voting Poll"
           left={<VotingPollIcon size={18} />}
           right={<AngleRightIcon size={18} />}
-          onPress={goToAllVotingPollScreen}
+          onPress={() => goToAllVotingPollScreen()}
         />
         <DrawerItem
           label="Timer"
           left={<StopwatchIcon size={18} />}
           right={<AngleRightIcon size={18} />}
           onPress={goToSpeechTimeLogsScreen}
+        />
+        <DrawerItem
+          label="Guest Mode"
+          left={<StopwatchIcon size={18} />}
+          right={<AngleRightIcon size={18} />}
+          onPress={goToAllVotingPollScreenForGuest}
         />
       </DrawerContentScrollView>
 

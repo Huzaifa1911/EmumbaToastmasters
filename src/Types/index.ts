@@ -80,7 +80,8 @@ export type TVote = {
 };
 
 export type TDrawerParamList = {
-  [SCREENS.CAST_VOTE_SCREEN]: {pollId: string};
+  // !Guest Mode Code
+  [SCREENS.CAST_VOTE_SCREEN]: {pollId: string; voterId: number};
   [SCREENS.ALL_VOTING_POLLS_SCREEN]: undefined;
   [SCREENS.BOTTOM_TABS]: undefined;
   [SCREENS.VOTING_POLL_RESULT_SCREEN]: undefined;
@@ -89,6 +90,7 @@ export type TDrawerParamList = {
   [SCREENS.EDIT_PROFILE_SCREEN]: undefined;
   [SCREENS.TIMER_SCREEN]: {slot: TSpeechTimeLog};
   [SCREENS.SPEECH_TIME_LOGS_SCREEN]: undefined;
+  [SCREENS.ALL_VOTING_POLLS_FOR_GUEST_SCREEN]: undefined;
 };
 
 export type TColorScheme = 'dark' | 'light';

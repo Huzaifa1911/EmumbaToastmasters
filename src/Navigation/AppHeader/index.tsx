@@ -39,6 +39,7 @@ const getHeaderInfo = (route: string) => {
         leftAccessory: <Menu />,
       };
     case SCREENS.ALL_VOTING_POLLS_SCREEN:
+    case SCREENS.ALL_VOTING_POLLS_FOR_GUEST_SCREEN:
       return {
         title: 'Voting Poll',
         leftAccessory: <BackAction />,

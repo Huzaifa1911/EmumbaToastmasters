@@ -13,10 +13,19 @@ interface IVotingPollCardProps {
   onPress?: () => void;
   actions: (() => void)[];
   disabled?: boolean;
+  // ! Guest Mode Code
+  guestMode?: boolean;
 }
 
 const VotingPollCard = (props: IVotingPollCardProps) => {
-  const {votingPoll = {}, onPress, actions, disabled = false} = props;
+  const {
+    votingPoll = {},
+    onPress,
+    actions,
+    disabled = false,
+    // ! Guest Mode Code
+    guestMode = false,
+  } = props;
 
   const {
     question = '',
@@ -29,9 +38,12 @@ const VotingPollCard = (props: IVotingPollCardProps) => {
 
   return (
     <Swipeable
-      renderRightActions={() => (
-        <SwipeableActions actions={actions} isActive={is_active} />
-      )}>
+      renderRightActions={() =>
+        // ! Guest Mode Code
+        !guestMode && (
+          <SwipeableActions actions={actions} isActive={is_active} />
+        )
+      }>
       <AppCard
         mode="contained"
         height={100}
