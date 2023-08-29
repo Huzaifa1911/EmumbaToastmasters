@@ -22,12 +22,15 @@ type TDefaultValue = {selectedCandidate: number};
 const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
   const pollId = pathOr(0, ['params', 'pollId'], route);
   // !Guest Mode Code
-  const voterId = pathOr(0, ['params', 'voterId'], route);
+  const guestVoterId = pathOr(0, ['params', 'voterId'], route);
   const userId = pathOr(0, ['id'], useSelector(selectUser));
+
+  const hasGuestVoterId = guestVoterId > 0;
 
   const {data: details = {}, isLoading} = useGetActiveVotingPollDetails({
     showLoading: true,
     pollId,
+    voterId: hasGuestVoterId ? guestVoterId : userId,
   });
 
   const {
@@ -62,7 +65,7 @@ const CastVoteScreen = ({route}: DrawerScreenProps<TDrawerParamList>) => {
         candidate: data.selectedCandidate,
         poll: id,
         // !Guest Mode Code
-        voter: voterId > 0 ? voterId : userId,
+        voter: hasGuestVoterId ? guestVoterId : userId,
       });
     else
       updateVoteMutation({

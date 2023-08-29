@@ -84,6 +84,7 @@ const AppNavigator = () => {
       <Screen
         name={SCREENS.ALL_VOTING_POLLS_FOR_GUEST_SCREEN}
         component={AllVotingPollsForGuestModeScreen}
+        options={{unmountOnBlur: true}}
       />
     </Navigator>
   );

@@ -443,8 +443,7 @@ export const getAllVotes = async <T = TPaginatedResponse<TVote>>({
 
 export const getActiveVotingPollDetails = async (
   pollId: number,
-  // ! Guest Mode Code
-  voterId?: number,
+  voterId: number,
 ): Promise<TStandardVotingPoll> => {
   try {
     const poll = await getVotingPolls<TFormattedVotingPoll>({
@@ -453,11 +452,7 @@ export const getActiveVotingPollDetails = async (
 
     const {results: votes = []} = await getAllVotes({
       params: {
-        voter:
-          // ! Guest Mode Code
-          voterId && voterId > 0
-            ? voterId
-            : ReduxStore.getState().appUser.user?.id,
+        voter: voterId,
         poll: pollId,
       },
     });

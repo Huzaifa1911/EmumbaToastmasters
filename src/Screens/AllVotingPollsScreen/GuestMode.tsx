@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {createRef, useCallback, useRef} from 'react';
+import React, {createRef, useCallback, useState} from 'react';
 import {
   AppActivityIndicator,
   AppBottomSheet,
@@ -25,17 +25,16 @@ import {SCREENS} from 'Utils';
 const sheetRef = createRef<TBottomSheetHandler>();
 
 const GuestMode = () => {
+  const [selectedPollId, setSelectedPollId] = useState(0);
   const {data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage} =
     useGetVotingPolls({showLoading: false});
 
   const polls: TFormattedVotingPoll[] = propOr([], 'pages', data);
 
-  const selectedPoll = useRef<TFormattedVotingPoll>();
-
   const renderItem = useCallback(
     ({item}: {item: TFormattedVotingPoll; index: number}) => {
       const onPress = () => {
-        selectedPoll.current = item;
+        setSelectedPollId(item.id);
         expandBottomSheet();
       };
       return (
@@ -44,6 +43,7 @@ const GuestMode = () => {
           votingPoll={item}
           disabled={!item.is_active}
           onPress={onPress}
+          guestMode
         />
       );
     },
@@ -53,11 +53,11 @@ const GuestMode = () => {
   const onLoadMoreData = () => hasNextPage && fetchNextPage();
 
   const onSelectVoter = (voter: TStandardObject) => {
-    closeBottomSheet();
     NavigationService.navigate(SCREENS.CAST_VOTE_SCREEN, {
       voterId: voter.value,
-      pollId: selectedPoll.current?.id,
+      pollId: selectedPollId,
     });
+    closeBottomSheet();
   };
 
   return (

@@ -61,7 +61,7 @@ const SelectGuestUserSheet = (props: ISelectGuestUserSheet) => {
   return (
     <Flex>
       <Spacer horizontal={16}>
-        <AppSearchbar onSearch={onSearch} />
+        <AppSearchbar onSearch={onSearch} placeholder="Search" />
       </Spacer>
 
       <UsersList
