@@ -46,7 +46,7 @@ export const DEFAULT_IMAGE =
   'https://cdn-icons-png.flaticon.com/512/5556/5556468.png';
 
 export const isIOS = Platform.OS === 'ios';
-export const BASE_URL = 'https://toastmasters.emumba.com/';
+export const BASE_URL = 'http://ec2-23-21-15-51.compute-1.amazonaws.com/';
 
 export enum AUTHORIZATION {
   ACCESS_TOKEN = 'ACCESS_TOKEN',
