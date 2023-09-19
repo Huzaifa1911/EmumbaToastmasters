@@ -29,10 +29,10 @@ const LoginScreen = () => {
 
   const methods = useForm<TDefaultValues>({
     defaultValues: {
-      email: 'huzaifa.arshad@emumba.com',
-      password: 'asdf@1234',
-      // email: '',
-      // password: '',
+      // email: 'huzaifa.arshad@emumba.com',
+      // password: 'asdf@1234',
+      email: '',
+      password: '',
     },
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
