@@ -95,7 +95,8 @@ export type TCreatePollPayload = {
 
 export type TUpdatePollPayload = {
   pollId: number;
-  is_active: boolean;
+  is_active?: boolean;
+  candidates?: number[];
 };
 
 export type TUpdateProfile = {

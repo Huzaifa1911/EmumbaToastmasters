@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 
 import React, {useState} from 'react';
-import {includes, propOr} from 'ramda';
+import {equals, includes, propOr} from 'ramda';
 import {When} from 'react-if';
 
 import {
@@ -21,15 +21,17 @@ import {showToast} from 'Utils';
 const MAX_CONTESTANT_COUNT = 25;
 
 interface ISelectContestantsSheet {
-  onActivatePolling: (contestants: TStandardObject[]) => void;
+  onSubmit: (contestants: TStandardObject[]) => void;
+  selectedContestantList?: TStandardObject[];
+  buttonTitle: string;
 }
 
 const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
-  const {onActivatePolling} = props;
+  const {onSubmit, buttonTitle, selectedContestantList = []} = props;
 
   const [selectedContestants, setSelectedContestants] = useState<
     TStandardObject[]
-  >([]);
+  >(selectedContestantList);
 
   const {
     data,
@@ -42,6 +44,11 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
     showLoading: false,
   });
   const users: TStandardObject[] = propOr([], 'pages', data);
+
+  const shouldShowSubmitButton =
+    !isLoading &&
+    selectedContestants.length > 1 &&
+    !equals(selectedContestants, selectedContestantList);
 
   const onUserItemPress = (user: TStandardObject) => {
     if (includes(user, selectedContestants)) {
@@ -106,12 +113,12 @@ const SelectContestantsSheet = (props: ISelectContestantsSheet) => {
           ) : null
         }
       />
-      <When condition={!isLoading && selectedContestants.length > 1}>
+      <When condition={shouldShowSubmitButton}>
         <Spacer horizontal={16} bottom={40}>
           <AppButton
             mode="contained"
-            onPress={() => onActivatePolling(selectedContestants)}>
-            Activate Polling
+            onPress={() => onSubmit(selectedContestants)}>
+            {buttonTitle}
           </AppButton>
         </Spacer>
       </When>

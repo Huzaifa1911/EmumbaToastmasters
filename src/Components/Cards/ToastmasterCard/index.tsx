@@ -25,6 +25,7 @@ const ToastmasterCard = (props: IToastmasterCardProps) => {
         <AppCard
           mode="contained"
           height={90}
+          outerSpacerProps={{vertical: 10}}
           innerSpacerProps={{horizontal: 20, top: 10}}>
           <Container>
             <ProfileAvatar size={55} uri="" />

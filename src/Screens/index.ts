@@ -11,6 +11,7 @@ export {default as EditProfileScreen} from './EditProfileScreen';
 export {default as ChangePasswordScreen} from './ChangePasswordScreen';
 export {default as SpeechTimeLogsScreen} from './SpeechTimeLogsScreen';
 export {default as TimerScreen} from './TimerScreen';
+export {default as EditVotingPollScreen} from './EditVotingPollScreen';
 
 // !Guest Mode code
 export {default as AllVotingPollsForGuestModeScreen} from './AllVotingPollsScreen/GuestMode';

@@ -16,6 +16,7 @@ export enum SCREENS {
   CHANGE_PASSWORD_SCREEN = 'CHANGE_PASSWORD_SCREEN',
   SPEECH_TIME_LOGS_SCREEN = 'SPEECH_TIME_LOGS_SCREEN',
   TIMER_SCREEN = 'TIMER_SCREEN',
+  EDIT_VOTING_POLL_SCREEN = 'EDIT_VOTING_POLL_SCREEN',
   // Navigator
   BOTTOM_TABS = 'BOTTOM_TABS',
 
@@ -60,6 +61,10 @@ export const ACTIVE_POLL_SWIPEABLE_ACTIONS: {
   color: AppTheme.TColors;
 }[] = [
   {
+    name: 'Edit\nPoll',
+    color: 'accentGreen',
+  },
+  {
     name: 'Close\nPoll',
     color: 'primary',
   },
@@ -69,6 +74,10 @@ export const CLOSED_POLL_SWIPEABLE_ACTIONS: {
   name: string;
   color: AppTheme.TColors;
 }[] = [
+  {
+    name: 'Edit\nPoll',
+    color: 'accentGreen',
+  },
   {
     name: 'Activate\nPoll',
     color: 'primary',

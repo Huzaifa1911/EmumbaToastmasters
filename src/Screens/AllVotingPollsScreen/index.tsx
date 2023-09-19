@@ -102,20 +102,26 @@ const AllVotingPollsScreen = ({
         ? SCREENS.CAST_VOTE_SCREEN
         : SCREENS.VOTING_POLL_RESULT_SCREEN;
 
-      const updatePoll = () => {
-        if (isOwner)
-          updatePollMutation({pollId: item.id, is_active: !item.is_active});
-        else
+      const updatePoll = () =>
+        updatePollMutation({pollId: item.id, is_active: !item.is_active});
+
+      const editPoll = () => {
+        if (item.is_active) {
+          NavigationService.navigate(SCREENS.EDIT_VOTING_POLL_SCREEN, {
+            pollId: item.id,
+          });
+        } else {
           showToast(
-            `Only poll owner can ${item.is_active ? 'close' : 'activate'} poll`,
+            'The voting poll can only be modified while it is active',
             'Error',
             'error',
           );
+        }
       };
 
       return (
         <VotingPollCard
-          actions={[updatePoll]}
+          actions={[editPoll, updatePoll]}
           votingPoll={item}
           disabled={!isOwner && !item.is_active}
           onPress={() =>
@@ -168,7 +174,10 @@ const AllVotingPollsScreen = ({
             <PollTypeSheet onProceedNext={onProceedNext} />
           </Then>
           <Else>
-            <SelectContestantsSheet onActivatePolling={onActivatePoll} />
+            <SelectContestantsSheet
+              onSubmit={onActivatePoll}
+              buttonTitle="Activate Poll"
+            />
           </Else>
         </If>
       </AppBottomSheet>

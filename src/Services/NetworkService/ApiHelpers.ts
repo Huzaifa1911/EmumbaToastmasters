@@ -23,6 +23,7 @@ import {
   TUser,
   TVote,
   TVotingPoll,
+  TVotingPollDetails,
 } from 'Types';
 import {ROUTES} from './Routes';
 import {axiosInstance} from './config';
@@ -32,6 +33,7 @@ import {
   decodeJwtToken,
   findCandidateWithMostVotes,
   firstOrNull,
+  removeOwnerFromVotingPollCandidates,
 } from 'Utils';
 import {KeychainStorageService} from 'Services';
 import {
@@ -130,11 +132,11 @@ const updateVotingPoll = async ({
 }: {
   payload: TUpdatePollPayload;
 }): Promise<TVotingPoll> => {
-  const {pollId, is_active} = payload;
+  const {pollId, is_active, candidates = []} = payload;
   try {
     const {data} = (await axiosInstance.patch(
       `${ROUTES.VOTING_POLLS}${pollId}`,
-      {is_active},
+      {is_active, ...(candidates?.length > 0 && {candidates})},
     )) as AxiosResponse<TVotingPoll>;
     return {...data};
   } catch (error) {
@@ -470,27 +472,7 @@ export const getActiveVotingPollDetails = async (
       users,
     );
 
-    const candidates = users
-      .filter(user => {
-        // if owner present in candidates, then do not filter the users, otherwise remove the owner from users and return it.
-        if (poll.candidates.includes(poll.owner)) {
-          return user;
-        } else {
-          if (user.id !== poll.owner) {
-            return user;
-          }
-        }
-      }) // excluding the vote owner/counter from candidate list
-      .map(candidate => {
-        return {
-          label: `${propOr('', 'first_name', candidate)} ${propOr(
-            '',
-            'last_name',
-            candidate,
-          )}` as string,
-          value: candidate.id,
-        };
-      });
+    const candidates = removeOwnerFromVotingPollCandidates(users, poll);
 
     return {
       id: poll.id,
@@ -510,6 +492,42 @@ export const getActiveVotingPollDetails = async (
         candidateId: propOr(0, 'id', castedCandidate),
         voteId: propOr(0, 'id', vote),
       },
+    };
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getActivePollDetailsForEdit = async (
+  pollId: number,
+): Promise<TVotingPollDetails> => {
+  try {
+    const poll = await getVotingPolls<TFormattedVotingPoll>({
+      pathParams: [pollId],
+    });
+
+    const {results: users = []} = await getAllUsers({
+      params: {id__in: [...poll.candidates, poll.owner].join(',')},
+    });
+
+    const owner = find(propEq(poll.owner, 'id'), users);
+
+    const candidates = removeOwnerFromVotingPollCandidates(users, poll);
+
+    return {
+      id: poll.id,
+      createdBy: {
+        label: `${propOr('', 'first_name', owner)} ${propOr(
+          '',
+          'last_name',
+          owner,
+        )}`,
+        value: propOr(0, 'id', owner),
+      },
+      question: poll.question,
+      timestamp: poll.timestamp,
+      candidates,
+      is_active: poll.is_active,
     };
   } catch (error) {
     return Promise.reject(error);
@@ -620,4 +638,5 @@ export const API_HELPERS = Object.freeze({
   deactivateAccount,
   updatePassword,
   createAccount,
+  getActivePollDetailsForEdit,
 });

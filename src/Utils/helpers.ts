@@ -1,10 +1,3 @@
-import {
-  TJWTDecode,
-  TSpeech,
-  TSpeechTimeLog,
-  TSpeechTimeLogSection,
-  TVote,
-} from 'Types';
 import α from 'color-alpha';
 import dayjs from 'dayjs';
 import numbro from 'numbro';
@@ -13,6 +6,17 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Toast from 'react-native-toast-message';
 import {format as prettyFormat} from 'pretty-format';
 import jwtDecode from 'jwt-decode';
+
+import {
+  TFormattedVotingPoll,
+  TJWTDecode,
+  TSpeech,
+  TSpeechTimeLog,
+  TSpeechTimeLogSection,
+  TStandardObject,
+  TUser,
+  TVote,
+} from 'Types';
 
 import {KeychainStorageService} from 'Services';
 
@@ -277,4 +281,33 @@ export const handleToastMessages = (error: Record<string, any>) => {
   } else {
     showToast('Something went wrong!', 'Error', 'error');
   }
+};
+
+export const removeOwnerFromVotingPollCandidates = (
+  users: TUser[],
+  poll: TFormattedVotingPoll,
+): TStandardObject[] => {
+  const candidates = users
+    .filter(user => {
+      // if owner present in candidates, then do not filter the users, otherwise remove the owner from users and return it.
+      if (poll.candidates.includes(poll.owner)) {
+        return user;
+      } else {
+        if (user.id !== poll.owner) {
+          return user;
+        }
+      }
+    }) // excluding the vote owner/counter from candidate list
+    .map(candidate => {
+      return {
+        label: `${propOr('', 'first_name', candidate)} ${propOr(
+          '',
+          'last_name',
+          candidate,
+        )}` as string,
+        value: candidate.id,
+      };
+    });
+
+  return candidates;
 };

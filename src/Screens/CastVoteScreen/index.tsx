@@ -5,6 +5,7 @@ import {pathOr} from 'ramda';
 import {RadioButton} from 'react-native-paper';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {useSelector} from 'react-redux';
 
 import {Container, SubmitButton} from './styles';
 import {TDrawerParamList, TStandardVotingPoll} from 'Types';
@@ -14,7 +15,6 @@ import {
   useGetActiveVotingPollDetails,
   useUpdateVote,
 } from 'Services';
-import {useSelector} from 'react-redux';
 import {selectUser} from 'Store';
 
 type TDefaultValue = {selectedCandidate: number};

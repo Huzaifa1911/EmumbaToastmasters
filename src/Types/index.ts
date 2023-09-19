@@ -63,13 +63,16 @@ export type TVotingPoll = {
 export type TStandardObject = {label: string; value: string | number};
 
 export type TStandardVotingPoll = {
+  castedVote: {candidateId: number; voteId: number}; // candidate-id, 0 incase of null
+} & TVotingPollDetails;
+
+export type TVotingPollDetails = {
   id: number;
   is_active: boolean;
   question: string;
   createdBy: TStandardObject;
   timestamp: number;
   candidates: TStandardObject[];
-  castedVote: {candidateId: number; voteId: number}; // candidate-id, 0 incase of null
 };
 
 export type TVote = {
@@ -82,6 +85,7 @@ export type TVote = {
 export type TDrawerParamList = {
   // !Guest Mode Code
   [SCREENS.CAST_VOTE_SCREEN]: {pollId: string; voterId: number};
+  [SCREENS.EDIT_VOTING_POLL_SCREEN]: {pollId: string};
   [SCREENS.ALL_VOTING_POLLS_SCREEN]: undefined;
   [SCREENS.BOTTOM_TABS]: undefined;
   [SCREENS.VOTING_POLL_RESULT_SCREEN]: undefined;

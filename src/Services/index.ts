@@ -35,3 +35,4 @@ export {useUpdateVote} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateV
 export {useCreateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useCreateVotingPoll';
 export {useUpdateVotingPoll} from './NetworkService/Hooks/CustomHooks/Polls/useUpdateVotingPoll';
 export {useGetClosedPollDetails} from './NetworkService/Hooks/CustomHooks/Polls/useGetClosedPollDetails';
+export {useGetActiveVotingPollDetailsForEdit} from './NetworkService/Hooks/CustomHooks/Polls/useGetActivePollDetailsForEdit';

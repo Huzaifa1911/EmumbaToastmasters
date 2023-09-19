@@ -29,6 +29,7 @@ export {
   getSpeechQualificationResult,
   groupSpeechTimeLogsBySpeechType,
   handleToastMessages,
+  removeOwnerFromVotingPollCandidates,
 } from './helpers';
 
 export {

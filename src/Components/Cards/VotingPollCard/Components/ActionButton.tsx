@@ -15,7 +15,7 @@ const ActionButton = ({label, color, radius, onPress}: IActionButtonProps) => {
     <ActionButtonView
       color={color}
       radius={radius}
-      activeOpacity={0.6}
+      activeOpacity={0.8}
       onPress={onPress}>
       <AppText color="surface" variant="medium" size={14} textAlign="center">
         {label}

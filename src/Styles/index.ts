@@ -20,3 +20,7 @@ export const RowBetween = styled(View)({
 export const Flex = styled(View)({
   flex: 1,
 });
+
+export const FlexEnd = styled(View)({
+  alignItems: 'flex-end',
+});

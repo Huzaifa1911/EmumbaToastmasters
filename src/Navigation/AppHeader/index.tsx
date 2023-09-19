@@ -79,6 +79,11 @@ const getHeaderInfo = (route: string) => {
         title: 'Timer',
         leftAccessory: <BackAction />,
       };
+    case SCREENS.EDIT_VOTING_POLL_SCREEN:
+      return {
+        title: 'Edit Voting Poll',
+        leftAccessory: <BackAction />,
+      };
     default:
       return {
         title: route,

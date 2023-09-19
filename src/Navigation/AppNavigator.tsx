@@ -12,6 +12,7 @@ import {
   CastVoteScreen,
   ChangePasswordScreen,
   EditProfileScreen,
+  EditVotingPollScreen,
   SpeechTimeLogsScreen,
   TimerScreen,
   ViewAllAttendedSessionsScreen,
@@ -77,6 +78,11 @@ const AppNavigator = () => {
       <Screen
         name={SCREENS.SPEECH_TIME_LOGS_SCREEN}
         component={SpeechTimeLogsScreen}
+        options={{unmountOnBlur: true}}
+      />
+      <Screen
+        name={SCREENS.EDIT_VOTING_POLL_SCREEN}
+        component={EditVotingPollScreen}
         options={{unmountOnBlur: true}}
       />
       <Screen name={SCREENS.TIMER_SCREEN} component={TimerScreen} />
